@@ -1,4 +1,3 @@
-import { openSignInModal } from '@/contents/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,89 +10,81 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { signUpSchema } from './Validate';
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 450,
-  bgcolor: 'common.white',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 1,
-};
-
-interface ISignModal {
-  isOpen: any;
-  CloseModal: any;
-}
+import SignUpSchema from './Validate';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { authActions } from '@/store/auth/authSlice';
+import { ErrorMessage } from '@/components/share/ErrorMessage';
+import { styleModal } from '@/declares/modal';
+import { IModal } from '@/declares/models';
 
 interface ISignUp {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
-const SignUpModal = ({ isOpen, CloseModal }: ISignModal) => {
+const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  const handleLoginClick = () => {};
-
   const initialValues: ISignUp = {
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
   };
 
-  const onSubmit = (values?: any) => {
+  const onSubmit = async (values: ISignUp, action: any) => {
+    action.setSubmitting(true);
     try {
-      console.log(values);
-    } catch {}
+      dispatch(authActions.register(values));
+      action.setSubmitting(false);
+    } catch (error) {
+      action.setSubmitting(false);
+    }
   };
 
   return (
     <Modal open={isOpen} onClose={CloseModal}>
-      <Box sx={style}>
+      <Box sx={styleModal}>
         <Typography variant="h4" component="h2" sx={{ mb: 4 }}>
           Sign up
         </Typography>
         <Grid sx={{ mb: 2 }}>
           <Formik
-            enableReinitialize
             initialValues={initialValues}
             validateOnBlur={false}
-            validationSchema={signUpSchema}
+            validationSchema={SignUpSchema}
             onSubmit={onSubmit}
           >
-            {({ errors, touched, isSubmitting, setFieldValue, values }) => (
+            {({ isSubmitting, dirty }) => (
               <Form className={`h-100`}>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                   <Grid item xs={6}>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
                         as={TextField}
-                        id="first_name"
-                        name="first_name"
-                        label="First name"
+                        id="firstName"
+                        name="firstName"
+                        label="First name*"
                         variant="outlined"
                       />
+                      <ErrorMessage name="firstName" />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
                         as={TextField}
-                        id="last_name"
-                        name="last_name"
-                        label="Last name"
+                        id="lastName"
+                        name="lastName"
+                        label="Last name*"
                         variant="outlined"
                       />
+                      <ErrorMessage name="lastName" />
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
@@ -102,17 +93,18 @@ const SignUpModal = ({ isOpen, CloseModal }: ISignModal) => {
                         as={TextField}
                         id="email"
                         name="email"
-                        label="Email"
+                        label="Email*"
                         variant="outlined"
                       />
+                      <ErrorMessage name="email" />
                     </FormControl>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
                         as={TextField}
                         id="password"
-                        name="Password"
+                        name="password"
                         type={showPassword ? 'text' : 'password'}
-                        label="Password"
+                        label="Password*"
                         variant="outlined"
                         InputProps={{
                           endAdornment: (
@@ -121,12 +113,13 @@ const SignUpModal = ({ isOpen, CloseModal }: ISignModal) => {
                                 onClick={() => setShowPassword(!showPassword)}
                                 color="secondary"
                               >
-                                {showPassword ? 'Hide' : 'Show'}
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <ErrorMessage name="password" />
                     </FormControl>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
@@ -134,7 +127,7 @@ const SignUpModal = ({ isOpen, CloseModal }: ISignModal) => {
                         id="confirmPassword"
                         name="confirmPassword"
                         type={showConfirmPassword ? 'text' : 'password'}
-                        label="Confirm Password"
+                        label="Confirm Password*"
                         variant="outlined"
                         InputProps={{
                           endAdornment: (
@@ -143,12 +136,13 @@ const SignUpModal = ({ isOpen, CloseModal }: ISignModal) => {
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 color="secondary"
                               >
-                                {showConfirmPassword ? 'Hide' : 'Show'}
+                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <ErrorMessage name="confirmPassword" />
                     </FormControl>
                   </Grid>
                 </Grid>
@@ -161,14 +155,21 @@ const SignUpModal = ({ isOpen, CloseModal }: ISignModal) => {
                       variant="body1"
                       component="span"
                       color="warning.light"
-                      onClick={() => dispatch(openSignInModal())}
-                      sx={{ cursor: 'pointer' }}
+                      onClick={() => dispatch(authActions.openSignInModal())}
+                      sx={{ cursor: 'pointer', textDecoration: 'underline' }}
                     >
                       &nbsp;Log in.
                     </Typography>
                   </Box>
                 </Grid>
-                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4, px: 2 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    mb: 4,
+                    px: 2,
+                  }}
+                >
                   <Typography
                     variant="body2"
                     component="span"
@@ -180,14 +181,13 @@ const SignUpModal = ({ isOpen, CloseModal }: ISignModal) => {
                 </Box>
 
                 <Button
-                  type="submit"
+                  type={isSubmitting ? `button` : `submit`}
                   color="secondary"
                   variant="contained"
                   size="large"
                   fullWidth
-                  onClick={onSubmit}
                 >
-                  Sign up
+                  {isSubmitting ? 'Sign up...' : 'Sign up'}
                 </Button>
               </Form>
             )}

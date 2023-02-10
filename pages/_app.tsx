@@ -8,6 +8,8 @@ import Head from 'next/head';
 import { Provider } from 'react-redux';
 import { store } from '../store';
 import theme from '../utils/theme';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -18,13 +20,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       </Head>
       <DefaultSeo
-        title={`MasterClass`}
-        description={`MasterClass Online Classes Web Application`}
+        title={`Theraisedhands`}
+        description={`Theraisedhands Online Classes Web Application`}
         openGraph={{
-          title: 'MasterClass',
-          description: 'MasterClass Online Classes Web Application',
+          title: 'Theraisedhands',
+          description: 'Theraisedhands Online Classes Web Application',
           images: [{ url: `` }],
-          site_name: 'masterclass.com',
+          site_name: 'theraisedhands.com',
         }}
         twitter={{
           handle: '@handle',
@@ -37,6 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <MyLayout>
             <CssBaseline />
             <Component {...pageProps} />
+            <ToastContainer />
           </MyLayout>
         </ThemeProvider>
       </Provider>

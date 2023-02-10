@@ -44,10 +44,7 @@ const LANGUAGES = [
 
 export default function Footer() {
   return (
-    <Typography
-      component="footer"
-      sx={{ display: 'flex', bgcolor: 'secondary.light' }}
-    >
+    <Typography component="footer" sx={{ display: 'flex', bgcolor: 'secondary.light' }}>
       <Container sx={{ my: 8, display: 'flex' }}>
         <Grid container spacing={5}>
           <Grid item xs={6} sm={4} md={3}>
@@ -58,20 +55,7 @@ export default function Footer() {
               spacing={2}
               sx={{ height: 120 }}
             >
-              <Grid item sx={{ display: 'flex' }}>
-                <Box component="a" href="https://mui.com/" sx={iconStyle}>
-                  <img
-                    src="/static/themes/onepirate/appFooterFacebook.png"
-                    alt="Facebook"
-                  />
-                </Box>
-                <Box component="a" href="https://twitter.com/MUI_hq" sx={iconStyle}>
-                  <img
-                    src="/static/themes/onepirate/appFooterTwitter.png"
-                    alt="Twitter"
-                  />
-                </Box>
-              </Grid>
+              <Grid item sx={{ display: 'flex' }}></Grid>
               <Grid item>
                 <Copyright />
               </Grid>
