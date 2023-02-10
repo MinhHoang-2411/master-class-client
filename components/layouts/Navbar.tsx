@@ -6,18 +6,18 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '../share/Button';
 import { useAppDispatch } from '@/store/hooks';
-import { openSignInModal } from '@/contents/auth/authSlice';
+import { authActions } from '@/store/auth/authSlice';
+import { getAuth } from '@/utils/auth';
+import dynamic from 'next/dynamic';
 
-const rightLink = {
-  fontSize: 16,
-  color: 'common.white',
-  ml: 3,
-};
+const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
+  const currentUser = getAuth()?.user;
+
   return (
-    <div>
+    <>
       <AppBar position="fixed">
         <Container>
           <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
                 href="#"
                 sx={{ fontSize: 24, textTransform: 'capitalize' }}
               >
-                {'MasterClass'}
+                {'Theraisedhands'}
               </Link>
             </Box>
             <Box sx={{ display: 'flex' }}>
@@ -48,29 +48,37 @@ const Navbar: React.FC = () => {
                 {'View Plans'}
               </Typography>
             </Box>
-            <Box>
-              <Button
-                variant="contained"
-                size="small"
-                color="primary"
-                sx={{ height: '100%', borderRadius: '2px' }}
-              >
-                Get started
-              </Button>
-              <Button
-                color="secondary"
-                variant="contained"
-                size="small"
-                onClick={() => dispatch(openSignInModal())}
-              >
-                Sign in
-              </Button>
-            </Box>
+            {currentUser ? (
+              <>
+                <Profile />
+              </>
+            ) : (
+              <>
+                <Box>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="primary"
+                    sx={{ height: '100%', borderRadius: '2px' }}
+                  >
+                    Get started
+                  </Button>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    size="small"
+                    onClick={() => dispatch(authActions.openSignInModal())}
+                  >
+                    Sign in
+                  </Button>
+                </Box>
+              </>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
       <Toolbar />
-    </div>
+    </>
   );
 };
 

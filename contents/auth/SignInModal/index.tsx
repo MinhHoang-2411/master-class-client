@@ -1,11 +1,14 @@
-import { login, openSignUpModal } from '@/contents/auth/authSlice';
+import { ErrorMessage } from '@/components/share/ErrorMessage';
+import { styleModal } from '@/declares/modal';
+import { IModal } from '@/declares/models';
+import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
+import { setAuth } from '@/utils/auth';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from '@mui/material';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import Modal from '@mui/material/Modal';
@@ -13,77 +16,52 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { signInSchema } from './Validate';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 450,
-  bgcolor: 'common.white',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 1,
-};
-
-interface ILoginModal {
-  isOpen: any;
-  CloseModal: any;
-}
+import SignInSchema from './Validate';
+import Button from '@/components/share/Button';
 
 interface ILogin {
   email: string;
   password: string;
-  remember: boolean;
 }
 
-const SignInModal = ({ isOpen, CloseModal }: ILoginModal) => {
+const SignInModal = ({ isOpen, CloseModal }: IModal) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  const handleLoginClick = () => {
-    dispatch(
-      login({
-        username: '',
-        password: '',
-      })
-    );
-  };
-
-  const onSubmit = (values: any) => {
-    dispatch(
-      login({
-        username: '',
-        password: '',
-      })
-    );
-    console.log('values', values);
+  const onSubmit = async (values: ILogin, action: any) => {
+    action.setSubmitting(true);
+    try {
+      dispatch(authActions.login(values));
+      action.setSubmitting(false);
+    } catch (error) {
+      setAuth(undefined);
+      action.setSubmitting(false);
+    }
   };
 
   const initialValues: ILogin = {
     email: '',
     password: '',
-    remember: false,
   };
 
   return (
     <Modal open={isOpen} onClose={CloseModal}>
-      <Box sx={style}>
+      <Box sx={styleModal}>
         <Typography variant="h4" component="h2" sx={{ mb: 4 }}>
           Log in
         </Typography>
         <Formik
-          enableReinitialize
           initialValues={initialValues}
           validateOnBlur={false}
-          validationSchema={signInSchema}
+          validationSchema={SignInSchema}
           onSubmit={onSubmit}
+          enableReinitialize
         >
-          {({ errors, touched, isSubmitting, setFieldValue, values }) => (
+          {({ isSubmitting, dirty }) => (
             <Form className={`h-100`}>
               <FormControl sx={{ mb: 3, mt: 1 }} fullWidth>
-                <Field as={TextField} id="email" name="email" label="Email" variant="outlined" />
+                <Field as={TextField} id="email" name="email" label="Email*" variant="outlined" />
+                <ErrorMessage name={`email`} />
               </FormControl>
               <FormControl sx={{ mb: 2 }} fullWidth>
                 <Field
@@ -91,18 +69,19 @@ const SignInModal = ({ isOpen, CloseModal }: ILoginModal) => {
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
-                  label="Password"
+                  label="Password*"
                   variant="outlined"
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
                         <Button onClick={() => setShowPassword(!showPassword)} color="secondary">
-                          {showPassword ? 'Hide' : 'Show'}
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
                         </Button>
                       </InputAdornment>
                     ),
                   }}
                 />
+                <ErrorMessage name={`password`} />
               </FormControl>
               <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, px: 2 }}>
                 <Typography
@@ -115,23 +94,28 @@ const SignInModal = ({ isOpen, CloseModal }: ILoginModal) => {
                 </Typography>
               </Box>
               <Button
-                type="submit"
+                type={isSubmitting ? `button` : `submit`}
                 color="secondary"
                 variant="contained"
                 size="large"
                 fullWidth
-                onClick={onSubmit}
               >
-                Sign in
+                {isSubmitting ? 'Log in...' : 'Log in'}
               </Button>
               <Grid container alignItems="center" justifyContent="space-between" sx={{ mt: 1 }}>
                 <Box>
                   <Field as={Checkbox} name="remember" />
                   <Typography variant="caption">Remember me</Typography>
                 </Box>
-                <Link variant="caption" underline="none" href="#" color="warning.light">
-                  Forgot password?
-                </Link>
+                <Typography
+                    variant="body1"
+                    component="span"
+                    color="warning.light"
+                    onClick={() => dispatch(authActions.openModalSendEmail())}
+                    sx={{ cursor: 'pointer', textDecoration: 'underline' }}
+                  >
+                    Forgot password?
+                  </Typography>
               </Grid>
               <Grid>
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -142,8 +126,8 @@ const SignInModal = ({ isOpen, CloseModal }: ILoginModal) => {
                     variant="body1"
                     component="span"
                     color="warning.light"
-                    onClick={() => dispatch(openSignUpModal())}
-                    sx={{ cursor: 'pointer' }}
+                    onClick={() => dispatch(authActions.openSignUpModal())}
+                    sx={{ cursor: 'pointer', textDecoration: 'underline' }}
                   >
                     &nbsp;Sign up now.
                   </Typography>
