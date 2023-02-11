@@ -1,9 +1,13 @@
+import { ErrorMessage } from '@/components/share/ErrorMessage';
+import { displayCenter, styleModal } from '@/declares/modal';
+import { IModal } from '@/declares/models';
+import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -11,11 +15,8 @@ import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import SignUpSchema from './Validate';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { authActions } from '@/store/auth/authSlice';
-import { ErrorMessage } from '@/components/share/ErrorMessage';
-import { styleModal } from '@/declares/modal';
-import { IModal } from '@/declares/models';
+import CloseIcon from '@mui/icons-material/Close';
+import Button from '@/components/share/Button';
 
 interface ISignUp {
   firstName: string;
@@ -50,9 +51,14 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
   return (
     <Modal open={isOpen} onClose={CloseModal}>
       <Box sx={styleModal}>
-        <Typography variant="h4" component="h2" sx={{ mb: 4 }}>
+        <Typography variant="h4" component="h2" sx={{ mb: 4, mt: 2, textAlign: 'center' }}>
           Sign up
         </Typography>
+        <Box sx={{ position: 'absolute', top: '12px', right: '12px' }}>
+          <IconButton onClick={() => dispatch(authActions.closeSignUpModal())}>
+            <CloseIcon fontSize="medium" sx={{ color: '#6c757d' }} />
+          </IconButton>
+        </Box>
         <Grid sx={{ mb: 2 }}>
           <Formik
             initialValues={initialValues}
@@ -112,8 +118,9 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                               <Button
                                 onClick={() => setShowPassword(!showPassword)}
                                 color="secondary"
+                                size="small"
                               >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),
@@ -135,8 +142,9 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                               <Button
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 color="secondary"
+                                size="small"
                               >
-                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),
@@ -147,19 +155,18 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                   </Grid>
                 </Grid>
                 <Grid>
-                  <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
-                    <Typography variant="body1" component="span">
+                  <Box sx={{ ...displayCenter }}>
+                    <Typography variant="body2" component="span">
                       Already have an account?
                     </Typography>
-                    <Typography
-                      variant="body1"
-                      component="span"
-                      color="warning.light"
+                    <Button
+                      variant="text"
+                      size="small"
+                      color="inherit"
                       onClick={() => dispatch(authActions.openSignInModal())}
-                      sx={{ cursor: 'pointer', textDecoration: 'underline' }}
                     >
-                      &nbsp;Log in.
-                    </Typography>
+                      Log in.
+                    </Button>
                   </Box>
                 </Grid>
                 <Box

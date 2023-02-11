@@ -1,61 +1,59 @@
-import { ErrorMessage } from '@/components/share/ErrorMessage';
-import { styleModal } from '@/declares/modal';
+import Button from '@/components/share/Button';
+import { displayCenter, styleModal } from '@/declares/modal';
+import { IModal, VerifyCodeModel } from '@/declares/models';
+import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { Box, Modal, TextField } from '@mui/material';
-import Button from '@mui/material/Button';
+import EmailIcon from '@mui/icons-material/Email';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { Box, Modal } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
-import * as Yup from 'yup';
-import EmailIcon from '@mui/icons-material/Email';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { IModal, VerifyCodeModel } from '@/declares/models';
-import { authActions } from '@/store/auth/authSlice';
-
-const VerifyCodeSchema = Yup.object().shape({
-  code: Yup.string().required('Code is required'),
-});
+import { Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import OtpInput from './OtpInput';
 
 const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
   const token_forgot_pass = useAppSelector((state) => state?.auth?.tokenForgotPass);
+  const dispatch = useAppDispatch();
+  const [codeOTP, setCodeOTP] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = (values: any) => {
+  const onSubmit = () => {
+    setIsSubmitting(true);
     try {
       const params = {
-        code: values.code,
+        code: codeOTP,
         token: token_forgot_pass,
       };
       dispatch(authActions.verifyCode(params as VerifyCodeModel));
+      setIsSubmitting(false);
     } catch (e) {
       console.log(e);
+      setIsSubmitting(false);
     }
   };
 
-  const dispatch = useAppDispatch();
+  const onChange = (value: string) => {
+    setCodeOTP(value);
+  };
 
+  useEffect(() => {
+    if (!isOpen) {
+      setCodeOTP('');
+    }
+  }, [isOpen]);
   return (
     <Modal open={isOpen} onClose={CloseModal}>
       <Box sx={styleModal}>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            mb: 4,
-          }}
-        >
+        <Box sx={{ ...displayCenter, flexDirection: 'column', mb: 4 }}>
           <Box
             sx={{
+              ...displayCenter,
               bgcolor: '#f1f1f1',
               width: 50,
               height: 50,
               borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
             }}
           >
             <EmailIcon color="secondary" />
@@ -64,30 +62,28 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
             Check your email
           </Typography>
 
-          <Typography variant="body1" component="span" color="primary.light">
-            {`Verify code`}
+          <Typography
+            variant="body1"
+            component="span"
+            color="primary.light"
+            sx={{ textAlign: 'center' }}
+          >
+            Enter the confirmation code from your email to reset your password.
           </Typography>
         </Box>
         <Grid sx={{ mb: 2 }}>
-          <Formik
-            initialValues={{ code: '' }}
-            validateOnBlur={false}
-            validationSchema={VerifyCodeSchema}
-            onSubmit={onSubmit}
-          >
-            {({ isSubmitting }) => (
+          <Formik initialValues={{ arrayCode: '' }} validateOnBlur={false} onSubmit={onSubmit}>
+            {({}) => (
               <Form className={`h-100`}>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                   <Grid item xs={12}>
-                    <FormControl sx={{ mb: 2 }} fullWidth>
-                      <Field
-                        as={TextField}
-                        id="code"
-                        name="code"
-                        label="Verify code*"
-                        variant="outlined"
+                    <FormControl sx={{ mb: 5, mt: 1 }} fullWidth>
+                      <OtpInput
+                        value={codeOTP}
+                        valueLength={6}
+                        onChange={onChange}
+                        onSubmit={onSubmit}
                       />
-                      <ErrorMessage name="code" />
                     </FormControl>
                   </Grid>
                 </Grid>
@@ -97,20 +93,23 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
                   variant="contained"
                   size="large"
                   fullWidth
+                  onClick={onSubmit}
                 >
                   {isSubmitting ? 'Verify...' : 'Verify'}
                 </Button>
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, cursor: 'pointer' }}>
-                  <KeyboardBackspaceIcon sx={{ mr: 1 }}></KeyboardBackspaceIcon>
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    color=""
-                    sx={{ textDecoration: 'underline' }}
+                <Box sx={{ ...displayCenter, mt: 3 }}>
+                  <Button
+                    variant="text"
+                    size="small"
+                    color="inherit"
                     onClick={() => dispatch(authActions.backToLogInModal())}
                   >
+                    <KeyboardBackspaceIcon
+                      sx={{ mr: 0.8 }}
+                      fontSize="inherit"
+                    ></KeyboardBackspaceIcon>
                     {`Back to log in`}
-                  </Typography>
+                  </Button>
                 </Box>
               </Form>
             )}

@@ -1,21 +1,22 @@
+import { authActions } from '@/store/auth/authSlice';
+import { useAppDispatch } from '@/store/hooks';
+import { getAuth } from '@/utils/auth';
 import AppBar from '@mui/material/AppBar';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '../share/Button';
-import { useAppDispatch } from '@/store/hooks';
-import { authActions } from '@/store/auth/authSlice';
-import { getAuth } from '@/utils/auth';
 import dynamic from 'next/dynamic';
+import Button from '../share/Button';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SearchIcon from '@mui/icons-material/Search';
+import { IconButton } from '@mui/material';
 
 const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentUser = getAuth()?.user;
-
   return (
     <>
       <AppBar position="fixed">
@@ -32,21 +33,18 @@ const Navbar: React.FC = () => {
                 {'Theraisedhands'}
               </Link>
             </Box>
-            <Box sx={{ display: 'flex' }}>
-              <Typography
-                variant="h6"
-                component="h2"
-                sx={{ fontSize: 16, color: 'common.white', textTransform: 'capitalize', mr: 2 }}
-              >
+            <Box>
+              <Button variant="text" size="small" color="inherit">
                 {'All Categories'}
-              </Typography>
-              <Typography
-                variant="h6"
-                component="h2"
-                sx={{ fontSize: 16, color: 'common.white', textTransform: 'capitalize' }}
-              >
+                <ExpandMoreIcon />
+              </Button>
+              <Button variant="text" size="small" color="inherit">
+                <SearchIcon fontSize="small" color="inherit" sx={{ mr: 0.5 }} />
+                {'Search'}
+              </Button>
+              <Button variant="text" size="small" color="inherit">
                 {'View Plans'}
-              </Typography>
+              </Button>
             </Box>
             {currentUser ? (
               <>
@@ -55,21 +53,16 @@ const Navbar: React.FC = () => {
             ) : (
               <>
                 <Box>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    color="primary"
-                    sx={{ height: '100%', borderRadius: '2px' }}
-                  >
-                    Get started
+                  <Button variant="text" size="small" color="inherit">
+                    At work
                   </Button>
                   <Button
-                    color="secondary"
-                    variant="contained"
+                    variant="text"
                     size="small"
+                    color="inherit"
                     onClick={() => dispatch(authActions.openSignInModal())}
                   >
-                    Sign in
+                    Log in
                   </Button>
                 </Box>
               </>

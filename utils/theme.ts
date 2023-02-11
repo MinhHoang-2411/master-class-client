@@ -40,7 +40,7 @@ const rawTheme = createTheme({
 const fontHeader = {
   color: rawTheme.palette.text.primary,
   fontWeight: rawTheme.typography.fontWeightMedium,
-  fontFamily: "'Roboto Condensed', sans-serif",
+  fontFamily: "'Helvetica', sans-serif",
   textTransform: 'uppercase',
 };
 
@@ -77,6 +77,8 @@ const theme = {
       ...rawTheme.typography.h4,
       ...fontHeader,
       fontSize: 30,
+      textTransform: 'capitalize',
+      fontWeight: 'bold',
     },
     h5: {
       ...rawTheme.typography.h5,

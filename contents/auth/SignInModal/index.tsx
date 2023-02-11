@@ -1,15 +1,17 @@
+import Button from '@/components/share/Button';
 import { ErrorMessage } from '@/components/share/ErrorMessage';
-import { styleModal } from '@/declares/modal';
+import { displayCenter, styleModal } from '@/declares/modal';
 import { IModal } from '@/declares/models';
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { setAuth } from '@/utils/auth';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -17,7 +19,6 @@ import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import SignInSchema from './Validate';
-import Button from '@/components/share/Button';
 
 interface ILogin {
   email: string;
@@ -43,13 +44,17 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
     email: '',
     password: '',
   };
-
   return (
     <Modal open={isOpen} onClose={CloseModal}>
       <Box sx={styleModal}>
-        <Typography variant="h4" component="h2" sx={{ mb: 4 }}>
+        <Typography variant="h4" component="h2" sx={{ mb: 4, mt: 2, textAlign: 'center' }}>
           Log in
         </Typography>
+        <Box sx={{ position: 'absolute', top: '12px', right: '12px' }}>
+          <IconButton onClick={() => dispatch(authActions.closeSignInModal())}>
+            <CloseIcon fontSize="medium" sx={{ color: '#6c757d' }} />
+          </IconButton>
+        </Box>
         <Formik
           initialValues={initialValues}
           validateOnBlur={false}
@@ -58,12 +63,12 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
           enableReinitialize
         >
           {({ isSubmitting, dirty }) => (
-            <Form className={`h-100`}>
-              <FormControl sx={{ mb: 3, mt: 1 }} fullWidth>
+            <Form>
+              <FormControl sx={{ mb: 3, mt: 3 }} fullWidth>
                 <Field as={TextField} id="email" name="email" label="Email*" variant="outlined" />
                 <ErrorMessage name={`email`} />
               </FormControl>
-              <FormControl sx={{ mb: 2 }} fullWidth>
+              <FormControl sx={{ mb: 3 }} fullWidth>
                 <Field
                   as={TextField}
                   id="password"
@@ -74,8 +79,12 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <Button onClick={() => setShowPassword(!showPassword)} color="secondary">
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        <Button
+                          onClick={() => setShowPassword(!showPassword)}
+                          color="secondary"
+                          size="small"
+                        >
+                          {!showPassword ? <Visibility /> : <VisibilityOff />}
                         </Button>
                       </InputAdornment>
                     ),
@@ -83,7 +92,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 />
                 <ErrorMessage name={`password`} />
               </FormControl>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, px: 2 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3, mt: 1, px: 2 }}>
                 <Typography
                   variant="body2"
                   component="span"
@@ -103,34 +112,32 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 {isSubmitting ? 'Log in...' : 'Log in'}
               </Button>
               <Grid container alignItems="center" justifyContent="space-between" sx={{ mt: 1 }}>
-                <Box>
+                <Box sx={displayCenter}>
                   <Field as={Checkbox} name="remember" />
                   <Typography variant="caption">Remember me</Typography>
                 </Box>
-                <Typography
-                    variant="body1"
-                    component="span"
-                    color="warning.light"
-                    onClick={() => dispatch(authActions.openModalSendEmail())}
-                    sx={{ cursor: 'pointer', textDecoration: 'underline' }}
-                  >
-                    Forgot password?
-                  </Typography>
+                <Button
+                  variant="text"
+                  size="small"
+                  color="inherit"
+                  onClick={() => dispatch(authActions.openModalSendEmail())}
+                >
+                  Forgot password?
+                </Button>
               </Grid>
               <Grid>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Box sx={displayCenter}>
                   <Typography variant="body1" component="span">
                     Need an account?
                   </Typography>
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    color="warning.light"
+                  <Button
+                    variant="text"
+                    size="small"
+                    color="inherit"
                     onClick={() => dispatch(authActions.openSignUpModal())}
-                    sx={{ cursor: 'pointer', textDecoration: 'underline' }}
                   >
-                    &nbsp;Sign up now.
-                  </Typography>
+                    Sign up now.
+                  </Button>
                 </Box>
               </Grid>
             </Form>
