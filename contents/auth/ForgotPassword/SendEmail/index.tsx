@@ -1,18 +1,17 @@
-import * as Yup from 'yup';
+import Button from '@/components/share/Button';
 import { ErrorMessage } from '@/components/share/ErrorMessage';
+import { displayCenter, styleModal } from '@/declares/modal';
+import { IModal } from '@/declares/models';
+import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
+import KeyIcon from '@mui/icons-material/Key';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Box, Modal, TextField } from '@mui/material';
-import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
-import KeyIcon from '@mui/icons-material/Key';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { styleModal } from '@/declares/modal';
-import { IModal } from '@/declares/models';
-import { authActions } from '@/store/auth/authSlice';
+import * as Yup from 'yup';
 
 const SendEmailSchema = Yup.object().shape({
   email: Yup.string().email('Wrong email format').required('Email is required'),
@@ -20,11 +19,14 @@ const SendEmailSchema = Yup.object().shape({
 
 const SendEmail = ({ isOpen, CloseModal }: IModal) => {
   const dispatch = useAppDispatch();
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: any, action: any) => {
+    action.setSubmitting(true);
     try {
       dispatch(authActions.forgotPass(values.email));
+      action.setSubmitting(false);
     } catch (e) {
       console.log(e);
+      action.setSubmitting(false);
     }
   };
 
@@ -91,19 +93,21 @@ const SendEmail = ({ isOpen, CloseModal }: IModal) => {
                   size="large"
                   fullWidth
                 >
-                  {isSubmitting ? 'Reset password...' : 'Reset password'}
+                  {isSubmitting ? 'Send email...' : 'Send email'}
                 </Button>
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, cursor: 'pointer' }}>
-                  <KeyboardBackspaceIcon sx={{ mr: 1 }}></KeyboardBackspaceIcon>
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    color=""
-                    sx={{ textDecoration: 'underline' }}
+                <Box sx={{ ...displayCenter, mt: 3 }}>
+                  <Button
+                    variant="text"
+                    size="small"
+                    color="inherit"
                     onClick={() => dispatch(authActions.backToLogInModal())}
                   >
+                    <KeyboardBackspaceIcon
+                      sx={{ mr: 0.8 }}
+                      fontSize="inherit"
+                    ></KeyboardBackspaceIcon>
                     {`Back to log in`}
-                  </Typography>
+                  </Button>
                 </Box>
               </Form>
             )}

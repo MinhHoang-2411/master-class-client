@@ -1,5 +1,6 @@
+import Button from '@/components/share/Button';
 import { ErrorMessage } from '@/components/share/ErrorMessage';
-import { styleModal } from '@/declares/modal';
+import { displayCenter, styleModal } from '@/declares/modal';
 import { IModal, ResetPasswordModel } from '@/declares/models';
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -7,7 +8,6 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import KeyIcon from '@mui/icons-material/Key';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Box, Modal, TextField } from '@mui/material';
-import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -35,15 +35,18 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useAppDispatch();
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: any, action: any) => {
+    action.setSubmitting(true);
     try {
       const params = {
         token: tokenForgotPass,
         password: values.password,
       };
       dispatch(authActions.resetPassword(params as ResetPasswordModel));
+      action.setSubmitting(false);
     } catch (e) {
       console.log(e);
+      action.setSubmitting(false);
     }
   };
 
@@ -154,17 +157,19 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
                 >
                   {isSubmitting ? 'Reset password...' : 'Reset password'}
                 </Button>
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, cursor: 'pointer' }}>
-                  <KeyboardBackspaceIcon sx={{ mr: 1 }}></KeyboardBackspaceIcon>
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    color=""
-                    sx={{ textDecoration: 'underline' }}
+                <Box sx={{ ...displayCenter, mt: 3 }}>
+                  <Button
+                    variant="text"
+                    size="small"
+                    color="inherit"
                     onClick={() => dispatch(authActions.backToLogInModal())}
                   >
+                    <KeyboardBackspaceIcon
+                      sx={{ mr: 0.8 }}
+                      fontSize="inherit"
+                    ></KeyboardBackspaceIcon>
                     {`Back to log in`}
-                  </Typography>
+                  </Button>
                 </Box>
               </Form>
             )}
