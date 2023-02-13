@@ -1,0 +1,9 @@
+version: '1.0'
+
+services:
+  theraisedhands:
+    build:
+      context: ./
+    container_name: theraisedhands-webapp
+    ports:
+      - '8000:3000'
