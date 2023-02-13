@@ -4,8 +4,10 @@ LABEL author="nvd <dangnv@stdio.asia>"
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-RUN apk add --no-cache git \
-    && yarn install --frozen-lockfile \
+RUN yarn config delete proxy \
+    && yarn config delete https-proxy \
+    && yarn config delete registry \
+    && yarn install --frozen-lockfile --network-timeout 100000\
     && yarn cache clean
 
 COPY . .

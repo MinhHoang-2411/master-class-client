@@ -6,4 +6,4 @@ services:
       context: ./
     container_name: theraisedhands-webapp
     ports:
-      - '8000:3000'
+      - '8094:3000'
