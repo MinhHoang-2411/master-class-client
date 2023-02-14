@@ -80,10 +80,11 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
                     <FormControl sx={{ mb: 5, mt: 1 }} fullWidth>
                       <Box sx={displayCenter}>
                         <ReactCodeInput
-                          type="tel"
+                          type="number"
                           fields={6}
                           onChange={onChange}
                           name="arrayCode"
+                          inputMode="numeric"
                           inputStyle={{
                             border: '1px solid',
                             boxShadow: '0px 0px 10px 0px rgba(0,0,0,.10)',
