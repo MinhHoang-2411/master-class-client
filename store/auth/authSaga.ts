@@ -126,6 +126,7 @@ function* handleResetPass(action: PayloadAction<ResetPasswordModel>) {
         type: 'success',
       })
     )
+    yield put(authActions.openSignInModal())
   } catch (error: ErrorModel | any) {
     console.error(error)
     yield put(authActions.resetPasswordFailed(error as string))
