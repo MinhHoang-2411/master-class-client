@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
-import OtpInput from './OtpInput';
+import ReactCodeInput from 'react-code-input';
 
 const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
   const token_forgot_pass = useAppSelector((state) => state?.auth?.tokenForgotPass);
@@ -78,12 +78,28 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                   <Grid item xs={12}>
                     <FormControl sx={{ mb: 5, mt: 1 }} fullWidth>
-                      <OtpInput
-                        value={codeOTP}
-                        valueLength={6}
-                        onChange={onChange}
-                        onSubmit={onSubmit}
-                      />
+                      <Box sx={displayCenter}>
+                        <ReactCodeInput
+                          type="tel"
+                          fields={6}
+                          onChange={onChange}
+                          name="arrayCode"
+                          inputStyle={{
+                            border: '1px solid',
+                            boxShadow: '0px 0px 10px 0px rgba(0,0,0,.10)',
+                            margin: '0 6px',
+                            paddingLeft: '11px',
+                            width: '42px',
+                            height: '42px',
+                            fontSize: '32px',
+                            boxSizing: 'border-box',
+                            color: '#262626',
+                            backgroundColor: '#fff',
+                            borderColor: 'lightgrey',
+                            borderRadius: '4px',
+                          }}
+                        />
+                      </Box>
                     </FormControl>
                   </Grid>
                 </Grid>
