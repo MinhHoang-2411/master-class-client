@@ -10,9 +10,9 @@ const ProductHeroLayoutRoot = styled('section')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   [theme.breakpoints.up('sm')]: {
-    height: '80vh',
-    minHeight: 500,
     maxHeight: 1300,
+    margin: '15px 0px',
+    padding: 0,
   },
 }));
 
@@ -40,11 +40,16 @@ export default function ProductHeroLayout(
     <ProductHeroLayoutRoot>
       <Container
         sx={{
-          mt: 3,
-          mb: 14,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          maxWidth: 'unset !important',
+          paddingLeft: {
+            sm: 0,
+          },
+          paddingRight: {
+            sm: 0,
+          },
         }}
       >
         {children}
@@ -55,7 +60,7 @@ export default function ProductHeroLayout(
             right: 0,
             top: 0,
             bottom: 0,
-            backgroundColor: 'common.black',
+            backgroundColor: 'black',
             opacity: 0.5,
             zIndex: -1,
           }}

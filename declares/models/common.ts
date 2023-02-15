@@ -1,5 +1,3 @@
-import { string } from 'yup';
-
 export interface PaginationParams {
   _limit: number;
   _page: number;
@@ -13,8 +11,8 @@ export interface ListResponse<T> {
 
 export interface ResponseOrigin<T> {
   data: ListResponse<T> | T;
-  status?: string;
-  statusText?: string;
+  success?: string;
+  message?: string;
 }
 export interface ResponseAuth<T> {
   data: {
@@ -51,4 +49,3 @@ export interface IModal {
   isOpen: any;
   CloseModal: any;
 }
-

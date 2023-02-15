@@ -23,14 +23,14 @@ export interface RegisterPayload {
 }
 
 export interface AuthState {
-  isLoggedIn: boolean
-  logging: boolean
-  loadingRegister: boolean
-  loadingForgotPass: boolean
-  loadingVerify: boolean
-  loadingResetPass: boolean
-  currentUser?: UserModel
-  tokenForgotPass?: string
+  isLoggedIn: boolean;
+  logging: boolean;
+  loadingRegister: boolean;
+  loadingForgotPass: boolean;
+  loadingVerify: boolean;
+  loadingResetPass: boolean;
+  currentUser?: UserModel;
+  tokenForgotPass?: string;
 
   modalSignIn: {
     isOpen?: boolean;
@@ -39,14 +39,14 @@ export interface AuthState {
     isOpen?: boolean;
   };
   modalSendEmail: {
-    isOpen: boolean,
-  },
+    isOpen: boolean;
+  };
   modalVerifyCode: {
-    isOpen: boolean,
-  },
+    isOpen: boolean;
+  };
   modalResetPassword: {
-    isOpen: boolean,
-  },
+    isOpen: boolean;
+  };
 }
 
 export interface EmailPayload {
@@ -63,19 +63,19 @@ export interface ResetPasswordPayload {
 }
 
 export interface VerifyCodeModel {
-  code: string
-  token: string
+  code: string;
+  token: string;
 }
 
 export interface ResetPasswordModel {
-  token: string
-  password: string
+  token: string;
+  password: string;
 }
 
 export interface ResponseForgotPass {
   data: {
-    token: string
-  }
+    token: string;
+  };
 }
 
 export interface ResponseVerifyCode {

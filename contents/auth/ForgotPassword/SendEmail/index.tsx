@@ -25,7 +25,6 @@ const SendEmail = ({ isOpen, CloseModal }: IModal) => {
       dispatch(authActions.forgotPass(values.email));
       action.setSubmitting(false);
     } catch (e) {
-      console.log(e);
       action.setSubmitting(false);
     }
   };

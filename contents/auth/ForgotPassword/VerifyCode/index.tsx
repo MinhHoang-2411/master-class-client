@@ -29,7 +29,6 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
       dispatch(authActions.verifyCode(params as VerifyCodeModel));
       setIsSubmitting(false);
     } catch (e) {
-      console.log(e);
       setIsSubmitting(false);
     }
   };

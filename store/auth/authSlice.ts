@@ -1,12 +1,19 @@
 import { TOKEN_FORGOT_PASS } from '@/constants/auth';
-import { AuthState, LoginPayload, LogoutPayload, RegisterPayload, ResetPasswordModel, VerifyCodeModel } from '@/declares/models';
+import {
+  AuthState,
+  LoginPayload,
+  LogoutPayload,
+  RegisterPayload,
+  ResetPasswordModel,
+  VerifyCodeModel,
+} from '@/declares/models';
 import { UserModel } from '@/declares/models/UserModels';
 import { RootState } from '@/store';
 import { getAuth, getSessionStorage } from '@/utils/auth';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const api_token = getAuth()?.api_token;
-const token_forgot_pass = getSessionStorage(TOKEN_FORGOT_PASS)?.someOtherSessionData?.token
+const token_forgot_pass = getSessionStorage(TOKEN_FORGOT_PASS)?.someOtherSessionData?.token;
 const initialState: AuthState = {
   isLoggedIn: api_token ? true : false, // logged
   logging: false, // loading
@@ -16,7 +23,7 @@ const initialState: AuthState = {
   loadingResetPass: false,
   currentUser: undefined, // info user if login success
   tokenForgotPass: token_forgot_pass || undefined,
-  
+
   modalSignIn: {
     isOpen: false,
   },
@@ -69,50 +76,48 @@ const authSlice = createSlice({
     },
     // forgot password
     forgotPass(state, action: PayloadAction<string>) {
-      state.loadingForgotPass = true
+      state.loadingForgotPass = true;
     },
     forgotPassSuccess(state, action: PayloadAction<string>) {
-      state.tokenForgotPass = action.payload
-      state.loadingForgotPass = false
+      state.tokenForgotPass = action.payload;
+      state.loadingForgotPass = false;
       state.modalVerifyCode.isOpen = true;
-      state.modalSendEmail.isOpen = false
+      state.modalSendEmail.isOpen = false;
     },
     forgotFailed(state, action: PayloadAction<string>) {
-      state.loadingForgotPass = false
+      state.loadingForgotPass = false;
     },
     // verify code
     verifyCode(state, action: PayloadAction<VerifyCodeModel>) {
-      state.loadingVerify = true
+      state.loadingVerify = true;
     },
 
     verifyCodeSuccess(state, action: PayloadAction<string>) {
-      console.log("action.payload", action.payload)
       state.loadingVerify = false;
       state.modalVerifyCode.isOpen = false;
       state.modalResetPassword.isOpen = true;
-      state.tokenForgotPass = action.payload
+      state.tokenForgotPass = action.payload;
     },
-    
+
     verifyCodeFailed(state, action: PayloadAction<string>) {
-      state.loadingVerify = false
+      state.loadingVerify = false;
     },
     // reset password
     resetPassword(state, action: PayloadAction<ResetPasswordModel>) {
-      state.loadingResetPass = true
+      state.loadingResetPass = true;
     },
     resetPasswordSuccess(state, action: PayloadAction<string>) {
-      state.loadingResetPass = false
+      state.loadingResetPass = false;
       state.modalResetPassword.isOpen = false;
     },
     resetPasswordFailed(state, action: PayloadAction<string>) {
-      state.loadingResetPass = false
+      state.loadingResetPass = false;
     },
 
     // modal
     openModalSendEmail(state) {
       state.modalSendEmail.isOpen = true;
-      state.modalSignIn.isOpen = false
-
+      state.modalSignIn.isOpen = false;
     },
     closeModalSendEmail(state) {
       state.modalSendEmail.isOpen = false;
@@ -151,9 +156,9 @@ const authSlice = createSlice({
     backToLogInModal(state) {
       state.modalSignIn.isOpen = true;
       state.modalSendEmail.isOpen = false;
-      state.modalVerifyCode.isOpen = false
+      state.modalVerifyCode.isOpen = false;
       state.modalResetPassword.isOpen = false;
-    }
+    },
   },
 });
 
