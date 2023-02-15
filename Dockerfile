@@ -7,7 +7,7 @@ COPY package.json yarn.lock ./
 RUN yarn config delete proxy \
     && yarn config delete https-proxy \
     && yarn config delete registry \
-    && yarn install --frozen-lockfile --network-timeout 100000\
+    && yarn install --network-timeout 100000\
     && yarn cache clean
 
 COPY . .
