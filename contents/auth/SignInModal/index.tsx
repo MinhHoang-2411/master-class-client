@@ -122,7 +122,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                   color="inherit"
                   onClick={() => dispatch(authActions.openModalSendEmail())}
                 >
-                  Forgot password?
+                  Forgot your password?
                 </Button>
               </Grid>
               <Grid>

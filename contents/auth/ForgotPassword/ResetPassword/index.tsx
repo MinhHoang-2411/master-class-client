@@ -45,7 +45,6 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
       dispatch(authActions.resetPassword(params as ResetPasswordModel));
       action.setSubmitting(false);
     } catch (e) {
-      console.log(e);
       action.setSubmitting(false);
     }
   };

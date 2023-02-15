@@ -2,11 +2,13 @@ import { authReducer } from '@/store/auth/authSlice';
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import alertReducer from './alert/alertSlice';
+import homePageReducer from './home-page/homePageSlice';
 import rootSaga from './rootSaga';
 
 const reducers = combineReducers({
   auth: authReducer,
   alert: alertReducer,
+  homePage: homePageReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

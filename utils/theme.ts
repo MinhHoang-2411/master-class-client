@@ -5,7 +5,7 @@ const rawTheme = createTheme({
   palette: {
     primary: {
       light: '#69696a',
-      main: '#28282a',
+      main: '#000',
       dark: '#1e1e1f',
     },
     secondary: {
@@ -33,7 +33,7 @@ const rawTheme = createTheme({
     allVariants: {
       fontFamily: `'Helvetica', 'Arial', sans-serif`,
       fontSize: 14,
-    }
+    },
   },
 });
 
