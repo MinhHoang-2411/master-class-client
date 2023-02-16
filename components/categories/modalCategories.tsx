@@ -1,11 +1,31 @@
+import { CategoryModel } from '@/declares/models/Categories';
+import { isArray } from 'lodash';
+import Link from 'next/link';
+import { useCallback } from 'react';
 import styles from '../../styles/dropdown.module.scss';
 
 interface CategoriesModel {
   setShowCategory: (show: boolean) => void;
+  listCategories: Array<CategoryModel>;
 }
 
 const ModalCategories: React.FC<CategoriesModel> = (props) => {
-  const { setShowCategory } = props;
+  const { setShowCategory, listCategories } = props;
+
+  const renderList = useCallback(() => {
+    return listCategories.map((item, index) => {
+      return (
+        <button key={index} className={styles.dropdown_item} role="option">
+          <p className={styles.dropdown_text}>
+            <Link className="d-block" href={`/categories/${item?.url}`}>
+              {item?.name}
+            </Link>
+          </p>
+        </button>
+      );
+    });
+  }, [listCategories]);
+
   return (
     <>
       <div className={styles.dropdown}>
@@ -45,20 +65,7 @@ const ModalCategories: React.FC<CategoriesModel> = (props) => {
           </div>
           <div id="nav-categories-dropdown" className={styles.dropdown_content}>
             <div className={styles.dropdown_body}>
-              <button className={styles.dropdown_item} role="option">
-                <p className={styles.dropdown_text}>
-                  <a className="d-block" href="#">
-                    Food
-                  </a>
-                </p>
-              </button>
-              <button className={styles.dropdown_item} role="option">
-                <p className={styles.dropdown_text}>
-                  <a className="d-block" href="#">
-                    Arts & Entertainment
-                  </a>
-                </p>
-              </button>
+              {Array(isArray(listCategories) && renderList())}
             </div>
             <div className={styles.dropdown_footer}>
               <div style={{ padding: '12px 16px' }}>

@@ -35,6 +35,15 @@ const rawTheme = createTheme({
       fontSize: 14,
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 576,
+      md: 960,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
 });
 
 const fontHeader = {
