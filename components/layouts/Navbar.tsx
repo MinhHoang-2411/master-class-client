@@ -1,26 +1,28 @@
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { authActions } from '@/store/auth/authSlice';
-import { useAppDispatch } from '@/store/hooks';
+import { categoriesActions } from '@/store/categories/categoriesSlice';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getAuth } from '@/utils/auth';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
 import dynamic from 'next/dynamic';
-import Button from '../share/Button';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import SearchIcon from '@mui/icons-material/Search';
-import IconMenu from '../../public/icon/icon-menu.svg';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import IconMenu from '../../public/icon/icon-menu.svg';
 import ModalCategories from '../categories/modalCategories';
-import { useRef, useState } from 'react';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
+import Button from '../share/Button';
 import ModalMenu from './ModalMenu';
 
 const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
+  const listCategories = useAppSelector((state) => state.categories.listData);
   const currentUser = getAuth()?.user;
 
   const [showCategory, setShowCategory] = useState(false);
@@ -31,16 +33,33 @@ const Navbar: React.FC = () => {
   };
   useOnClickOutside(ref, handleClickOutside);
 
+  useEffect(() => {
+    dispatch(categoriesActions.fetchData({}));
+  }, []);
+
   return (
     <>
       <AppBar sx={{ position: 'sticky', top: 0 }}>
-        <Container>
+        <Container
+          sx={{
+            maxWidth: {
+              lg: '1328px',
+              sm: '100%',
+              md: '100%',
+            },
+            padding: {
+              sm: '0 16px',
+              md: '0 64px',
+              lg: '0 64px',
+            },
+          }}
+        >
           <Toolbar
             sx={{
               justifyContent: 'space-between',
               flexWrap: 'wrap',
               alignItems: 'center',
-              padding: 0,
+              padding: '0px 0px !important',
             }}
           >
             <Box>
@@ -48,8 +67,7 @@ const Navbar: React.FC = () => {
                 variant="h6"
                 underline="none"
                 color="inherit"
-                href="#"
-                sx={{ fontSize: 24, textTransform: 'capitalize' }}
+                sx={{ fontSize: 24, textTransform: 'capitalize', width: '100%' }}
               >
                 {'Theraisedhands'}
               </Link>
@@ -65,7 +83,12 @@ const Navbar: React.FC = () => {
                   {'All Categories'}
                   <ExpandMoreIcon />
                 </Button>
-                {showCategory && <ModalCategories setShowCategory={setShowCategory} />}
+                {showCategory && (
+                  <ModalCategories
+                    listCategories={listCategories}
+                    setShowCategory={setShowCategory}
+                  />
+                )}
               </Box>
               <Button
                 variant="text"
