@@ -1,24 +1,25 @@
 import { COOKIE_KEYS } from '@/constants/common';
+import { addMonths } from 'date-fns';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
 export class CookieService {
-  accessToken: string;
+  accessToken: string
 
   constructor() {
-    this.accessToken = this.getAccessToken();
+    this.accessToken = this.getAccessToken()
   }
 
   /* tslint:disable-next-line */
-  private static _instance: CookieService;
+  private static _instance: CookieService
 
   public static getInstance(): CookieService {
     if (!this._instance) {
       this._instance = new CookieService();
     }
 
-    return this._instance;
+    return this._instance
   }
 
   public getCookie(key: string) {
@@ -27,7 +28,7 @@ export class CookieService {
 
   public setCookie(key: string, data: string) {
     const currentTime = new Date();
-    const expires = currentTime;
+    const expires = addMonths(currentTime, 1);
     cookies.set(key, data, { expires, path: '/' });
   }
 
@@ -41,7 +42,7 @@ export class CookieService {
 
   public setAccessToken(accessToken: string) {
     const currentTime = new Date();
-    const expires = currentTime;
+    const expires = addMonths(currentTime, 1);
     cookies.set(COOKIE_KEYS.accessToken, accessToken, {
       expires,
       path: '/',
