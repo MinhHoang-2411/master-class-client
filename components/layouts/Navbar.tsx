@@ -12,6 +12,7 @@ import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import IconMenu from '../../public/icon/icon-menu.svg';
 import ModalCategories from '../categories/modalCategories';
@@ -22,6 +23,7 @@ const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const listCategories = useAppSelector((state) => state.categories.listData);
   const currentUser = getAuth()?.user;
 
@@ -67,7 +69,8 @@ const Navbar: React.FC = () => {
                 variant="h6"
                 underline="none"
                 color="inherit"
-                sx={{ fontSize: 24, textTransform: 'capitalize', width: '100%' }}
+                sx={{ fontSize: 24, textTransform: 'capitalize', width: '100%', cursor: 'pointer' }}
+                onClick={() => router.push('/')}
               >
                 {'Theraisedhands'}
               </Link>

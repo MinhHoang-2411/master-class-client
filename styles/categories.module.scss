@@ -112,6 +112,66 @@
     opacity: .8 !important;
 }
 
+.overflow--hidden {
+    overflow: hidden;
+}
+
+.corners--md {
+    border-radius: 8px;
+    isolation: isolate;
+}
+
+.position-relative {
+    position: relative !important;
+}
+
+.tile {
+    position: relative;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.tile--9x16:before,
+.tile--portrait:before {
+    display: block;
+    width: 100%;
+    padding-top: 177.7777777778%;
+    content: "";
+    pointer-events: none;
+}
+
+.tile_content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.tile-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.animation-zoom {
+    transform: scale(1);
+    transition: transform .3s cubic-bezier(.29, 1.185, 1, 1);
+}
+
+.animation {
+    z-index: 0;
+}
+
 @media (min-width: 0) {
     .text_h1 {
         text-align: center !important;
