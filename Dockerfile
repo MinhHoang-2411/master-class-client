@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:16-alpine
 LABEL author="nvd <dangnv@stdio.asia>"
 
 WORKDIR /app
@@ -7,7 +7,7 @@ COPY package.json yarn.lock ./
 RUN yarn config delete proxy \
     && yarn config delete https-proxy \
     && yarn config delete registry \
-    && yarn install --network-timeout 100000\
+    && yarn install --frozen-lockfile --network-timeout 100000\
     && yarn cache clean
 
 COPY . .

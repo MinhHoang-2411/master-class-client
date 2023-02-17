@@ -10,15 +10,8 @@ import { store } from '../store';
 import theme from '../utils/theme';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const cache = createCache({
-    key: 'css',
-    prepend: true,
-  });
-
   return (
     <>
       <Head>
@@ -42,15 +35,13 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       />
       <Provider store={store}>
-        <CacheProvider value={cache}>
-          <ThemeProvider theme={theme}>
-            <MyLayout>
-              <CssBaseline />
-              <Component {...pageProps} />
-              <ToastContainer />
-            </MyLayout>
-          </ThemeProvider>
-        </CacheProvider>
+        <ThemeProvider theme={theme}>
+          <MyLayout>
+            <CssBaseline />
+            <Component {...pageProps} />
+            <ToastContainer />
+          </MyLayout>
+        </ThemeProvider>
       </Provider>
     </>
   );
