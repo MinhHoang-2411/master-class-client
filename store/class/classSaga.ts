@@ -1,17 +1,14 @@
 import { ErrorModel } from '@/declares/models';
-import { ResponseGetClass } from '@/declares/models/ClassModels';
+import { ParamsGetListClass, ResponseGetClass } from '@/declares/models/ClassModels';
 import classAPI from '@/services/api/class';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { alertActions } from '../alert/alertSlice';
 import { classActions } from './classSlice';
 
-function* handleFetchData(action: PayloadAction<{}>) {
+function* handleFetchData(action: PayloadAction<ParamsGetListClass>) {
   try {
-    const params = {
-      page: 1,
-      limit: 100,
-    };
+    const params = action.payload;
     const response: ResponseGetClass = yield call(classAPI.fetchData, params);
 
     yield put(classActions.fetchDataSuccess(response.data));

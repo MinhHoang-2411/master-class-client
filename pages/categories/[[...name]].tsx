@@ -26,7 +26,7 @@ const Categories: React.FC<CategoriesModel> = (props) => {
     <>
       <main className={styles.page_content}>
         <section className={styles.container}>
-          <h1 className={styles.text_h1}>{getTitleCategory()?.name}</h1>
+          <h1 className={styles.text_h1}>{getTitleCategory()?.name || ''}</h1>
           <div
             className={`${styles.row} ${styles.Courses_CoursesSectionContent} ${styles.mc_mx_0}`}
           >

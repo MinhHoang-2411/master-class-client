@@ -23,9 +23,9 @@ const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const listCategories = useAppSelector((state) => state.categories.listData);
   const currentUser = getAuth()?.user;
+  const router = useRouter();
 
   const [showCategory, setShowCategory] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
