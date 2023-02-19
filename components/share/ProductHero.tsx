@@ -8,7 +8,7 @@ interface ProductHeroModel {
 
 const handleConvertListBanners = (listBanners: string[]) => {
   const arrBanners = [];
-  for (let i = 0; i < listBanners.length; i++) {
+  for (let i = 0; i < listBanners?.length; i++) {
     const objBanners = {
       itemFirst: listBanners[i],
       itemLast: listBanners[i + 1],
@@ -16,7 +16,7 @@ const handleConvertListBanners = (listBanners: string[]) => {
     arrBanners.push(objBanners);
     i = i + 1;
 
-    if (i === listBanners.length - 1) i = 0;
+    if (i === listBanners?.length - 1) i = 0;
   }
 
   return arrBanners;
@@ -62,7 +62,6 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
                 }}
               >
                 <img
-                  className={styles.Image}
                   style={{
                     display: 'block',
                     maxWidth: '100%',
@@ -89,17 +88,14 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
                 width={1200}
                 style={{
                   position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  bottom: 0,
-                  right: 0,
+                  inset: '0px',
                   boxSizing: 'border-box',
-                  padding: 0,
+                  padding: '0px',
                   border: 'none',
                   margin: 'auto',
                   display: 'block',
-                  width: 0,
-                  height: 0,
+                  width: '0px',
+                  height: '0px',
                   minWidth: '100%',
                   maxWidth: '100%',
                   minHeight: '100%',
