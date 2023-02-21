@@ -8,15 +8,20 @@ interface ProductHeroModel {
 
 const handleConvertListBanners = (listBanners: string[]) => {
   const arrBanners = [];
+  const isEven = listBanners?.length % 2 == 0;
   for (let i = 0; i < listBanners?.length; i++) {
     const objBanners = {
       itemFirst: listBanners[i],
-      itemLast: listBanners[i + 1],
+      itemLast: listBanners[i + 1] || listBanners[0],
     };
     arrBanners.push(objBanners);
     i = i + 1;
 
-    if (i === listBanners?.length) i = 0;
+    if (isEven && i === listBanners?.length - 1) {
+      i = 0;
+    } else if (!isEven && i === listBanners?.length) {
+      i = 0;
+    }
   }
 
   return arrBanners;
