@@ -16,7 +16,7 @@ const handleConvertListBanners = (listBanners: string[]) => {
     arrBanners.push(objBanners);
     i = i + 1;
 
-    if (i === listBanners?.length - 1) i = 0;
+    if (i === listBanners?.length) i = 0;
   }
 
   return arrBanners;
