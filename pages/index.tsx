@@ -25,6 +25,7 @@ export async function getStaticProps() {
       props: {
         listBanners: res?.data?.images || [],
       },
+      revalidate: 10,
     };
   } catch (error) {
     console.error(error);
