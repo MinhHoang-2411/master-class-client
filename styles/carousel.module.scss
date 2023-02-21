@@ -151,13 +151,37 @@
 }
 
 .FirstRow {
-    margin-bottom: 0.8vw;
     margin: 0;
     padding: 0;
     border: 0;
     vertical-align: baseline;
+    margin-bottom: 0.8vw;
 }
 
 .SecondRow {
     transform: translateX(-50%);
+}
+
+.SpanImg {
+    border-radius: 8px;
+
+    @media (max-width: 576px) {
+        width: 207px !important;
+        height: 116px !important;
+    }
+
+    @media (min-width: 768px) {
+        width: 246px !important;
+        height: 138px !important;
+    }
+
+    @media (min-width: 960px) {
+        width: 100% !important;
+        height: 202px !important;
+    }
+
+    @media (min-width: 1500px) {
+        width: 100% !important;
+        height: 202px !important;
+    }
 }

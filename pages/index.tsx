@@ -1,5 +1,6 @@
 import Layout from '@/components/layouts';
 import ProductHero from '@/components/share/ProductHero';
+import Trailer from '@/components/share/Trailer';
 import bannerApi from '@/services/api/home-page';
 
 interface HomePageModel {
@@ -12,6 +13,7 @@ function HomePage(props: HomePageModel) {
   return (
     <>
       <ProductHero listBanners={listBanners} />
+      <Trailer />
     </>
   );
 }

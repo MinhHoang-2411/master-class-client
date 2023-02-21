@@ -17,7 +17,11 @@ const ModalCategories: React.FC<CategoriesModel> = (props) => {
       return (
         <button key={index} className={styles.dropdown_item} role="option">
           <p className={styles.dropdown_text}>
-            <Link className="d-block" href={`/categories/${item?.url}`}>
+            <Link
+              className="d-block"
+              href={`/categories/${item?.url}`}
+              onClick={() => setShowCategory(false)}
+            >
               {item?.name}
             </Link>
           </p>
