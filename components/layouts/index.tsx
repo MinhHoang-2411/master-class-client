@@ -5,6 +5,7 @@ import SignInModal from '@/contents/auth/SignInModal';
 import SignUpModal from '@/contents/auth/SignUpModal';
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 
 // const Footer = dynamic(() => import('./Footer'));
@@ -22,7 +23,7 @@ export default function MyLayout({ children }: any) {
   const modalResetPassword = useAppSelector((state) => state.auth.modalResetPassword);
 
   return (
-    <>
+    <Box sx={{ overflowX: 'hidden' }}>
       <Navbar />
       {children}
       {/* <Footer /> */}
@@ -47,6 +48,6 @@ export default function MyLayout({ children }: any) {
         isOpen={modalResetPassword.isOpen}
         CloseModal={() => dispatch(authActions.closeModalResetPassword())}
       />
-    </>
+    </Box>
   );
 }

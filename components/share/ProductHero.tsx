@@ -32,12 +32,11 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
         <div key={index} className={styles.loopItem}>
           <div className={styles.FirstRow}>
             <span
+              className={styles.SpanImg}
               style={{
                 boxSizing: 'border-box',
                 display: 'inline-block',
                 overflow: 'hidden',
-                width: 'initial',
-                height: 'initial',
                 background: 'none',
                 opacity: 1,
                 border: 0,
@@ -45,6 +44,8 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
                 padding: 0,
                 position: 'relative',
                 maxWidth: '100%',
+                width: '100%',
+                height: '202px',
               }}
             >
               <span
@@ -106,12 +107,11 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
           </div>
           <div className={styles.SecondRow}>
             <span
+              className={styles.SpanImg}
               style={{
                 boxSizing: 'border-box',
                 display: 'inline-block',
                 overflow: 'hidden',
-                width: 'initial',
-                height: 'initial',
                 background: 'none',
                 opacity: 1,
                 border: 0,
@@ -119,6 +119,8 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
                 padding: 0,
                 position: 'relative',
                 maxWidth: '100%',
+                width: '100%',
+                height: '202px',
               }}
             >
               <span
