@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import styles from '../../styles/layout-page.module.scss';
 
 interface VideoModel {
   options: any;
@@ -19,6 +20,8 @@ export const Video = (props: VideoModel) => {
       const videoElement = document.createElement('video-js');
 
       videoElement.classList.add('vjs-big-play-centered');
+      videoElement.style.width = '100%';
+      videoElement.style.height = '100%';
       videoRef.current.appendChild(videoElement);
 
       const player = (playerRef.current = videojs(videoElement, options, () => {
@@ -50,7 +53,7 @@ export const Video = (props: VideoModel) => {
 
   return (
     <div data-vjs-player>
-      <div ref={videoRef} />
+      <div ref={videoRef} className={styles.divVideo} />
     </div>
   );
 };
