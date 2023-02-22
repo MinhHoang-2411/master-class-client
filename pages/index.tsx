@@ -1,4 +1,5 @@
 import Layout from '@/components/layouts';
+import MessagesFromTeam from '@/components/share/MessagesFromTeam';
 import ProductHero from '@/components/share/ProductHero';
 import Trailer from '@/components/share/Trailer';
 import bannerApi from '@/services/api/home-page';
@@ -14,6 +15,7 @@ function HomePage(props: HomePageModel) {
     <>
       <ProductHero listBanners={listBanners} />
       <Trailer />
+      <MessagesFromTeam />
     </>
   );
 }

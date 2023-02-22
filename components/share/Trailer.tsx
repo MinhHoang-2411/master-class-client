@@ -1,8 +1,9 @@
+import { authActions } from '@/store/auth/authSlice';
+import { useAppDispatch } from '@/store/hooks';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
-import { useRef } from 'react';
-import videojs from 'video.js';
+import FeaturedPreview from '../trailer/featured-preview';
 import Video from '../trailer/video';
 
 const styleDescription = {
@@ -12,10 +13,28 @@ const styleDescription = {
   position: 'relative',
   width: '100%',
   borderRadius: '8px',
-  cursor: 'pointer',
   border: 'none',
   background: '#222326',
   padding: '16px',
+};
+
+const styleBtnSignUp = {
+  backgroundColor: '#e32652',
+  padding: '12px 24px',
+  cursor: 'pointer',
+  width: '200px',
+  height: '45px',
+  borderRadius: '8px',
+  fontSize: '18px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontWeight: 'bold',
+  margin: 'auto',
+  marginTop: '20px',
+  '&:hover': {
+    backgroundColor: '#d61a46',
+  },
 };
 
 interface TrailerModel {
@@ -23,31 +42,7 @@ interface TrailerModel {
 }
 
 const Trailer: React.FC<TrailerModel> = ({}) => {
-  const playerRef = useRef(null);
-  const videoJsOptions = {
-    autoplay: false,
-    playbackRates: [0.5, 1, 1.25, 1.5, 2],
-    controls: true,
-    sources: [
-      {
-        src: '//vjs.zencdn.net/v/oceans.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  };
-
-  const handlePlayerReady = (player: any) => {
-    playerRef.current = player;
-
-    // You can handle player events here, for example:
-    player.on('waiting', () => {
-      videojs.log('player is waiting');
-    });
-
-    player.on('dispose', () => {
-      videojs.log('player will dispose');
-    });
-  };
+  const dispatch = useAppDispatch();
 
   return (
     <Grid
@@ -57,7 +52,7 @@ const Trailer: React.FC<TrailerModel> = ({}) => {
       sx={{ width: '100% !important', color: '#f4f4f5 !important', margin: '0 !important' }}
     >
       <Grid item xs={4} sm={4} md={4} sx={{ padding: '24px !important' }}>
-        <Video options={videoJsOptions} onReady={handlePlayerReady} />
+        <Video />
         <Box sx={styleDescription}>
           <span>
             Experience, Absorb & Transform your Life, Relationships, Health, Business, Wealth &
@@ -66,8 +61,51 @@ const Trailer: React.FC<TrailerModel> = ({}) => {
           </span>
         </Box>
       </Grid>
-      <Grid item xs={4} sm={4} md={4} sx={{ padding: '24px !important' }}></Grid>
-      <Grid item xs={4} sm={4} md={4} sx={{ padding: '24px !important' }}></Grid>
+      <Grid
+        item
+        xs={4}
+        sm={4}
+        md={4}
+        sx={{
+          padding: '24px !important',
+          height: {
+            xs: '500px !important',
+            sm: '500px !important',
+          },
+        }}
+      >
+        <Box
+          sx={{
+            ...styleDescription,
+            height: '100%',
+            cursor: 'initial',
+            maxWidth: '600px !important',
+            margin: 'auto',
+          }}
+        >
+          <FeaturedPreview />
+        </Box>
+      </Grid>
+      <Grid
+        item
+        xs={4}
+        sm={4}
+        md={4}
+        sx={{
+          padding: '24px !important',
+        }}
+      >
+        <Box sx={styleDescription}>
+          <span>
+            Enjoy Unlimited access to All videos from all trainers from every corner of the world.
+            From as low as $10 per month.
+          </span>
+        </Box>
+        <Box sx={styleBtnSignUp} onClick={() => dispatch(authActions.openSignUpModal())}>
+          Sign Up Here
+        </Box>
+        <Video />
+      </Grid>
     </Grid>
   );
 };
