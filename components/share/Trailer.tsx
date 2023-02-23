@@ -20,12 +20,12 @@ const styleDescription = {
 
 const styleBtnSignUp = {
   backgroundColor: '#e32652',
-  padding: '12px 24px',
+  padding: '10px 22px',
   cursor: 'pointer',
-  width: '180px',
-  height: '40px',
+  width: '160px',
+  height: '35px',
   borderRadius: '8px',
-  fontSize: '18px',
+  fontSize: '16px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -65,7 +65,11 @@ const Trailer: React.FC<TrailerModel> = ({}) => {
         sx={{ width: '100% !important', color: '#f4f4f5 !important', margin: '0 !important' }}
       >
         <Grid item xs={4} sm={4} md={4} sx={{ padding: '24px !important' }}>
-          <Video />
+          <Video
+            imgPreview={
+              'https://www.masterclass.com/course-images/attachments/ZToYAorFLp4Z3soMacJpXnCX?width=3840&quality=75&format=webp'
+            }
+          />
           <Box sx={styleDescription}>
             <span>
               Experience, Absorb & Transform your Life, Relationships, Health, Business, Wealth &
@@ -113,11 +117,16 @@ const Trailer: React.FC<TrailerModel> = ({}) => {
               Enjoy Unlimited access to All videos from all trainers from every corner of the world.
               From as low as $10 per month.
             </span>
+            <Box sx={styleBtnSignUp} onClick={() => dispatch(authActions.openSignUpModal())}>
+              Sign Up Here
+            </Box>
           </Box>
-          <Box sx={styleBtnSignUp} onClick={() => dispatch(authActions.openSignUpModal())}>
-            Sign Up Here
-          </Box>
-          <Video />
+
+          <Video
+            imgPreview={
+              'https://www.masterclass.com/course-images/attachments/LwLc5ytE4B6CoNZKT6TjgXqL?width=3840&quality=75&format=webp'
+            }
+          />
         </Grid>
       </Grid>
     </Box>

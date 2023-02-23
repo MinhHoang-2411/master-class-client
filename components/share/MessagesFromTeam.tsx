@@ -66,7 +66,11 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
         sx={{ width: '100% !important', color: '#f4f4f5 !important', margin: '0 !important' }}
       >
         <Grid item xs={6} sm={6} md={6} sx={{ padding: '20px !important' }}>
-          <Video />
+          <Video
+            imgPreview={
+              'https://www.masterclass.com/course-images/attachments/2Se46dFKMwhQbWArLPhsxMTS?width=3840&quality=75&format=webp'
+            }
+          />
         </Grid>
         <Grid
           item
@@ -77,7 +81,11 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
             padding: '20px !important',
           }}
         >
-          <Video />
+          <Video
+            imgPreview={
+              'https://www.masterclass.com/course-images/attachments/jm3bj08oun86mivwn64wsgvgyp7f?width=3840&quality=75&format=webp'
+            }
+          />
         </Grid>
       </Grid>
       <Grid
@@ -92,8 +100,12 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
           justifyContent: 'center',
         }}
       >
-        <Grid item xs={8} sm={8} md={8} sx={{ padding: '20px !important' }}>
-          <Video />
+        <Grid item xs={7} sm={7} md={7} sx={{ padding: '20px !important' }}>
+          <Video
+            imgPreview={
+              'https://www.masterclass.com/course-images/attachments/usdssfwa0yvqdph2i5qzepwvv6gp?width=1920&quality=75&format=webp'
+            }
+          />
         </Grid>
       </Grid>
     </Box>

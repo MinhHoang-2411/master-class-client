@@ -3,9 +3,12 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import styles from '../../styles/layout-page.module.scss';
 
-interface VideoModel {}
+interface VideoModel {
+  imgPreview?: string;
+}
 
 export const Video = (props: VideoModel) => {
+  const { imgPreview } = props;
   const videoRef = useRef<any>(null);
   const playerRef = useRef<any>(null);
   const [showPreview, setShowPreview] = useState(true);
@@ -92,11 +95,7 @@ export const Video = (props: VideoModel) => {
       <div ref={videoRef} className={styles.divVideo} />
       {showPreview && (
         <>
-          <img
-            className={styles.img_preview}
-            alt=""
-            src="https://www.masterclass.com/course-images/attachments/ptm91lwnxa7nwr0aj0be67txgd1z?width=3840&quality=75&format=webp"
-          />
+          <img className={styles.img_preview} alt="" src={imgPreview} />
           <div className={styles.btn_play_preview}>
             <svg
               fill="none"
