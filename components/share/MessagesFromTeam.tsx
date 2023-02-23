@@ -40,7 +40,22 @@ interface MessagesFromTeamModel {
 
 const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#fff' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        color: '#fff',
+        maxWidth: {
+          xs: '100%',
+          sm: '100%',
+          md: '100%',
+          lg: '100%',
+          xl: '1600px',
+        },
+        margin: 'auto',
+      }}
+    >
       <Box>
         <h2>Messages from the Team</h2>
       </Box>
