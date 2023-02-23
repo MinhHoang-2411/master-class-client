@@ -723,7 +723,12 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
       <div className={`${stylesTrailer.divEmail}`}>
         <span>Enter Email for this amazing Monthly Gift.</span>
         <div className={`${stylesTrailer.inputEmail} ${error && stylesTrailer.inputEmailError}`}>
-          <input value={email} type="email" onChange={(e) => handleChangeEmail(e)} />
+          <input
+            value={email}
+            type="email"
+            onChange={(e) => handleChangeEmail(e)}
+            placeholder="Your email address"
+          />
           {error && (
             <span className={stylesTrailer.textError}>
               {' '}
