@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 
 import FeaturedPreview from '../trailer/featured-preview';
 import Video from '../trailer/video';
+import styles from '../../styles/layout-page.module.scss';
 
 const styleDescription = {
   display: 'flexbox',
@@ -16,10 +17,6 @@ const styleDescription = {
   border: 'none',
   background: '#222326',
   padding: '16px',
-  fontSize: {
-    xs: '15px',
-    sm: '15px',
-  },
 };
 
 const styleBtnSignUp = {
@@ -75,7 +72,7 @@ const Trailer: React.FC<TrailerModel> = ({}) => {
             }
           />
           <Box sx={styleDescription}>
-            <span>
+            <span className={styles.description}>
               Experience, Absorb & Transform your Life, Relationships, Health, Business, Wealth &
               Spirituality in just 10 minutes a day with Life Changing Lessons in our short clip
               format to ensure you absorb and are able to use the skills Now!
@@ -90,8 +87,8 @@ const Trailer: React.FC<TrailerModel> = ({}) => {
           sx={{
             padding: '24px !important',
             height: {
-              xs: '500px !important',
-              sm: '500px !important',
+              xs: '493px !important',
+              sm: '515px !important',
             },
           }}
         >
@@ -117,7 +114,7 @@ const Trailer: React.FC<TrailerModel> = ({}) => {
           }}
         >
           <Box sx={styleDescription}>
-            <span>
+            <span className={styles.description}>
               Enjoy Unlimited access to All videos from all trainers from every corner of the world.
               From as low as $10 per month.
             </span>

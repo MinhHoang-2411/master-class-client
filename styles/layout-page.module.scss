@@ -180,6 +180,14 @@
     border-radius: 10px;
 }
 
+.description {
+    font-size: 16px;
+}
+
+// .group_featured_preview {
+//     height: auto;
+// }
+
 @media (max-width: 390px) {
     .text-h6 {
         font-size: 8px;
@@ -379,6 +387,10 @@
         left: 0px;
         top: 12px;
     }
+
+    .description {
+        font-size: 9px;
+    }
 }
 
 @media (min-width: 1130px) and (max-width: 1200px) {
@@ -422,6 +434,10 @@
         left: 10px;
         top: 12px;
     }
+
+    .description {
+        font-size: 11px;
+    }
 }
 
 @media (min-width: 1300px) and (max-width: 1400px) {
@@ -455,6 +471,10 @@
     .div-img-5 {
         left: 10px;
         top: 12px;
+    }
+
+    .description {
+        font-size: 14px;
     }
 }
 
@@ -499,6 +519,10 @@
         left: 40px;
         top: 12px;
     }
+
+    // .group_featured_preview {
+    //     height: 100% !important;
+    // }
 }
 
 @media (min-width: 1600px) {
