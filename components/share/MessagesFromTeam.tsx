@@ -3,35 +3,8 @@ import { Box } from '@mui/system';
 
 import Video from '../trailer/video';
 
-const styleDescription = {
-  display: 'flexbox',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  position: 'relative',
-  width: '100%',
-  borderRadius: '8px',
-  border: 'none',
-  background: '#222326',
-  padding: '16px',
-};
-
-const styleBtnSignUp = {
-  backgroundColor: '#e32652',
-  padding: '12px 24px',
-  cursor: 'pointer',
-  width: '200px',
-  height: '45px',
-  borderRadius: '8px',
-  fontSize: '18px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontWeight: 'bold',
-  margin: 'auto',
-  marginTop: '20px',
-  '&:hover': {
-    backgroundColor: '#d61a46',
-  },
+const styleBigVideo = {
+  objectFit: 'contain',
 };
 
 interface MessagesFromTeamModel {
@@ -70,6 +43,7 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
             imgPreview={
               'https://www.masterclass.com/course-images/attachments/2Se46dFKMwhQbWArLPhsxMTS?width=3840&quality=75&format=webp'
             }
+            style={styleBigVideo}
           />
         </Grid>
         <Grid
@@ -85,6 +59,7 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
             imgPreview={
               'https://www.masterclass.com/course-images/attachments/jm3bj08oun86mivwn64wsgvgyp7f?width=3840&quality=75&format=webp'
             }
+            style={styleBigVideo}
           />
         </Grid>
       </Grid>
@@ -105,6 +80,7 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
             imgPreview={
               'https://www.masterclass.com/course-images/attachments/usdssfwa0yvqdph2i5qzepwvv6gp?width=1920&quality=75&format=webp'
             }
+            style={styleBigVideo}
           />
         </Grid>
       </Grid>

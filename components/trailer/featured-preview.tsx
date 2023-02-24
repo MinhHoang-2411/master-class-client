@@ -29,7 +29,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
           className={stylesTrailer['div-img-1']}
           data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
         >
-          <div className={styles['fresnel-container']}>
+          <div className={`${styles['fresnel-container']} ${stylesTrailer['content-img']}`}>
             <div
               className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
               aria-labelledby="tile-desktop-nameplate-312"
@@ -168,7 +168,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
           className={stylesTrailer['div-img-2']}
           data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
         >
-          <div className={styles['fresnel-container']}>
+          <div className={`${styles['fresnel-container']} ${stylesTrailer['content-img']}`}>
             <div
               className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
               aria-labelledby="tile-desktop-nameplate-312"
@@ -225,7 +225,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
                       </span>
                       <img
                         alt=""
-                        src="https://www.masterclass.com/course-images/attachments/fae6JxtfQv1G3Dk2NVEN1BNA?width=1920&quality=75&format=webp"
+                        src="https://www.masterclass.com/course-images/attachments/ytDCxGh9USkRaFbphiuAdszK?width=828&quality=75&format=webp"
                         className={`${styles['tile-image']} ${styles['animation-zoom']} ${styles['animation']}`}
                         style={{
                           position: 'absolute',
@@ -307,7 +307,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
           className={stylesTrailer['div-img-3']}
           data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
         >
-          <div className={styles['fresnel-container']}>
+          <div className={`${styles['fresnel-container']} ${stylesTrailer['content-img']}`}>
             <div
               className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
               aria-labelledby="tile-desktop-nameplate-312"
@@ -364,7 +364,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
                       </span>
                       <img
                         alt=""
-                        src="https://www.masterclass.com/course-images/attachments/fae6JxtfQv1G3Dk2NVEN1BNA?width=1920&quality=75&format=webp"
+                        src="https://www.masterclass.com/course-images/attachments/TQbKGrpPvjK1Xu5iLdzZUaN1?width=828&quality=75&format=webp"
                         className={`${styles['tile-image']} ${styles['animation-zoom']} ${styles['animation']}`}
                         style={{
                           position: 'absolute',
@@ -446,7 +446,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
           className={stylesTrailer['div-img-4']}
           data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
         >
-          <div className={styles['fresnel-container']}>
+          <div className={`${styles['fresnel-container']} ${stylesTrailer['content-img']}`}>
             <div
               className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
               aria-labelledby="tile-desktop-nameplate-312"
@@ -503,7 +503,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
                       </span>
                       <img
                         alt=""
-                        src="https://www.masterclass.com/course-images/attachments/fae6JxtfQv1G3Dk2NVEN1BNA?width=1920&quality=75&format=webp"
+                        src="https://www.masterclass.com/course-images/attachments/k8QdbZh1XHfJdzb6i8Hz4Xre?width=828&quality=75&format=webp"
                         className={`${styles['tile-image']} ${styles['animation-zoom']} ${styles['animation']}`}
                         style={{
                           position: 'absolute',
@@ -585,7 +585,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
           className={stylesTrailer['div-img-5']}
           data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
         >
-          <div className={styles['fresnel-container']}>
+          <div className={`${styles['fresnel-container']} ${stylesTrailer['content-img']}`}>
             <div
               className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
               aria-labelledby="tile-desktop-nameplate-312"
@@ -642,7 +642,7 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
                       </span>
                       <img
                         alt=""
-                        src="https://www.masterclass.com/course-images/attachments/fae6JxtfQv1G3Dk2NVEN1BNA?width=1920&quality=75&format=webp"
+                        src="https://www.masterclass.com/course-images/attachments/RPwDtwKperk61tCR418yoCtH?width=828&quality=75&format=webp"
                         className={`${styles['tile-image']} ${styles['animation-zoom']} ${styles['animation']}`}
                         style={{
                           position: 'absolute',
