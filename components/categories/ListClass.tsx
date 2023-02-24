@@ -1,6 +1,7 @@
 import useGetAllList from '@/hooks/useGetAllList';
 import { classActions } from '@/store/class/classSlice';
 import { isArray } from 'lodash';
+import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import styles from '../../styles/categories.module.scss';
 
@@ -202,7 +203,7 @@ const ListClass: React.FC<ListClassModel> = (props) => {
                                 </svg>
                                 Watch Sample
                               </button>
-                              <a className={styles['button-view']} href="#">
+                              <Link className={styles['button-view']} href="/classes/demo">
                                 <svg
                                   width={24}
                                   height={25}
@@ -231,7 +232,7 @@ const ListClass: React.FC<ListClassModel> = (props) => {
                                   />
                                 </svg>
                                 View Class Info
-                              </a>
+                              </Link>
                             </div>
                           </div>
                         </div>

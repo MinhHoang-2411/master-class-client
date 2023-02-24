@@ -5,10 +5,11 @@ import styles from '../../styles/layout-page.module.scss';
 
 interface VideoModel {
   imgPreview?: string;
+  style?: any;
 }
 
 export const Video = (props: VideoModel) => {
-  const { imgPreview } = props;
+  const { imgPreview, style } = props;
   const videoRef = useRef<any>(null);
   const playerRef = useRef<any>(null);
   const [showPreview, setShowPreview] = useState(true);
@@ -95,7 +96,7 @@ export const Video = (props: VideoModel) => {
       <div ref={videoRef} className={styles.divVideo} />
       {showPreview && (
         <>
-          <img className={styles.img_preview} alt="" src={imgPreview} />
+          <img className={styles.img_preview} alt="" src={imgPreview} style={style} />
           <div className={styles.btn_play_preview}>
             <svg
               fill="none"

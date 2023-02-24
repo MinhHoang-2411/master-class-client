@@ -16,6 +16,10 @@ const styleDescription = {
   border: 'none',
   background: '#222326',
   padding: '16px',
+  fontSize: {
+    xs: '15px',
+    sm: '15px',
+  },
 };
 
 const styleBtnSignUp = {

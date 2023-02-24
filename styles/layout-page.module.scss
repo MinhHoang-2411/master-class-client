@@ -21,7 +21,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .btn_play_preview {
@@ -112,10 +112,11 @@
 .div-img-3,
 .div-img-4,
 .div-img-5 {
-    width: 110px;
+    width: 120px;
     height: 80px;
     margin-left: auto;
     margin-right: auto;
+
 }
 
 .div-img-1 {
@@ -174,7 +175,20 @@
     background: #fff;
 }
 
-@media (max-width: 576px) {
+.content-img {
+    border: 4px solid #000;
+    border-radius: 10px;
+}
+
+@media (max-width: 390px) {
+    .text-h6 {
+        font-size: 8px;
+    }
+
+    .author-name {
+        font-size: 14px;
+        font-weight: bold;
+    }
 
     .div-img-1,
     .div-img-2,
@@ -188,11 +202,11 @@
     }
 
     .div-img-2 {
-        right: 165px;
+        right: 161px;
     }
 
     .div-img-3 {
-        left: 165px;
+        left: 161px;
     }
 
     .div-img-4 {
@@ -204,7 +218,46 @@
     }
 }
 
-@media (max-width: 576px) and (max-width: 768px) {
+@media (min-width: 390px) and (max-width: 576px) {
+
+    .text-h6 {
+        font-size: 8px;
+    }
+
+    .author-name {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .div-img-1,
+    .div-img-2,
+    .div-img-3,
+    .div-img-4,
+    .div-img-5 {
+        width: 90px;
+        height: 60px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .div-img-2 {
+        right: 181px;
+    }
+
+    .div-img-3 {
+        left: 181px;
+    }
+
+    .div-img-4 {
+        right: -3px;
+    }
+
+    .div-img-5 {
+        left: -3px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
     .text-h6 {
         font-size: 8px;
     }
@@ -378,7 +431,7 @@
     .div-img-3,
     .div-img-4,
     .div-img-5 {
-        width: 90px;
+        width: 105px;
         height: 60px;
         margin-left: auto;
         margin-right: auto;
@@ -421,7 +474,49 @@
     .div-img-3,
     .div-img-4,
     .div-img-5 {
-        width: 90px;
+        width: 105px;
+        height: 60px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .div-img-2 {
+        right: 110px;
+        top: 66px;
+    }
+
+    .div-img-3 {
+        left: 110px;
+        top: 66px;
+    }
+
+    .div-img-4 {
+        right: 40px;
+        top: 12px;
+    }
+
+    .div-img-5 {
+        left: 40px;
+        top: 12px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .text-h6 {
+        font-size: 7px;
+    }
+
+    .author-name {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .div-img-1,
+    .div-img-2,
+    .div-img-3,
+    .div-img-4,
+    .div-img-5 {
+        width: 105px;
         height: 60px;
         margin-left: auto;
         margin-right: auto;
