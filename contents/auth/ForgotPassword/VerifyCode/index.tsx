@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import ReactCodeInput from 'react-code-input';
+import style from './style.module.scss';
 
 const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
   const token_forgot_pass = useAppSelector((state) => state?.auth?.tokenForgotPass);
@@ -80,6 +81,7 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
                       <Box sx={displayCenter}>
                         <ReactCodeInput
                           type="number"
+                          className={style.reactCodeInput}
                           fields={6}
                           onChange={onChange}
                           name="arrayCode"
