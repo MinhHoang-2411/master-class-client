@@ -1,0 +1,10 @@
+.reactCodeInput {
+  input[type='number'] {
+    -moz-appearance: textfield !important; // For Firefox
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none !important;
+      margin: 0 !important;
+    }
+  }
+}
