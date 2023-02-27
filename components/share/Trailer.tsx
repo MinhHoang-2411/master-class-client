@@ -17,14 +17,15 @@ const styleDescription = {
   border: 'none',
   background: '#222326',
   padding: '16px',
+  marginBottom: '15px',
 };
 
 const styleBtnSignUp = {
   backgroundColor: '#e32652',
-  padding: '10px 22px',
+  padding: '10px',
   cursor: 'pointer',
   width: '160px',
-  height: '35px',
+  height: '32px',
   borderRadius: '8px',
   fontSize: '16px',
   display: 'flex',
@@ -32,8 +33,8 @@ const styleBtnSignUp = {
   justifyContent: 'center',
   fontWeight: 'bold',
   margin: 'auto',
-  marginTop: '15px',
-  marginBottom: '15px',
+  marginTop: '8px',
+  marginBottom: '8px',
   '&:hover': {
     backgroundColor: '#d61a46',
   },

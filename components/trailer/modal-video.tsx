@@ -1,23 +1,27 @@
-import { useState } from 'react';
+import styles from '../../styles/classes.module.scss';
+import Video from './video';
 
 interface ModalVideoModel {
   openModal?: boolean;
-  setOpenModal?: (show: boolean) => void;
+  setOpenModal: (show: boolean) => void;
 }
 
 const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal }) => {
   return (
     <>
-      <div className="mc-modal mc-modal--full">
-        <div className="mc-backdrop mc-backdrop--extra-dark mc-modal__backdrop" />
-        <div className="mc-modal__viewport">
-          <div id="dialog-container" tabIndex={-1} className="container">
+      <div className={`${styles['mc-modal']} ${styles['mc-modal--full']}`}>
+        <div
+          className={`${styles['mc-backdrop']} ${styles['mc-backdrop--extra-dark']} ${styles['mc-modal__backdrop']}`}
+        />
+        <div className={styles['mc-modal__viewport']}>
+          <div id="dialog-container" tabIndex={-1} className={styles['container']}>
             <button
               type="button"
-              className="c-button c-button--link c-button--md mc-modal__close mc-p-0 "
+              className={`${styles['c-button']} ${styles['c-button--link']} ${styles['c-button--md']} ${styles['mc-modal__close']} ${styles['mc-p-0']}`}
               data-testid="modal-close-button"
+              onClick={() => setOpenModal(false)}
             >
-              <span className="mc-sr-only">Close</span>
+              <span className={styles['mc-sr-only']}>Close</span>
               <svg
                 width={24}
                 height={25}
@@ -26,7 +30,7 @@ const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal }) => {
                 viewBox="0 0 24 24"
                 aria-hidden="true"
                 role="img"
-                className="mc-icon mc-icon--md mc-icon--scale-4 mc-m-2"
+                className={`${styles['mc-icon']} ${styles['mc-icon--md']} ${styles['mc-icon--scale-4']} ${styles['mc-m-2']}`}
               >
                 <path
                   fillRule="evenodd"
@@ -37,18 +41,20 @@ const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal }) => {
               </svg>
             </button>
             <div
-              className="mc-modal__content"
+              className={styles['mc-modal__content']}
               role="dialog"
               aria-modal="true"
               aria-labelledby="trailer-modal-heading"
             >
               <div
-                className="row justify-content-between align-items-center mc-mb-2 mc-overflow--hidden"
+                className={`${styles['row']} ${styles['justify-content-between']} ${styles['align-items-center']} ${styles['mc-mb-2']} ${styles['mc-overflow--hidden']}`}
                 data-testid="trailer-modal"
               >
-                <div className="d-none d-md-block col-2 col-md-1">
-                  <div className="mc-tile mc-tile--1x1">
-                    <div className="mc-tile__content content">
+                <div
+                  className={`${styles['d-none']} ${styles['d-md-block']} ${styles['col-2']} ${styles['col-md-1']}`}
+                >
+                  <div className={`${styles['mc-tile']} ${styles['mc-tile--1x1']}`}>
+                    <div className={`${styles['mc-tile__content']} ${styles['content']}`}>
                       <span
                         style={{
                           boxSizing: 'border-box',
@@ -71,7 +77,7 @@ const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal }) => {
                           src="https://www.masterclass.com/course-images/attachments/TQbKGrpPvjK1Xu5iLdzZUaN1?width=3840&quality=75&format=webp"
                           decoding="async"
                           data-nimg="fill"
-                          className="mc-tile-image mc-corners--circle"
+                          className={`${styles['mc-tile-image']} ${styles['mc-corners--circle']}`}
                           style={{
                             position: 'absolute',
                             inset: 0,
@@ -92,26 +98,29 @@ const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal }) => {
                     </div>
                   </div>
                 </div>
-                <div className="col">
-                  <h1 className="mc-text-h5 mc-text--1-line-max" id="trailer-modal-heading">
+                <div className={styles['col']}>
+                  <h1
+                    id="trailer-modal-heading"
+                    className={`${styles['mc-text-h5']} ${styles['mc-text--1-line-max']} `}
+                  >
                     Trailer for Gordon Ramsay
                   </h1>
-                  <p className="mc-mt-1">Teaches Cooking I</p>
+                  <p className={styles['mc-mt-1']}>Teaches Cooking I</p>
                 </div>
-                <div className="col-auto">
-                  <a className="c-button c-button--primary c-button--md" href="/find-my-classes">
+                <div className={styles['col-auto']}>
+                  <a
+                    className={`${styles['c-button']} ${styles['c-button--primary']} ${styles['c-button--md']} `}
+                    href="/find-my-classes"
+                  >
                     Sign Up
                   </a>
                 </div>
               </div>
-              <div className="bc-player">
-                <div
-                  id="video-wrapper-f4d9e2e2-5377-444f-84ce-c4a390845ca9"
-                  className="bc-player__wrapper"
-                >
+              <div className={styles['bc-player']}>
+                <div id="video-wrapper" className={styles['bc-player__wrapper']}>
                   <div
                     id="vjs_video_30812"
-                    className="bc-player__video bc-player__video--default video-js vjs-tech vjs-subs-caps-button-mobile vjs-controls-enabled vjs-workinghover vjs-v7 vjs-layout-large bc-player-1cMNiwC9oQ_default bc-player-1cMNiwC9oQ_default-index-7 vjs-mouse vjs-plugins-ready vjs-player-info vjs-errors vjs-quality-menu vjs-has-started vjs-playing vjs-mux not-hover vjs-user-inactive"
+                    className={`${styles['bc-player__video']}`}
                     data-application-id="true"
                     tabIndex={-1}
                     lang="en"
@@ -120,66 +129,49 @@ const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal }) => {
                     aria-label="Video Player"
                   >
                     <div>
-                      <div className="bc-player__screen bc-player__screen--pausescreen bc-player__screen--exit-done">
-                        <div className="mc-tile mc-tile--16x9">
-                          <div className="mc-tile__content content">
-                            <div className="mc-tile__component mc-tile-overlay mc-tile-overlay--solid " />
-                            <div className="mc-tile__component mc-tile-caption mc-tile-caption--x-left mc-tile-caption--y-top">
-                              <div className="mc-tile-caption__content mc-p-3">
-                                <p className="mc-text-small mc-p-5">Class Trailer</p>
+                      <div
+                        className={`${styles['bc-player__screen']} ${styles['bc-player__screen--pausescreen']} ${styles['bc-player__screen--exit-done']} `}
+                      >
+                        <div className={`${styles['mc-tile']} ${styles['mc-tile--16x9']}`}>
+                          <div className={`${styles['mc-tile__content']} ${styles['content']}`}>
+                            <div
+                              className={`${styles['mc-tile__component']} ${styles['mc-tile-overlay']} ${styles['mc-tile-overlay--solid']}`}
+                            />
+                            <div
+                              className={`${styles['mc-tile__component']} ${styles['mc-tile-caption']} ${styles['mc-tile-caption--x-left']} ${styles['mc-tile-caption--y-top']}`}
+                            >
+                              <div
+                                className={`${styles['mc-tile-caption__content']} ${styles['mc-p-3']}`}
+                              >
+                                <p className={`${styles['mc-text-small']} ${styles['mc-p-5']}`}>
+                                  Class Trailer
+                                </p>
                               </div>
                             </div>
-                            <div className="mc-tile__component mc-tile-caption mc-tile-caption--x-center mc-tile-caption--y-center">
-                              <div className="mc-tile-caption__content mc-p-3">
+                            <div
+                              className={`${styles['mc-tile__component']} ${styles['mc-tile-caption']} ${styles['mc-tile-caption--x-center']} ${styles['mc-tile-caption--y-center']}`}
+                            >
+                              <div
+                                className={`${styles['mc-tile-caption__content']} ${styles['mc-p-3']}`}
+                              >
                                 <div>
-                                  <div className="row">
-                                    <div className="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                                      <h5 className="mc-text-h5">
+                                  <div className={styles['row']}>
+                                    <div
+                                      className={`${styles['col-12']} ${styles['col-md-8']} ${styles['offset-md-2']} ${styles['col-lg-6']} ${styles['offset-lg-3']}`}
+                                    >
+                                      <h5 className={styles['mc-text-h5']}>
                                         Subscribe to MasterClass to continue watching
                                       </h5>
-                                      <p className="d-none d-md-block mc-mt-3">
+                                      <p
+                                        className={`${styles['d-none']} ${styles['d-md-block']} ${styles['mc-mt-3']}`}
+                                      >
                                         <span>Starting at $15/month (billed annually)</span>
                                       </p>
-                                      <a
-                                        className="c-button c-button--primary c-button--md mc-mt-3"
-                                        href="/find-my-classes"
+                                      <span
+                                        className={`${styles['c-button']} ${styles['c-button--primary']} ${styles['c-button--md']} ${styles['mc-mt-3']}`}
                                       >
                                         Sign Up
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="bc-player__screen bc-player__screen--endscreen">
-                        <div className="mc-tile mc-tile--16x9">
-                          <div className="mc-tile__content content">
-                            <div className="mc-tile__component mc-tile-overlay mc-tile-overlay--solid " />
-                            <div className="mc-tile__component mc-tile-caption mc-tile-caption--x-left mc-tile-caption--y-top">
-                              <div className="mc-tile-caption__content mc-p-3">
-                                <p className="mc-text-small mc-p-5">Class Trailer</p>
-                              </div>
-                            </div>
-                            <div className="mc-tile__component mc-tile-caption mc-tile-caption--x-center mc-tile-caption--y-center">
-                              <div className="mc-tile-caption__content mc-p-3">
-                                <div>
-                                  <div className="row">
-                                    <div className="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                                      <h5 className="mc-text-h5">
-                                        Subscribe to MasterClass to continue watching
-                                      </h5>
-                                      <p className="d-none d-md-block mc-mt-3">
-                                        <span>Starting at $15/month (billed annually)</span>
-                                      </p>
-                                      <a
-                                        className="c-button c-button--primary c-button--md mc-mt-3"
-                                        href="/find-my-classes"
-                                      >
-                                        Sign Up
-                                      </a>
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -189,20 +181,12 @@ const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal }) => {
                         </div>
                       </div>
                     </div>
-                    {/* <video
-                        data-application-id="true"
-                        className="bc-player__video bc-player__video--default video-js vjs-tech vjs-fill-height vjs-subs-caps-button-mobile"
-                        data-embed="default"
-                        data-account={5344802162001}
-                        data-player-id="1cMNiwC9oQ"
-                        data-video-id={5549438032001}
-                        captions="Off"
-                        id="vjs_video_30812_html5_api"
-                        tabIndex={-1}
-                        poster="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/5344802162001/b1ff9874-e6f8-41a9-9761-5226f23367f3/main/1920x1080/41s824ms/match/image.jpg"
-                        src="blob:https://www.masterclass.com/ea063a9d-a842-497c-b738-a3e92c097bd1"
-                      /> */}
-                    <div
+                    <Video
+                      imgPreview={
+                        'https://cf-images.us-east-1.prod.boltdns.net/v1/jit/5344802162001/b1ff9874-e6f8-41a9-9761-5226f23367f3/main/1920x1080/41s824ms/match/image.jpg'
+                      }
+                    />
+                    {/* <div
                       className="vjs-poster"
                       tabIndex={-1}
                       aria-disabled="false"
@@ -210,7 +194,7 @@ const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal }) => {
                         backgroundImage:
                           'url("https://cf-images.us-east-1.prod.boltdns.net/v1/jit/5344802162001/b1ff9874-e6f8-41a9-9761-5226f23367f3/main/1920x1080/41s824ms/match/image.jpg")',
                       }}
-                    />
+                    /> */}
                     <div
                       className="vjs-text-track-display"
                       translate="yes"
