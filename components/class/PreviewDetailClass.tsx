@@ -1,16 +1,21 @@
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
+import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import styles from '../../styles/classes.module.scss';
+import AboutClass from './AboutClass';
 
 interface PreviewDetailClassModel {}
 
-const PreviewDetailClass: React.FC<PreviewDetailClassModel> = (props) => {
+interface Props {
+  classes: any;
+  categories: any;
+}
+
+const PreviewDetailClass = ({ classes, categories }: Props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const nameCategory = router?.query?.name?.[0];
 
-  const {} = props;
   return (
     <>
       <div className={styles.Hero_tileContainer}>
@@ -260,6 +265,8 @@ const PreviewDetailClass: React.FC<PreviewDetailClassModel> = (props) => {
           </div>
         </div>
       </div>
+
+      <AboutClass classes={classes} categories={categories}/>
     </>
   );
 };

@@ -203,7 +203,10 @@ const ListClass: React.FC<ListClassModel> = (props) => {
                                 </svg>
                                 Watch Sample
                               </button>
-                              <Link className={styles['button-view']} href="/classes/demo">
+                              <Link
+                                className={styles['button-view']}
+                                href="/classes/uyen-tester-teaches-dramatic-writing"
+                              >
                                 <svg
                                   width={24}
                                   height={25}
