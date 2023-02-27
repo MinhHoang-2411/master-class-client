@@ -205,7 +205,7 @@ const ListClass: React.FC<ListClassModel> = (props) => {
                               </button>
                               <Link
                                 className={styles['button-view']}
-                                href="/classes/uyen-tester-teaches-dramatic-writing"
+                                href={`/classes/${item?.webName}` || '#'}
                               >
                                 <svg
                                   width={24}

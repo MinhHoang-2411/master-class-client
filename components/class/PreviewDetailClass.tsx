@@ -1,8 +1,9 @@
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
-import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import styles from '../../styles/classes.module.scss';
+import ModalVideo from '../trailer/modal-video';
 import AboutClass from './AboutClass';
 
 interface PreviewDetailClassModel {}
@@ -15,6 +16,8 @@ interface Props {
 const PreviewDetailClass = ({ classes, categories }: Props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const nameCategory = router?.query?.name?.[0];
+  const [modalVideo, setModalVideo] = useState(false);
 
   return (
     <>
@@ -157,6 +160,7 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
                     <div className={styles['col-auto']}>
                       <button
                         type="button"
+                        onClick={() => setModalVideo(true)}
                         className={`${styles['c-button']} ${styles['c-button--link']} ${styles['c-button--md']} ${styles['d-inline-flex']} ${styles['flex-column']}`}
                       >
                         <svg
@@ -179,6 +183,7 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
                       <button
                         type="button"
                         className={`${styles['c-button']} ${styles['c-button--link']} ${styles['c-button--md']} ${styles['d-inline-flex']} ${styles['flex-column']}`}
+                        onClick={() => setModalVideo(true)}
                       >
                         <svg
                           width={24}
@@ -266,7 +271,8 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
         </div>
       </div>
 
-      <AboutClass classes={classes} categories={categories}/>
+      <AboutClass classes={classes} categories={categories} />
+      {modalVideo && <ModalVideo openModal={modalVideo} setOpenModal={setModalVideo} />}
     </>
   );
 };

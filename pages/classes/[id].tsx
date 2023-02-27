@@ -1,11 +1,10 @@
 import PreviewDetailClass from '@/components/class/PreviewDetailClass';
 import classAPI from '@/services/api/class';
-import { useRouter } from 'next/router';
 import styles from '../../styles/classes.module.scss';
 
 interface Props {
   classes: any;
-  categories: any
+  categories: any;
 }
 
 const Classes = ({ classes, categories }: Props) => {
@@ -13,7 +12,7 @@ const Classes = ({ classes, categories }: Props) => {
     <>
       <main className={styles.page_content}>
         <section>
-          <PreviewDetailClass classes={classes} categories={categories}/>
+          <PreviewDetailClass classes={classes} categories={categories} />
         </section>
         <section className={styles.container}></section>
       </main>
