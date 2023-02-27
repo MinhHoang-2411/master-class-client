@@ -25,8 +25,17 @@ const AboutClass = ({ classes, categories }: Props) => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
   }, []);
 
-
   const [playing, setPlaying] = useState(false);
+
+  const TimeConvert = () => {
+    const time = classes?.lessons?.reduce(
+      (accumulator: any, currentValue: any) => accumulator + currentValue.duration,
+      0
+    );
+    let hours = Math.floor(time / 60);
+    let minutes = Math.floor(time % 60);
+    return `${hours > 0 ? `${hours} hour` : ''} ${minutes > 0 ? `${minutes} minute` : ''}`;
+  };
 
   return (
     <>
@@ -37,7 +46,11 @@ const AboutClass = ({ classes, categories }: Props) => {
         <Grid container columnSpacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
           <Grid item lg={8} md={8} xs={12}>
             <Box>
-              <PlayVideo videoPreview={classes.videoPreview} playing={playing} setPlaying={setPlaying}/>
+              <PlayVideo
+                videoPreview={classes.videoPreview}
+                playing={playing}
+                setPlaying={setPlaying}
+              />
             </Box>
           </Grid>
 
@@ -51,7 +64,7 @@ const AboutClass = ({ classes, categories }: Props) => {
               overflow: 'scroll',
             }}
           >
-            <VideoTrailer playing={playing} setPlaying={setPlaying}/>
+            <VideoTrailer playing={playing} setPlaying={setPlaying} />
 
             <Typography
               variant="body2"
@@ -95,7 +108,7 @@ const AboutClass = ({ classes, categories }: Props) => {
                 Class Length:
               </Typography>
               <Typography sx={{ fontWeight: 'bold', fontSize: '14px', pl: 1 }} component="p">
-                {classes?.lessons.length} video lessons
+                {`${classes?.lessons?.length} video lessons (${TimeConvert()})`}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', pb: '8px' }}>
