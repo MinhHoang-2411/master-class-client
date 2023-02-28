@@ -1,7 +1,5 @@
 import * as Yup from 'yup';
 
-const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-
 const SignUpSchema = () =>
   Yup.object().shape({
     firstName: Yup.string()
@@ -18,10 +16,6 @@ const SignUpSchema = () =>
       .max(50, 'Maximum 50 symbols')
       .required('Last name is required'),
     password: Yup.string()
-      .matches(
-        passRegex,
-        'The password must consist of 1 uppercase letter, 1 lowercase letter, and 1 number'
-      )
       .min(8, 'Minimum 8 symbols')
       .max(20, 'Maximum 20 symbols')
       .required('Password is required'),
