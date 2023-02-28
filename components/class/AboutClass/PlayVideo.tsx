@@ -5,18 +5,32 @@ interface Props {
   videoPreview: any;
   playing: any;
   setPlaying: any;
+  setPauseVideo?: any;
+  height?: string;
 }
-const PlayVideo = ({ videoPreview, playing, setPlaying }: Props) => {
+const PlayVideo = ({
+  videoPreview,
+  playing,
+  setPlaying,
+  setPauseVideo,
+  height = '350px',
+}: Props) => {
   return (
     <>
       <ReactPlayer
         url={videoPreview.url}
         width="100%"
-        height="350px"
+        height={height}
         controls={true}
         playing={playing}
-        onPause={() => setPlaying(false)}
-        onPlay={() => setPlaying(true)}
+        onPause={() => {
+          setPlaying(false);
+          setPauseVideo && setPauseVideo(true);
+        }}
+        onPlay={() => {
+          setPauseVideo && setPauseVideo(false);
+          setPlaying(true);
+        }}
         light={videoPreview.thumbnail}
       />
     </>

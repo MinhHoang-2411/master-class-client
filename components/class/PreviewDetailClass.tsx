@@ -47,7 +47,7 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
                 <img
                   alt=""
                   sizes="100vw"
-                  src="https://www.masterclass.com/course-images/attachments/ce3SwsNJRtiLU96MqFEfa3WU?width=3840&quality=75&format=webp"
+                  src={classes?.thumbnail}
                   decoding="async"
                   data-nimg="fill"
                   className={styles['mc-tile-image']}
@@ -138,7 +138,7 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
                             className={`${styles['mc-text--2-lines']} ${styles['mc-text-h6']}`}
                             data-testid="nameplate__sub-text"
                           >
-                            Teaches Cooking I
+                            {classes?.name}
                           </p>
                         </div>
                       </div>
@@ -150,8 +150,7 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
                     <div
                       className={`${styles['row']} ${styles['col-12']} ${styles['col-md-8']} ${styles['col-lg-6']}`}
                     >
-                      Take your cooking to the next level in Gordon’s first MasterClass on essential
-                      methods, ingredients, and recipes.
+                      {classes?.overview?.description}
                     </div>
                   </div>
                   <div
@@ -272,7 +271,14 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
       </div>
 
       <AboutClass classes={classes} categories={categories} />
-      {modalVideo && <ModalVideo openModal={modalVideo} setOpenModal={setModalVideo} />}
+      {modalVideo && (
+        <ModalVideo
+          openModal={modalVideo}
+          setOpenModal={setModalVideo}
+          classes={classes}
+          categories={categories}
+        />
+      )}
     </>
   );
 };
