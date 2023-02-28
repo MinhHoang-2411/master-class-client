@@ -37,8 +37,8 @@ Classes.getInitialProps = async (ctx: any) => {
     const categories: any = await classAPI.getListCategory(payloadCategory);
 
     return {
-      classes: response.data,
-      categories: categories.data,
+      classes: response?.data,
+      categories: categories?.data,
     };
   } catch (error) {
     console.error(error);

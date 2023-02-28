@@ -16,8 +16,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import IconMenu from '../../public/icon/icon-menu.svg';
 import ModalCategories from '../categories/modalCategories';
+import ModalSearch from '../categories/modalSearch';
 import Button from '../share/Button';
-import ModalMenu from './ModalMenu';
 
 const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
@@ -28,12 +28,18 @@ const Navbar: React.FC = () => {
   const router = useRouter();
 
   const [showCategory, setShowCategory] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const ref = useRef();
+  const refSearch = useRef();
   const handleClickOutside = () => {
     setShowCategory(false);
   };
+  const handleClickOutsideSearch = () => {
+    setShowSearch(false);
+  };
   useOnClickOutside(ref, handleClickOutside);
+  useOnClickOutside(refSearch, handleClickOutsideSearch);
 
   useEffect(() => {
     dispatch(categoriesActions.fetchData({}));
@@ -93,21 +99,27 @@ const Navbar: React.FC = () => {
                   />
                 )}
               </Box>
-              <Button
-                variant="text"
-                size="small"
-                color="inherit"
-                sx={{
-                  width: 'max-content',
-                  display: {
-                    xs: 'none',
-                    sm: 'flex',
-                  },
-                }}
-              >
-                <SearchIcon fontSize="small" color="inherit" sx={{ mr: 0.5 }} />
-                {'Search'}
-              </Button>
+              <Box sx={{ position: 'relative' }} ref={refSearch}>
+                <Button
+                  variant="text"
+                  size="small"
+                  color="inherit"
+                  sx={{
+                    width: 'max-content',
+                    display: {
+                      xs: 'none',
+                      sm: 'flex',
+                    },
+                  }}
+                  onClick={() => setShowSearch((preState) => !preState)}
+                >
+                  <SearchIcon fontSize="small" color="inherit" sx={{ mr: 0.5 }} />
+                  {'Search'}
+                </Button>
+                {showSearch && (
+                  <ModalSearch listCategories={listCategories} setShowSearch={setShowSearch} />
+                )}
+              </Box>
               <Button
                 variant="text"
                 size="small"
@@ -135,7 +147,7 @@ const Navbar: React.FC = () => {
                   alt="icon-menu"
                   onClick={() => setShowMenu((preState) => !preState)}
                 />
-                {showMenu && <ModalMenu setShowMenu={setShowMenu} />}
+                {showMenu && <ModalSearch setShowSearch={setShowMenu} showMenu={true} />}
               </Box>
             </Box>
             {currentUser ? (
