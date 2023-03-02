@@ -1,21 +1,22 @@
 import Layout from '@/components/layouts';
-import MessagesFromTeam from '@/components/share/MessagesFromTeam';
 import ProductHero from '@/components/share/ProductHero';
-import Trailer from '@/components/share/Trailer';
 import bannerApi from '@/services/api/home-page';
+import dynamic from 'next/dynamic';
 
 interface HomePageModel {
   listBanners: string[];
+  layoutPage: any;
 }
 
+const Trailer = dynamic(() => import('@/components/share/Trailer'), { ssr: false });
+const MessagesFromTeam = dynamic(() => import('@/components/share/MessagesFromTeam'), { ssr: false });
 function HomePage(props: HomePageModel) {
-  const { listBanners } = props;
-
+  const { listBanners, layoutPage } = props;
   return (
     <>
       <ProductHero listBanners={listBanners} />
-      <Trailer />
-      <MessagesFromTeam />
+      <Trailer layoutPage={layoutPage} />
+      <MessagesFromTeam layoutPage={layoutPage}/>
     </>
   );
 }
@@ -23,9 +24,11 @@ function HomePage(props: HomePageModel) {
 export async function getStaticProps() {
   try {
     const res: any = await bannerApi.getAll();
+    const layout: any = await bannerApi.getHomeLayout();
     return {
       props: {
         listBanners: res?.data?.images || [],
+        layoutPage: layout?.data,
       },
       revalidate: 10,
     };

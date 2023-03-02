@@ -8,6 +8,9 @@ const bannerApi = {
   getAll() {
     return axiosClient.get(GET_BANNERS);
   },
+  getHomeLayout() {
+    return axiosClient.get(`${API_URL}/home/layout`)
+  }
 };
 
 export default bannerApi;
