@@ -1,5 +1,6 @@
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/system';
+import ReactPlayer from 'react-player';
 
 import Video from '../trailer/video';
 
@@ -9,9 +10,11 @@ const styleBigVideo = {
 
 interface MessagesFromTeamModel {
   listBanners?: string[];
+  layoutPage?: any;
 }
 
-const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
+const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
+  const { messagesTeam } = layoutPage;
   return (
     <Box
       sx={{
@@ -39,11 +42,11 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
         sx={{ width: '100% !important', color: '#f4f4f5 !important', margin: '0 !important' }}
       >
         <Grid item xs={6} sm={6} md={6} sx={{ padding: '20px !important' }}>
-          <Video
-            imgPreview={
-              'https://www.masterclass.com/course-images/attachments/2Se46dFKMwhQbWArLPhsxMTS?width=3840&quality=75&format=webp'
-            }
-            style={styleBigVideo}
+          <ReactPlayer
+            light={messagesTeam[0]?.thumbnail}
+            url={messagesTeam[0]?.url}
+            controls={true}
+            width="100%"
           />
         </Grid>
         <Grid
@@ -55,11 +58,11 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
             padding: '20px !important',
           }}
         >
-          <Video
-            imgPreview={
-              'https://www.masterclass.com/course-images/attachments/jm3bj08oun86mivwn64wsgvgyp7f?width=3840&quality=75&format=webp'
-            }
-            style={styleBigVideo}
+          <ReactPlayer
+            light={messagesTeam[1]?.thumbnail}
+            url={messagesTeam[1]?.url}
+            controls={true}
+            width="100%"
           />
         </Grid>
       </Grid>
@@ -76,11 +79,11 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({}) => {
         }}
       >
         <Grid item xs={7} sm={7} md={7} sx={{ padding: '20px !important' }}>
-          <Video
-            imgPreview={
-              'https://www.masterclass.com/course-images/attachments/usdssfwa0yvqdph2i5qzepwvv6gp?width=1920&quality=75&format=webp'
-            }
-            style={styleBigVideo}
+          <ReactPlayer
+            light={messagesTeam[2]?.thumbnail}
+            url={messagesTeam[2]?.url}
+            controls={true}
+            width="100%"
           />
         </Grid>
       </Grid>
