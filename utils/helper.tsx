@@ -11,3 +11,8 @@ export function removeMark(str: any) {
     return str
   }
   
+
+export const isMappable = (array: object[]): boolean => {
+  if (Array.isArray(array)) return array.length > 0;
+  return false;
+};

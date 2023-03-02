@@ -6,8 +6,13 @@ import PauseIcon from '@mui/icons-material/Pause';
 interface Props {
   playing: any;
   setPlaying: any;
+  setLight: any;
 }
-const VideoTrailer = ({ playing, setPlaying }: Props) => {
+const VideoTrailer = ({ playing, setPlaying, setLight }: Props) => {
+  const onClickPlayVideo = () => {
+    setPlaying(!playing);
+    setLight(false);
+  };
   return (
     <>
       <Box
@@ -19,7 +24,7 @@ const VideoTrailer = ({ playing, setPlaying }: Props) => {
           borderRadius: '5px',
           cursor: 'pointer',
         }}
-        onClick={() => setPlaying(!playing)}
+        onClick={onClickPlayVideo}
       >
         {playing ? (
           <PauseIcon />

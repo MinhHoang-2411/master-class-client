@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Box, Grid, Typography, Accordion } from '@mui/material';
-import CustomizedAccordions from './Accondion';
+import { isMappable } from '@/utils/helper';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
+import CustomizedAccordions from './Accondion';
 import VideoTrailer from './VideoTrailer';
 
-const PlayVideo = dynamic(() => import('./PlayVideo'), {
+const VideoPreview = dynamic(() => import('./VideoPreview'), {
   ssr: false,
 });
 
@@ -13,11 +14,6 @@ interface Props {
   categories: any;
 }
 
-const isMappable = (array: object[]): boolean => {
-  if (Array.isArray(array)) return array.length > 0;
-  return false;
-};
-
 const AboutClass = ({ classes, categories }: Props) => {
   const [listCategory, setListCategory] = useState<any>([]);
 
@@ -25,16 +21,21 @@ const AboutClass = ({ classes, categories }: Props) => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
   }, []);
 
-  const [playing, setPlaying] = useState(false);
+  const [playingVideo, setPlayingVideo] = useState(false);
+  const [lightVideo, setLightVideo] = useState(classes.videoPreview.thumbnail);
 
   const TimeConvert = () => {
-    const time = classes?.lessons?.reduce(
+    const totalTime = classes?.lessons?.reduce(
       (accumulator: any, currentValue: any) => accumulator + currentValue.duration,
       0
     );
-    let hours = Math.floor(time / 60);
-    let minutes = Math.floor(time % 60);
-    return `${hours > 0 ? `${hours} hour` : ''} ${minutes > 0 ? `${minutes} minute` : ''}`;
+    const duration = Math.floor(totalTime);
+    const hours = Math.floor(duration / 3600);
+    const minutes = Math.floor((duration - hours * 3600) / 60);
+    const remainingSeconds = duration - hours * 3600 - minutes * 60;
+    return `${hours > 0 ? `${hours.toString().padStart(2, '0')} hours ` : ''}${
+      minutes > 0 ? `${minutes.toString().padStart(2, '0')} minutes ` : ''
+    }${remainingSeconds > 0 ? `${remainingSeconds.toString().padStart(2, '0')} seconds` : ''}`;
   };
 
   return (
@@ -43,13 +44,19 @@ const AboutClass = ({ classes, categories }: Props) => {
         <Box>
           <h2>About this class</h2>
         </Box>
-        <Grid container columnSpacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Grid
+          container
+          columnSpacing={2}
+          sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
+        >
           <Grid item lg={8} md={8} xs={12}>
             <Box>
-              <PlayVideo
-                videoPreview={classes.videoPreview}
-                playing={playing}
-                setPlaying={setPlaying}
+              <VideoPreview
+                lightVideo={lightVideo}
+                url={classes.videoPreview?.url}
+                playingVideo={playingVideo}
+                setLightVideo={setLightVideo}
+                setPlayingVideo={setPlayingVideo}
               />
             </Box>
           </Grid>
@@ -60,11 +67,15 @@ const AboutClass = ({ classes, categories }: Props) => {
             md={4}
             xs={12}
             sx={{
-              height: '350px',
+              height: '360px',
               overflow: 'scroll',
             }}
           >
-            <VideoTrailer playing={playing} setPlaying={setPlaying} />
+            <VideoTrailer
+              playing={playingVideo}
+              setPlaying={setPlayingVideo}
+              setLight={setLightVideo}
+            />
 
             <Typography
               variant="body2"
@@ -79,6 +90,7 @@ const AboutClass = ({ classes, categories }: Props) => {
                 <CustomizedAccordions
                   title={lesson?.title}
                   description={lesson?.description}
+                  duration={lesson?.duration}
                   index={index}
                   key={lesson?.index}
                 />
