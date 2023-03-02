@@ -3,10 +3,10 @@ import { useAppDispatch } from '@/store/hooks';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
-import FeaturedPreview from '../trailer/featured-preview';
-import Video from '../trailer/video';
-import styles from '../../styles/layout-page.module.scss';
+import { useState } from 'react';
 import ReactPlayer from 'react-player';
+import styles from '../../styles/layout-page.module.scss';
+import FeaturedPreview from '../trailer/featured-preview';
 
 const styleDescription = {
   display: 'flexbox',
@@ -50,6 +50,12 @@ const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
   const dispatch = useAppDispatch();
   const { trailer, welcome } = layoutPage;
 
+  const [lightTrailer, setLightTrailer] = useState(trailer?.thumbnail);
+  const [playingTrailer, setPlayingTrailer] = useState(false);
+
+  const [lightWelcome, setLightWelcome] = useState(welcome?.thumbnail);
+  const [playingWelcome, setPlayingWelcome] = useState(false);
+
   return (
     <Box
       sx={{
@@ -67,11 +73,28 @@ const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
-        sx={{ width: '100% !important', color: '#f4f4f5 !important', margin: '0 !important' }}
+        sx={{
+          width: '100% !important',
+          color: '#f4f4f5 !important',
+          margin: '0 !important',
+          display: 'flex',
+          height: '100%',
+        }}
       >
         <Grid item xs={4} sm={4} md={4} sx={{ padding: '24px !important' }}>
-          <ReactPlayer light={trailer?.thumbnail} url={trailer?.url} controls={true} width="100%" />
-          <Box sx={{ ...styleDescription, marginTop: 2 }}>
+          <ReactPlayer
+            light={lightTrailer}
+            url={trailer?.url}
+            controls={true}
+            width="100%"
+            playing={playingTrailer}
+            onClickPreview={() => {
+              setLightTrailer(false);
+              setPlayingTrailer(true);
+            }}
+          />
+
+          <Box sx={{ ...styleDescription, marginTop: 2, marginBottom: '0px' }}>
             <span className={styles.description}>{trailer?.description}</span>
           </Box>
         </Grid>
@@ -82,7 +105,7 @@ const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
           md={4}
           sx={{
             padding: '24px !important',
-            height: {
+            minHeight: {
               xs: '493px !important',
               sm: '515px !important',
             },
@@ -116,7 +139,17 @@ const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
             </Box>
           </Box>
 
-          <ReactPlayer light={welcome?.thumbnail} url={welcome?.url} controls={true} width="100%" />
+          <ReactPlayer
+            light={lightWelcome}
+            url={welcome?.url}
+            controls={true}
+            width="100%"
+            playing={playingWelcome}
+            onClickPreview={() => {
+              setLightWelcome(false);
+              setPlayingWelcome(true);
+            }}
+          />
         </Grid>
       </Grid>
     </Box>

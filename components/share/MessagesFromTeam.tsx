@@ -1,5 +1,6 @@
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/system';
+import { useState } from 'react';
 import ReactPlayer from 'react-player';
 
 import Video from '../trailer/video';
@@ -15,6 +16,16 @@ interface MessagesFromTeamModel {
 
 const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
   const { messagesTeam } = layoutPage;
+
+  const [lightVideoFounder, setLightVideoFounder] = useState(messagesTeam[0]?.thumbnail);
+  const [playingVideoFounder, setPlayingVideoFounder] = useState(false);
+
+  const [lightVideoCEO, setLightVideoCEO] = useState(messagesTeam[1]?.thumbnail);
+  const [playingVideoCEO, setPlayingVideoCEO] = useState(false);
+
+  const [lightVideoTrainer, setLightVideoTrainer] = useState(messagesTeam[2]?.thumbnail);
+  const [playingVideoTrainer, setPlayingVideoTrainer] = useState(false);
+
   return (
     <Box
       sx={{
@@ -43,10 +54,15 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
       >
         <Grid item xs={6} sm={6} md={6} sx={{ padding: '20px !important' }}>
           <ReactPlayer
-            light={messagesTeam[0]?.thumbnail}
+            light={lightVideoFounder}
             url={messagesTeam[0]?.url}
             controls={true}
             width="100%"
+            playing={playingVideoFounder}
+            onClickPreview={() => {
+              setLightVideoFounder(false);
+              setPlayingVideoFounder(true);
+            }}
           />
         </Grid>
         <Grid
@@ -59,10 +75,15 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
           }}
         >
           <ReactPlayer
-            light={messagesTeam[1]?.thumbnail}
+            light={lightVideoCEO}
             url={messagesTeam[1]?.url}
             controls={true}
             width="100%"
+            playing={playingVideoCEO}
+            onClickPreview={() => {
+              setLightVideoCEO(false);
+              setPlayingVideoCEO(true);
+            }}
           />
         </Grid>
       </Grid>
@@ -80,10 +101,15 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
       >
         <Grid item xs={7} sm={7} md={7} sx={{ padding: '20px !important' }}>
           <ReactPlayer
-            light={messagesTeam[2]?.thumbnail}
+            light={lightVideoTrainer}
             url={messagesTeam[2]?.url}
             controls={true}
             width="100%"
+            playing={playingVideoTrainer}
+            onClickPreview={() => {
+              setLightVideoTrainer(false);
+              setPlayingVideoTrainer(true);
+            }}
           />
         </Grid>
       </Grid>

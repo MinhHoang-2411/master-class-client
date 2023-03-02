@@ -1,5 +1,5 @@
 import { ExpandMore } from '@mui/icons-material';
-import { Accordion, AccordionDetails, AccordionSummary, Box } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, duration } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 
@@ -35,9 +35,24 @@ interface CustomAccordionProps {
   title: string;
   index: number;
   description: string;
+  duration: number;
 }
 
-const AccordionExample: React.FC<CustomAccordionProps> = ({ title, description, index }) => {
+const displayDuration = (duration: number) => {
+  const hours = Math.floor(duration / 3600);
+  const minutes = Math.floor((duration - hours * 3600) / 60);
+  const remainingSeconds = duration - hours * 3600 - minutes * 60;
+  return `${hours > 0 ? `${hours.toString().padStart(2, '0')}:` : ''}${minutes
+    .toString()
+    .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+};
+
+const AccordionComponent: React.FC<CustomAccordionProps> = ({
+  title,
+  description,
+  index,
+  duration,
+}) => {
   return (
     <Box sx={{ mb: 1 }}>
       <CustomAccordion>
@@ -51,7 +66,7 @@ const AccordionExample: React.FC<CustomAccordionProps> = ({ title, description, 
         </CustomAccordionSummary>
 
         <Box sx={{ border: '1px solid #303136' }}>
-          <CustomAccordionDetails>{'03:54'}</CustomAccordionDetails>
+          <CustomAccordionDetails>{displayDuration(Math.floor(duration))}</CustomAccordionDetails>
           <CustomAccordionDetails>{description}</CustomAccordionDetails>
 
           <CustomAccordionDetails>
@@ -63,4 +78,4 @@ const AccordionExample: React.FC<CustomAccordionProps> = ({ title, description, 
   );
 };
 
-export default AccordionExample;
+export default AccordionComponent;
