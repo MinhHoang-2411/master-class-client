@@ -15,9 +15,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import IconMenu from '../../public/icon/icon-menu.svg';
+import Logo from '../../public/logo.png';
 import ModalCategories from '../categories/modalCategories';
 import ModalSearch from '../categories/modalSearch';
 import Button from '../share/Button';
+import Typography from '../share/Typography';
 
 const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
@@ -47,7 +49,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <AppBar sx={{ position: 'sticky', top: 0 }}>
+      <AppBar sx={{ position: 'fixed', top: 0 }}>
         <Container
           sx={{
             maxWidth: {
@@ -70,16 +72,18 @@ const Navbar: React.FC = () => {
               padding: '0px 0px !important',
             }}
           >
-            <Box>
-              <Link
-                variant="h6"
-                underline="none"
-                color="inherit"
-                sx={{ fontSize: 24, textTransform: 'capitalize', width: '100%', cursor: 'pointer' }}
+            <Box sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <Image
+                src={Logo}
+                alt="logo"
+                height={80}
+                width={80}
                 onClick={() => router.push('/')}
-              >
-                {'Theraisedhands'}
-              </Link>
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+              <h2 style={{ fontSize: "16px"}}>TheRaisedHands</h2>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Box sx={{ position: 'relative' }} ref={ref}>

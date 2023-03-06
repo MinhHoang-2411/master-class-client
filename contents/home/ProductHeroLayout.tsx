@@ -50,6 +50,7 @@ export default function ProductHeroLayout(
           paddingRight: {
             sm: 0,
           },
+          mt: '65px'
         }}
       >
         {children}
