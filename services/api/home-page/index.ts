@@ -9,8 +9,14 @@ const bannerApi = {
     return axiosClient.get(GET_BANNERS);
   },
   getHomeLayout() {
-    return axiosClient.get(`${API_URL}/home/layout`)
-  }
+    return axiosClient.get(`${API_URL}/home/layout`);
+  },
+  getHomeNewCourse() {
+    return axiosClient.get(`/home/new-class`);
+  },
+  getHomePopularCourse() {
+    return axiosClient.get(`/home/popular-class`);
+  },
 };
 
 export default bannerApi;

@@ -39,14 +39,17 @@
     position: relative;
     width: 100%;
     height: 100%;
+    flex: 3;
+    padding: 0 24px;
 }
 
 .divEmail {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    transform: translate(0px, -15px);
+    transform: translate(0px, 20px);
 
     span {
         font-size: 16px;
@@ -54,6 +57,18 @@
     }
 
 
+}
+
+.group_featured_preview_text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 32px;
+    flex: 1;
+    p {
+        text-align: center;
+        margin: 0;
+    }
 }
 
 .inputEmail {
@@ -66,7 +81,6 @@
     border-radius: 6px;
     cursor: text;
     transition: color .2s ease, box-shadow .2s ease;
-    margin-bottom: 10px;
 
     input {
         width: 100%;
@@ -123,7 +137,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 120px;
+    top: 110px;
     z-index: 10;
 }
 
@@ -137,7 +151,7 @@
 .div-img-3 {
     position: absolute;
     left: 117px;
-    top: 60px;
+    top: 50px;
     z-index: 8;
 }
 
@@ -548,22 +562,22 @@
 
     .div-img-2 {
         right: 110px;
-        top: 66px;
+        top: 56px;
     }
 
     .div-img-3 {
         left: 110px;
-        top: 66px;
+        top: 56px;
     }
 
     .div-img-4 {
         right: 40px;
-        top: 12px;
+        top: 2px;
     }
 
     .div-img-5 {
         left: 40px;
-        top: 12px;
+        top: 2px;
     }
 }
 
@@ -591,22 +605,22 @@
 
     .div-img-2 {
         right: 90px;
-        top: 66px;
+        top: 56px;
     }
 
     .div-img-3 {
         left: 90px;
-        top: 66px;
+        top: 56px;
     }
 
     .div-img-4 {
         right: 23px;
-        top: 12px;
+        top: 2px;
     }
 
     .div-img-5 {
         left: 23px;
-        top: 12px;
+        top: 2px;
     }
 }
 
@@ -634,22 +648,22 @@
 
     .div-img-2 {
         right: 80px;
-        top: 66px;
+        top: 56px;
     }
 
     .div-img-3 {
         left: 80px;
-        top: 66px;
+        top: 56px;
     }
 
     .div-img-4 {
         right: 10px;
-        top: 12px;
+        top: 2px;
     }
 
     .div-img-5 {
         left: 10px;
-        top: 12px;
+        top: 2px;
     }
 }
 
@@ -677,21 +691,21 @@
 
     .div-img-2 {
         right: 80px;
-        top: 66px;
+        top: 56px;
     }
 
     .div-img-3 {
         left: 80px;
-        top: 66px;
+        top: 56px;
     }
 
     .div-img-4 {
         right: 10px;
-        top: 12px;
+        top: 2px;
     }
 
     .div-img-5 {
         left: 10px;
-        top: 12px;
+        top: 2px;
     }
 }

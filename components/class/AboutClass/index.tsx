@@ -4,6 +4,9 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import CustomizedAccordions from './Accondion';
 import VideoTrailer from './VideoTrailer';
+import styles from './../../../styles/classes.module.scss';
+import { authActions } from '@/store/auth/authSlice';
+import { useAppDispatch } from '@/store/hooks';
 
 const VideoPreview = dynamic(() => import('./VideoPreview'), {
   ssr: false,
@@ -15,8 +18,8 @@ interface Props {
 }
 
 const AboutClass = ({ classes, categories }: Props) => {
+  const dispatch = useAppDispatch();
   const [listCategory, setListCategory] = useState<any>([]);
-
   useEffect(() => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
   }, []);
@@ -50,7 +53,7 @@ const AboutClass = ({ classes, categories }: Props) => {
           sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
         >
           <Grid item lg={8} md={8} xs={12}>
-            <Box>
+            <Box className={!playingVideo && !lightVideo ? styles.videoPreview : ''}>
               <VideoPreview
                 lightVideo={lightVideo}
                 url={classes.videoPreview?.url}
@@ -58,46 +61,61 @@ const AboutClass = ({ classes, categories }: Props) => {
                 setLightVideo={setLightVideo}
                 setPlayingVideo={setPlayingVideo}
               />
+              {/* {!playingVideo && !lightVideo ? (
+                <div className={styles.videoPreviewContent}>
+                  <div className={styles.textHeading}>
+                    <p>Original Series Trailer</p>
+                  </div>
+                  <div className={styles.textMain}>
+                    <div className={styles.contentMain}>
+                      <h5>Subscribe to MasterClass to continue watching</h5>
+                      <p>Starting at $15/month (billed annually)</p>
+                      <button onClick={() => dispatch(authActions.openSignUpModal())}>
+                        Sign Up
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )} */}
             </Box>
           </Grid>
 
-          <Grid
-            item
-            lg={4}
-            md={4}
-            xs={12}
-            sx={{
-              height: '360px',
-              overflow: 'scroll',
-            }}
-          >
-            <VideoTrailer
-              playing={playingVideo}
-              setPlaying={setPlayingVideo}
-              setLight={setLightVideo}
-            />
-
-            <Typography
-              variant="body2"
-              component={'h3'}
-              sx={{ color: '#fff', fontWeight: 'bold', mt: 2, mb: 1 }}
-            >
-              Browse Lesson Plan
-            </Typography>
-
-            {isMappable(classes?.lessons) ? (
-              classes?.lessons?.map((lesson: any, index: number) => (
-                <CustomizedAccordions
-                  title={lesson?.title}
-                  description={lesson?.description}
-                  duration={lesson?.duration}
-                  index={index}
-                  key={lesson?.index}
+          <Grid item lg={4} md={4} xs={12} className={styles.accondionParent}>
+            <div className={styles.accondionItem}>
+              <div>
+                <VideoTrailer
+                  playing={playingVideo}
+                  setPlaying={setPlayingVideo}
+                  setLight={setLightVideo}
                 />
-              ))
-            ) : (
-              <></>
-            )}
+              </div>
+
+              <div className="">
+                <Typography
+                  variant="body2"
+                  component={'h3'}
+                  sx={{ color: '#fff', fontWeight: 'bold', mt: 2, mb: 1 }}
+                >
+                  Browse Lesson Plan
+                </Typography>
+
+                {isMappable(classes?.lessons) ? (
+                  classes?.lessons?.map((lesson: any, index: number) => (
+                    <CustomizedAccordions
+                      title={lesson?.title}
+                      description={lesson?.description}
+                      duration={lesson?.duration}
+                      index={index}
+                      key={lesson?.index}
+                    />
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
           </Grid>
         </Grid>
         <Grid container columnSpacing={2} sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
