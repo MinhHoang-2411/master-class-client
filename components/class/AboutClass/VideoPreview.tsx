@@ -22,6 +22,12 @@ const VideoPreview = ({ lightVideo, url, playingVideo, setLightVideo, setPlaying
           setLightVideo(false);
           setPlayingVideo(true);
         }}
+        onPause={() => {
+          setPlayingVideo(false);
+        }}
+        onPlay={() => {
+          setPlayingVideo(true);
+        }}
       />
     </>
   );

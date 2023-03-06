@@ -2,6 +2,7 @@ import { ExpandMore } from '@mui/icons-material';
 import { Accordion, AccordionDetails, AccordionSummary, Box, duration } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
+import styles from './../../../styles/classes.module.scss';
 
 const CustomAccordion = styled(Accordion)({
   backgroundColor: '#303136',
@@ -23,7 +24,6 @@ const CustomAccordionSummary = styled(AccordionSummary)({
     margin: '16px 0',
   },
   fontSize: '14px',
-  
 });
 
 const CustomAccordionDetails = styled(AccordionDetails)({
@@ -54,7 +54,7 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
   duration,
 }) => {
   return (
-    <Box sx={{ mb: 1 }}>
+    <Box className={styles.accordionLesson}>
       <CustomAccordion>
         <CustomAccordionSummary
           expandIcon={<ExpandMore sx={{ color: '#fff' }} />}

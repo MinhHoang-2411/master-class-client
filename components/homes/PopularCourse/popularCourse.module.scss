@@ -1,0 +1,25 @@
+.button-explore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3.2rem;
+  .explore-classes {
+    padding: 12px 24px;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    text-transform: capitalize;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: 0;
+    border-radius: 8px;
+    background-color: #43454c;
+    text-decoration: none;
+  }
+}

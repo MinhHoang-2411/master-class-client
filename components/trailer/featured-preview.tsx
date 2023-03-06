@@ -24,6 +24,9 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
 
   return (
     <div className={stylesTrailer.group_featured_preview}>
+      <div className={stylesTrailer.group_featured_preview_text}>
+        <p>Watch our 5 Featured Previews of the Month Absolutely free.</p>
+      </div>
       <div className={stylesTrailer.featured_preview}>
         <div
           className={stylesTrailer['div-img-1']}
