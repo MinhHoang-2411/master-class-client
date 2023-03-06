@@ -22,10 +22,10 @@ function HomePage(props: HomePageModel) {
   return (
     <>
       <ProductHero listBanners={listBanners} />
-      <PopularCourse popularCourse={popularCourse} />
       <Trailer layoutPage={layoutPage} />
-      <NewCourse newCourse={newCourse} />
       <MessagesFromTeam layoutPage={layoutPage} />
+      <PopularCourse popularCourse={popularCourse} />
+      <NewCourse newCourse={newCourse} />
     </>
   );
 }

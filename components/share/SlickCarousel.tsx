@@ -11,12 +11,28 @@ interface Props {
 
 function SampleNextArrow(props: any) {
   const { className, onClick } = props;
-  return <div className={`${className} ${styles['slick-next']}`} onClick={onClick} />;
+
+  return (
+    <div
+      className={`${className} ${styles['slick-next']}  ${
+        className.includes('slick-disabled') ? styles['slick-disabled'] : ''
+      }`}
+      onClick={onClick}
+    />
+  );
 }
 
 function SamplePrevArrow(props: any) {
   const { className, onClick } = props;
-  return <div className={`${className} ${styles['slick-prev']}`} onClick={onClick} />;
+
+  return (
+    <div
+      className={`${className} ${styles['slick-prev']}  ${
+        className.includes('slick-disabled') ? styles['slick-disabled'] : ''
+      }`}
+      onClick={onClick}
+    />
+  );
 }
 
 const SlickCarousel = ({ courses }: Props) => {
@@ -79,6 +95,19 @@ const SlickCarousel = ({ courses }: Props) => {
     ],
   };
 
+  const TimeConvert = (lessons: any) => {
+    const totalTime = lessons?.reduce(
+      (accumulator: any, currentValue: any) => accumulator + currentValue?.duration,
+      0
+    );
+    const duration = Math.floor(totalTime);
+    const hours = Math.floor(duration / 3600);
+    const minutes = Math.floor((duration - hours * 3600) / 60);
+    const remainingSeconds = duration - hours * 3600 - minutes * 60;
+    return `${hours > 0 ? `${hours.toString().padStart(2, '0')} hours ` : ''}${
+      minutes > 0 ? `${minutes.toString().padStart(2, '0')} minutes ` : ''
+    }${remainingSeconds > 0 ? `${remainingSeconds.toString().padStart(2, '0')} seconds` : ''}`;
+  };
   return (
     <>
       <Slider {...settings}>
@@ -89,7 +118,12 @@ const SlickCarousel = ({ courses }: Props) => {
                 <img src={course?.thumbnail} alt={course?.name} />
               </div>
               <div className={styles.card_bottom}>
-                <h3>{course.authorName}</h3>
+                <h3>{course?.authorName}</h3>
+                <div className={styles.lineBreak}></div>
+                <div className={styles['nameplate__sub-text']}>
+                  <p>{course?.name}</p>
+                  <span>{TimeConvert(course?.lessons)}</span>
+                </div>
               </div>
             </Link>
           </div>
