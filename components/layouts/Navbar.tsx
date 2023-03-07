@@ -72,18 +72,20 @@ const Navbar: React.FC = () => {
               padding: '0px 0px !important',
             }}
           >
-            <Box sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <Box
+              sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+              onClick={() => router.push('/')}
+            >
               <Image
                 src={Logo}
                 alt="logo"
                 height={80}
                 width={80}
-                onClick={() => router.push('/')}
                 style={{
                   objectFit: 'cover',
                 }}
               />
-              <h2 style={{ fontSize: "16px"}}>TheRaisedHands</h2>
+              <h2 style={{ fontSize: '16px' }}>TheRaisedHands</h2>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Box sx={{ position: 'relative' }} ref={ref}>

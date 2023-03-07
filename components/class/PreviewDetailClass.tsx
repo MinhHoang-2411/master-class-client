@@ -1,25 +1,54 @@
 import { authActions } from '@/store/auth/authSlice';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/classes.module.scss';
 import ModalVideo from '../trailer/modal-video';
 import AboutClass from './AboutClass';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import bookmarkApi from '@/services/api/bookmark';
+import { toast } from 'react-toastify';
 
 interface PreviewDetailClassModel {}
 
 interface Props {
   classes: any;
   categories: any;
+  isFavourite: any;
+  setIsFavourite: any;
 }
 
-const PreviewDetailClass = ({ classes, categories }: Props) => {
+const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }: Props) => {
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const router = useRouter();
   const nameCategory = router?.query?.name?.[0];
   const [modalVideo, setModalVideo] = useState(false);
+
+  const onBookmarkClass = async (classId: string) => {
+    const params = {
+      modelId: classId,
+      modelType: 'CLASSES',
+    };
+    const response: any = await bookmarkApi.postMyFavorite(params);
+    if (response.data) {
+      setIsFavourite(true);
+      toast.success('Add lessons to successful bookmarks');
+    }
+  };
+
+  const onDeleteBookmarkClass = async (classId: string) => {
+    const params = {
+      modelId: classId,
+      modelType: 'CLASSES',
+    };
+    const response: any = await bookmarkApi.deleteMyFavorite(params);
+    if (response.data) {
+      setIsFavourite(false);
+      toast.success('Delete lessons to successful bookmarks');
+    }
+  };
 
   return (
     <>
@@ -240,15 +269,28 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
                         </svg>
                         Share
                       </button>
-                      <button
-                        type="button"
-                        className={`${styles['c-button']} ${styles['c-button--link']} ${styles['c-button--md']} ${styles['d-inline-flex']} ${styles['flex-column']}`}
-                      >
-                        <BookmarkBorderIcon
-                          className={`${styles['mc-icon']} ${styles['mc-icon--lg']} ${styles['mc-icon--4']} ${styles['mc-mb-4']}`}
-                        />
-                        Bookmark
-                      </button>
+
+                      {isLoggedIn ? (
+                        <button
+                          type="button"
+                          className={`${styles['c-button']} ${styles['c-button--link']} ${styles['c-button--md']} ${styles['d-inline-flex']} ${styles['flex-column']}`}
+                        >
+                          {isFavourite ? (
+                            <BookmarkIcon
+                              className={`${styles['mc-icon']} ${styles['mc-icon--lg']} ${styles['mc-icon--4']} ${styles['mc-mb-4']}`}
+                              onClick={() => onDeleteBookmarkClass(classes._id)}
+                            />
+                          ) : (
+                            <BookmarkBorderIcon
+                              className={`${styles['mc-icon']} ${styles['mc-icon--lg']} ${styles['mc-icon--4']} ${styles['mc-mb-4']}`}
+                              onClick={() => onBookmarkClass(classes._id)}
+                            />
+                          )}
+                          Bookmark
+                        </button>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 </div>
