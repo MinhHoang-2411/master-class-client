@@ -52,8 +52,9 @@ const Profile = ({ currentUser }: any) => {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          <MenuItem onClick={handleCloseUserMenu}>
+          <MenuItem onClick={handleCloseUserMenu} sx={{ display: "flex", flexDirection: 'column'}}>
             <Button onClick={() => dispatch(authActions.logout({}))}>Log out</Button>
+            <Button>Bookmark</Button>
           </MenuItem>
         </Menu>
       </Box>
