@@ -5,6 +5,8 @@ import { useState } from 'react';
 import styles from '../../styles/classes.module.scss';
 import ModalVideo from '../trailer/modal-video';
 import AboutClass from './AboutClass';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 interface PreviewDetailClassModel {}
 
@@ -237,6 +239,15 @@ const PreviewDetailClass = ({ classes, categories }: Props) => {
                           />
                         </svg>
                         Share
+                      </button>
+                      <button
+                        type="button"
+                        className={`${styles['c-button']} ${styles['c-button--link']} ${styles['c-button--md']} ${styles['d-inline-flex']} ${styles['flex-column']}`}
+                      >
+                        <BookmarkBorderIcon
+                          className={`${styles['mc-icon']} ${styles['mc-icon--lg']} ${styles['mc-icon--4']} ${styles['mc-mb-4']}`}
+                        />
+                        Bookmark
                       </button>
                     </div>
                   </div>
