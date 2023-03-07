@@ -25,7 +25,7 @@ const AboutClass = ({ classes, categories }: Props) => {
   }, []);
 
   const [playingVideo, setPlayingVideo] = useState(false);
-  const [lightVideo, setLightVideo] = useState(classes.videoPreview.thumbnail);
+  const [lightVideo, setLightVideo] = useState(classes?.videoPreview?.thumbnail);
 
   const TimeConvert = () => {
     const totalTime = classes?.lessons?.reduce(
@@ -56,7 +56,7 @@ const AboutClass = ({ classes, categories }: Props) => {
             <Box className={!playingVideo && !lightVideo ? styles.videoPreview : ''}>
               <VideoPreview
                 lightVideo={lightVideo}
-                url={classes.videoPreview?.url}
+                url={classes?.videoPreview?.url}
                 playingVideo={playingVideo}
                 setLightVideo={setLightVideo}
                 setPlayingVideo={setPlayingVideo}

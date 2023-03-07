@@ -1,4 +1,5 @@
 import axiosClient from '@/services/api/axiosClient';
+import axiosClient_V2 from '../axiosClient_V2';
 
 interface ParamsFetchDataModel {
   page: number;
@@ -15,6 +16,11 @@ const classAPI = {
     return axiosClient.get(url, { params });
   },
   getDetailByWebName(params: any) {
+    const url = `${API_URL}/courses/${params.webName}`;
+    return axiosClient_V2.get(url);
+  },
+  
+  getDetailByWebNameV1(params: any) {
     const url = `${API_URL}/courses/${params.webName}`;
     return axiosClient.get(url);
   },

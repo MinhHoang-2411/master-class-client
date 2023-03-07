@@ -11,10 +11,12 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 interface IProfile {}
 const Profile = ({ currentUser }: any) => {
+  const router = useRouter();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -52,9 +54,9 @@ const Profile = ({ currentUser }: any) => {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          <MenuItem onClick={handleCloseUserMenu} sx={{ display: "flex", flexDirection: 'column'}}>
+          <MenuItem onClick={handleCloseUserMenu} sx={{ display: 'flex', flexDirection: 'column' }}>
             <Button onClick={() => dispatch(authActions.logout({}))}>Log out</Button>
-            <Button>Bookmark</Button>
+            <Button onClick={() => router.push(`/bookmark`)}>Bookmark</Button>
           </MenuItem>
         </Menu>
       </Box>
