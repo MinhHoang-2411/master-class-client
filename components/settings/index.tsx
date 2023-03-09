@@ -31,7 +31,6 @@ interface Props {}
 const SettingComponent = ({}: Props) => {
   const { t } = useTranslation('common');
   const { locale } = useRouter();
-  console.log('locale', locale);
   const dispatch = useAppDispatch();
   const user = getAuth()?.user;
   const router = useRouter();

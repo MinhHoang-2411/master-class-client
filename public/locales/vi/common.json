@@ -83,5 +83,11 @@
   "r-last-name": "Họ là bắt buộc",
 
   "change-password": "Thay đổi mật khẩu",
-  "not-email": "Định dạng email sai"
+  "not-email": "Định dạng email sai",
+
+  "my-favourites": "Danh sách yêu thích của tôi",
+
+  "delete-lesson-bookmark": "Xoá bài học đã đánh dấu thành công",
+  "add-lesson-bookmark": "Thêm bài học đã đánh dấu thành công",
+  "remove-favourite": "Xoá mục yêu thích"
 }
