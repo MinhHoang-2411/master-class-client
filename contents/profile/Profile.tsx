@@ -1,65 +1,113 @@
-import { UserModel } from '@/declares/models';
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
+import { getAuth } from '@/utils/auth';
 import {
   Avatar,
   Box,
   Button,
+  Divider,
   IconButton,
-  Menu,
   MenuItem,
-  Tooltip,
-  Typography,
+  Popover,
+  Stack,
+  Typography
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import React from 'react';
+import { useState } from 'react';
 
 interface IProfile {}
-const Profile = ({ currentUser }: any) => {
-  const router = useRouter();
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+const Profile = ({  }: any) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const currentUser = getAuth()?.user;
+
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event: any) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setOpen(null);
+  };
+
   return (
     <>
-      <Box sx={{ cursor: 'pointer' }}>
-        <Tooltip title="Open settings">
-          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="avatar" sx={{ bgcolor: 'secondary.dark' }}>
-              {/* {currentUser.firstName.slice(0, 1)} */}
-            </Avatar>
-          </IconButton>
-        </Tooltip>
-        <Menu
-          sx={{ mt: '45px' }}
-          id="menu-appbar"
-          anchorEl={anchorElUser}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={Boolean(anchorElUser)}
-          onClose={handleCloseUserMenu}
-        >
-          <MenuItem onClick={handleCloseUserMenu} sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Button onClick={() => dispatch(authActions.logout({}))}>Log out</Button>
-            <Button onClick={() => router.push(`/bookmark`)}>Bookmark</Button>
+      <IconButton onClick={handleOpen}>
+        <Avatar alt="avatar" sx={{ bgcolor: 'secondary.dark' }}></Avatar>
+      </IconButton>
+
+      <Popover
+        open={Boolean(open)}
+        anchorEl={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        PaperProps={{
+          sx: {
+            p: 0,
+            mt: 1.5,
+            ml: 0.75,
+            background: '#1e1e2d',
+            color: '#fff',
+            '& .MuiMenuItem-root': {
+              typography: 'body2',
+              borderRadius: 0.75,
+            },
+          },
+        }}
+      >
+        <Box sx={{ my: 2, px: 3 }}>
+          <Typography variant="subtitle2" noWrap sx={{ fontWeight: 'bold' }}>
+            {`${currentUser?.firstName} ${currentUser?.lastName}`}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'primary.secondary' }} noWrap>
+            {currentUser?.email}
+          </Typography>
+        </Box>
+
+        <Divider sx={{ border: '.5px solid #2B2B40' }} />
+
+        <Stack>
+          <MenuItem onClick={handleClose}>
+            <Button
+              onClick={() => router.push(`/`)}
+              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+            >
+              Home
+            </Button>
           </MenuItem>
-        </Menu>
-      </Box>
+
+          <MenuItem onClick={handleClose}>
+            <Button
+              onClick={() => router.push(`/bookmark`)}
+              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+            >
+              Bookmark
+            </Button>
+          </MenuItem>
+
+          <MenuItem onClick={handleClose}>
+            <Button
+              onClick={() => router.push(`/settings`)}
+              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+            >
+              Settings
+            </Button>
+          </MenuItem>
+        </Stack>
+
+        <Divider sx={{ border: '.5px solid #2B2B40' }} />
+
+        <MenuItem onClick={handleClose}>
+          <Button
+            onClick={() => dispatch(authActions.logout({}))}
+            sx={{ color: '#fff', fontWeight: 'bold' }}
+          >
+            Log out
+          </Button>
+        </MenuItem>
+      </Popover>
     </>
   );
 };

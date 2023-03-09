@@ -127,27 +127,6 @@ const BookmarkComponent = ({ courses, onDeleteBookmarkClass }: Props) => {
                                       inset: '0px',
                                     }}
                                   >
-                                    {/* <img
-                                                  alt="Gordon Ramsay"
-                                                  src="https://www.masterclass.com/course-images/attachments/M9gAFDV18n8Z1ULC54QB8YXH?width=3840&quality=75&format=webp"
-                                                  decoding="async"
-                                                  data-nimg="fill"
-                                                  className={styles.NameplateImage_image__oGvmQ}
-                                                  style={{
-                                                    position: 'absolute',
-                                                    top: 0,
-                                                    left: 0,
-                                                    bottom: 0,
-                                                    right: 0,
-                                                    boxSizing: 'border-box',
-                                                    padding: 0,
-                                                    border: 'none',
-                                                    margin: 'auto',
-                                                    display: 'block',
-                                                    width: '220px !important',
-                                                    minWidth: '100%',
-                                                  }}
-                                                /> */}
                                     <span className={styles['author-name']}>
                                       {courses?.authorName}
                                     </span>
@@ -179,9 +158,9 @@ const BookmarkComponent = ({ courses, onDeleteBookmarkClass }: Props) => {
                           >
                             Remove favourite
                           </button>
-                          {/* <Link
+                          <Link
                             className={styles['button-view']}
-                            href={`/classes/${item?.webName}` || '#'}
+                            href={`/classes/${courses?.webName}` || '#'}
                           >
                             <svg
                               width={24}
@@ -211,7 +190,7 @@ const BookmarkComponent = ({ courses, onDeleteBookmarkClass }: Props) => {
                               />
                             </svg>
                             View Class Info
-                          </Link> */}
+                          </Link>
                         </div>
                       </div>
                     </div>

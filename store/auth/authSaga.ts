@@ -139,6 +139,31 @@ function* handleResetPass(action: PayloadAction<ResetPasswordModel>) {
   }
 }
 
+function* handleChangePass(action: PayloadAction<ResetPasswordModel>) {
+  const params = action.payload
+  try {
+    yield call(authApi.changePassword, params)
+
+    yield put(authActions.changePasswordSuccess('Successfully changed password'))
+    yield put(
+      alertActions.showAlert({
+        text: 'Successfully changed password',
+        type: 'success',
+      })
+    )
+
+  } catch (error: ErrorModel | any) {
+    console.error(error)
+    yield put(authActions.changePasswordFailed(error as string))
+    yield put(
+      alertActions.showAlert({
+        text: error?.response?.data?.message || 'An error occurred, please try again',
+        type: 'error',
+      })
+    )
+  }
+}
+
 function* watchLoginFlow() {
   yield all([
     takeLatest(authActions.login.type, handleLogin),
@@ -147,6 +172,7 @@ function* watchLoginFlow() {
     takeLatest(authActions.forgotPass.type, handleForgotPass),
     takeLatest(authActions.verifyCode.type, handleVerifyCode),
     takeLatest(authActions.resetPassword.type, handleResetPass),
+    takeLatest(authActions.changePassword.type, handleChangePass),
   ]);
 }
 

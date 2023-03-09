@@ -29,6 +29,7 @@ export interface AuthState {
   loadingForgotPass: boolean;
   loadingVerify: boolean;
   loadingResetPass: boolean;
+  loadingChangePass: boolean;
   currentUser?: UserModel;
   tokenForgotPass?: string;
 
@@ -45,6 +46,9 @@ export interface AuthState {
     isOpen: boolean;
   };
   modalResetPassword: {
+    isOpen: boolean;
+  };
+  modalChangePassword: {
     isOpen: boolean;
   };
 }
