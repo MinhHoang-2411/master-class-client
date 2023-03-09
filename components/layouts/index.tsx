@@ -1,3 +1,4 @@
+import ChangePassword from '@/contents/auth/ChangePasswordModal';
 import ResetPassword from '@/contents/auth/ForgotPassword/ResetPassword';
 import SendEmail from '@/contents/auth/ForgotPassword/SendEmail';
 import VerifyCode from '@/contents/auth/ForgotPassword/VerifyCode';
@@ -21,6 +22,8 @@ export default function MyLayout({ children }: any) {
   const modalSendEmail = useAppSelector((state) => state.auth.modalSendEmail);
   const modalVerifyCode = useAppSelector((state) => state.auth.modalVerifyCode);
   const modalResetPassword = useAppSelector((state) => state.auth.modalResetPassword);
+
+  const modalChangePassword = useAppSelector((state) => state.auth.modalChangePassword);
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
@@ -47,6 +50,11 @@ export default function MyLayout({ children }: any) {
       <ResetPassword
         isOpen={modalResetPassword.isOpen}
         CloseModal={() => dispatch(authActions.closeModalResetPassword())}
+      />
+      
+      <ChangePassword
+        isOpen={modalChangePassword.isOpen}
+        CloseModal={() => dispatch(authActions.closeChangePassModal())}
       />
     </Box>
   );

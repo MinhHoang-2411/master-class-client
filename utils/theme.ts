@@ -97,9 +97,16 @@ const theme = {
     h6: {
       ...rawTheme.typography.h6,
       ...fontHeader,
-      fontSize: 18,
+      fontSize: 20,
+      fontWeight: 'bold',
+      textTransform: 'capitalize',
     },
     subtitle1: {
+      ...rawTheme.typography.subtitle1,
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    subtitle2: {
       ...rawTheme.typography.subtitle1,
       fontSize: 18,
     },

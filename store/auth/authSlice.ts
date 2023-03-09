@@ -21,6 +21,7 @@ const initialState: AuthState = {
   loadingForgotPass: false,
   loadingVerify: false,
   loadingResetPass: false,
+  loadingChangePass: false,
   currentUser: undefined, // info user if login success
   tokenForgotPass: token_forgot_pass || undefined,
 
@@ -37,6 +38,9 @@ const initialState: AuthState = {
     isOpen: false,
   },
   modalResetPassword: {
+    isOpen: false,
+  },
+  modalChangePassword: {
     isOpen: false,
   },
 };
@@ -113,6 +117,17 @@ const authSlice = createSlice({
     resetPasswordFailed(state, action: PayloadAction<string>) {
       state.loadingResetPass = false;
     },
+    // change password
+    changePassword(state, action: PayloadAction<any>) {
+      state.loadingChangePass = true;
+    },
+    changePasswordSuccess(state, action: PayloadAction<string>) {
+      state.loadingChangePass = false;
+      state.modalChangePassword.isOpen = false;
+    },
+    changePasswordFailed(state, action: PayloadAction<string>) {
+      state.loadingChangePass = false;
+    },
 
     // modal
     openModalSendEmail(state) {
@@ -151,6 +166,13 @@ const authSlice = createSlice({
     },
     closeSignUpModal(state) {
       state.modalSignUp.isOpen = false;
+    },
+    
+    openChangePassModal(state) {
+      state.modalChangePassword.isOpen = true;
+    },
+    closeChangePassModal(state) {
+      state.modalChangePassword.isOpen = false;
     },
 
     backToLogInModal(state) {

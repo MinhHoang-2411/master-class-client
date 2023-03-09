@@ -5,6 +5,7 @@ import {
   VerifyCodeModel,
 } from '@/declares/models';
 import axiosClient from '@/services/api/axiosClient';
+import axiosClient_V2 from '../axiosClient_V2';
 
 const authApi = {
   login(params: LoginPayload) {
@@ -26,6 +27,10 @@ const authApi = {
   resetPassword(params: ResetPasswordModel) {
     const url = 'auth/reset-password';
     return axiosClient.post(url, params);
+  },
+  changePassword(params: ResetPasswordModel) {
+    const url = 'auth/change-password';
+    return axiosClient_V2.post(url, params);
   },
 };
 
