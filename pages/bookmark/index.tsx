@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import styles from '../../styles/categories.module.scss';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 interface BookmarkPageModel {
   courses: any;
@@ -15,7 +17,7 @@ interface BookmarkPageModel {
 const BookmarkPage = ({}: BookmarkPageModel) => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const { t } = useTranslation('common');
   const FetchingAllBookmark = async () => {
     try {
       setLoading(true);
@@ -39,7 +41,7 @@ const BookmarkPage = ({}: BookmarkPageModel) => {
     const response: any = await bookmarkApi.deleteMyFavorite(params);
     if (response.data) {
       FetchingAllBookmark();
-      toast.success('Delete lessons to successful bookmarks');
+      toast.success(`${t('delete-lesson-bookmark')}`);
     }
   };
 
@@ -47,7 +49,7 @@ const BookmarkPage = ({}: BookmarkPageModel) => {
     <>
       <main className={styles.page_content}>
         <section className={`${styles.container} ${styles['pt-3']} ${styles['pb-6']} `}>
-          <h1 className={`${styles.text_h1}`}>My Favourites</h1>
+          <h1 className={`${styles.text_h1}`}>{t('my-favourites')}</h1>
           <div
             className={`${styles.row} ${styles.Courses_CoursesSectionContent} ${styles.mc_mx_0}`}
           >
@@ -62,7 +64,7 @@ const BookmarkPage = ({}: BookmarkPageModel) => {
               ))
             ) : (
               <>
-                <span style={{ fontSize: "24px"}}>Loading...</span>
+                <span style={{ fontSize: '24px' }}>Loading...</span>
               </>
             )}
           </div>
@@ -72,15 +74,21 @@ const BookmarkPage = ({}: BookmarkPageModel) => {
   );
 };
 
-BookmarkPage.getInitialProps = async ({ req, res }: any) => {
+export async function getStaticProps({ locale }: any) {
   try {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
   } catch (error) {
     console.error(error);
   }
   return {
-    courses: {},
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
   };
-};
-
+}
 BookmarkPage.Layout = Layout;
 export default BookmarkPage;

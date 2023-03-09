@@ -82,7 +82,12 @@
   "r-last-name": "Last name is required",
 
   "change-password": "Change password",
-  "not-email": "Wrong email format"
+  "not-email": "Wrong email format",
 
+  "my-favourites": "My Farouvites",
+
+  "delete-lesson-bookmark": "Delete lessons to successful bookmarks",
+  "add-lesson-bookmark": "Add lessons to successful bookmarks",
+  "remove-favourite": "Remove favourite"
 
 }

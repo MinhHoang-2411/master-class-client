@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import styles from '../../styles/categories.module.scss';
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const BookmarkComponent = ({ courses, onDeleteBookmarkClass }: Props) => {
+  const { t } = useTranslation('common');
   return (
     <div
       className={`${styles['col-12']} ${styles['col-md-6']} ${styles['col-lg-4']} ${styles['pb-4']} ${styles['px-0']} ${styles['py-0']}`}
@@ -156,7 +158,7 @@ const BookmarkComponent = ({ courses, onDeleteBookmarkClass }: Props) => {
                               })
                             }
                           >
-                            Remove favourite
+                            {t('remove-favourite')}
                           </button>
                           <Link
                             className={styles['button-view']}
@@ -189,7 +191,7 @@ const BookmarkComponent = ({ courses, onDeleteBookmarkClass }: Props) => {
                                 fill="currentColor"
                               />
                             </svg>
-                            View Class Info
+                            {t('view-class-info')}
                           </Link>
                         </div>
                       </div>

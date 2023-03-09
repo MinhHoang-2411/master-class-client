@@ -1,5 +1,6 @@
 import { COOKIE_KEYS } from '@/constants/common';
 import { AuthModel } from '@/declares/models/AuthModels';
+import Cookies from 'js-cookie';
 import Router from 'next/router';
 
 const getAuth = (): AuthModel | undefined => {
@@ -31,19 +32,19 @@ const getSessionStorage = (key: string): any => {
   }
 
   if (!lsValue) {
-    return
+    return;
   }
 
   try {
-    const auth: any = JSON.parse(lsValue)
+    const auth: any = JSON.parse(lsValue);
 
     if (auth) {
-      return auth
+      return auth;
     }
   } catch (error) {
-    console.error('AUTH SESSION STORAGE PARSE ERROR', error)
+    console.error('AUTH SESSION STORAGE PARSE ERROR', error);
   }
-}
+};
 
 const setAuth = (auth: AuthModel | undefined) => {
   if (!localStorage) {
@@ -53,7 +54,7 @@ const setAuth = (auth: AuthModel | undefined) => {
     const lsValue = JSON.stringify(auth);
     localStorage.setItem(COOKIE_KEYS.accessToken, lsValue);
     if (window) {
-      window.location.href = window.location.href.split("?")[0];
+      window.location.href = window.location.href.split('?')[0];
     }
   } catch (error) {
     console.error('AUTH LOCAL STORAGE SAVE ERROR', error);
@@ -73,11 +74,20 @@ const removeAuth = () => {
 };
 
 const logout = () => {
-  if (window.location.pathname !== '/login') {
+  const pathName = window.location.pathname;
+  if (
+    pathName.includes('/login') ||
+    pathName.includes('/classes') ||
+    pathName.includes('categories')
+  ) {
+    localStorage.removeItem(COOKIE_KEYS.accessToken);
+    window.localStorage.setItem('logout', Date.now().toString());
+    Router.reload();
+  } else {
     localStorage.removeItem(COOKIE_KEYS.accessToken);
     window.localStorage.setItem('logout', Date.now().toString());
     window.location.href = '/';
-    Router.reload()
+    Router.replace('/');
   }
 };
 
