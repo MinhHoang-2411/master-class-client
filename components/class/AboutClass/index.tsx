@@ -1,12 +1,12 @@
+import { useAppDispatch } from '@/store/hooks';
 import { isMappable } from '@/utils/helper';
 import { Box, Container, Grid, Typography } from '@mui/material';
+import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
+import styles from './../../../styles/classes.module.scss';
 import CustomizedAccordions from './Accondion';
 import VideoTrailer from './VideoTrailer';
-import styles from './../../../styles/classes.module.scss';
-import { authActions } from '@/store/auth/authSlice';
-import { useAppDispatch } from '@/store/hooks';
 
 const VideoPreview = dynamic(() => import('./VideoPreview'), {
   ssr: false,
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const AboutClass = ({ classes, categories }: Props) => {
+  const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const [listCategory, setListCategory] = useState<any>([]);
   useEffect(() => {
@@ -45,7 +46,7 @@ const AboutClass = ({ classes, categories }: Props) => {
     <>
       <Container sx={{ py: 3 }}>
         <Box>
-          <h2>About this class</h2>
+          <h2>{t('about-this-class')}</h2>
         </Box>
         <Grid
           container
@@ -98,7 +99,7 @@ const AboutClass = ({ classes, categories }: Props) => {
                   component={'h3'}
                   sx={{ color: '#fff', fontWeight: 'bold', mt: 2, mb: 1 }}
                 >
-                  Browse Lesson Plan
+                  {t('browse-lesson-plan')}
                 </Typography>
 
                 {isMappable(classes?.lessons) ? (
@@ -127,7 +128,7 @@ const AboutClass = ({ classes, categories }: Props) => {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', pt: '24px', pb: '8px' }}>
               <Typography sx={{ opacity: '.6', fontSize: '14px' }} component="p">
-                Instructor(s):
+                {`${t('instructor')}(s):`}
               </Typography>
               <Typography sx={{ fontWeight: 'bold', fontSize: '14px', pl: 1 }} component="p">
                 {classes?.authorName}
@@ -135,7 +136,7 @@ const AboutClass = ({ classes, categories }: Props) => {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', pb: '8px' }}>
               <Typography sx={{ opacity: '.6', fontSize: '14px' }} component="p">
-                Class Length:
+                {`${t('class-length')}:`}
               </Typography>
               <Typography sx={{ fontWeight: 'bold', fontSize: '14px', pl: 1 }} component="p">
                 {`${classes?.lessons?.length} video lessons (${TimeConvert()})`}
@@ -143,7 +144,7 @@ const AboutClass = ({ classes, categories }: Props) => {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', pb: '8px' }}>
               <Typography sx={{ opacity: '.6', fontSize: '14px' }} component="p">
-                Category:
+                {`${t('category')}:`}
               </Typography>
               <Typography sx={{ fontWeight: 'bold', fontSize: '14px', pl: 1 }} component="p">
                 {isMappable(listCategory)

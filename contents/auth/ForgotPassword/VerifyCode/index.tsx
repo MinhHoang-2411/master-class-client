@@ -12,9 +12,11 @@ import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import ReactCodeInput from 'react-code-input';
+import { useTranslation } from 'next-i18next';
 import style from './style.module.scss';
 
 const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
+  const { t } = useTranslation('common');
   const token_forgot_pass = useAppSelector((state) => state?.auth?.tokenForgotPass);
   const dispatch = useAppDispatch();
   const [codeOTP, setCodeOTP] = useState('');
@@ -59,7 +61,7 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
             <EmailIcon color="secondary" />
           </Box>
           <Typography variant="h5" component="h2" sx={{ textAlign: 'center', mb: 2, mt: 2 }}>
-            Check your email
+            {t('check-your-email')}
           </Typography>
 
           <Typography
@@ -68,7 +70,7 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
             color="primary.light"
             sx={{ textAlign: 'center' }}
           >
-            Enter the confirmation code from your email to reset your password.
+            {t('enter-the-confirmation-code')}
           </Typography>
         </Box>
         <Grid sx={{ mb: 2 }}>
@@ -113,7 +115,7 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
                   fullWidth
                   onClick={onSubmit}
                 >
-                  {isSubmitting ? 'Verify...' : 'Verify'}
+                  {isSubmitting ? `${t('verify')}...` : `${t('verify')}`}
                 </Button>
                 <Box sx={{ ...displayCenter, mt: 3 }}>
                   <Button
@@ -126,7 +128,7 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
                       sx={{ mr: 0.8 }}
                       fontSize="inherit"
                     ></KeyboardBackspaceIcon>
-                    {`Back to log in`}
+                    {t('back-to-log-in')}
                   </Button>
                 </Box>
               </Form>

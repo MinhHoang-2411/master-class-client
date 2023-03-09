@@ -1,0 +1,87 @@
+{
+  "all-categories": "Danh mục",
+  "search": "Tìm kiếm",
+  "view-plans": "Kế hoạch",
+  "at-work": "Nơi làm việc",
+  "home": "Trang chủ",
+  "bookmark": "Mục Yêu thích",
+  "settings": "Cài đặt",
+  "log-out": "Đăng xuất",
+  "log-in": "Đăng nhập",
+
+  "trailer": "Giới thiệu",
+  "sample": "Video mẫu",
+  "share": "Chia sẻ",
+
+  "messages-from-the-team": "Thông điệp từ nhóm phát triển",
+  "trending": "Xu hướng",
+  "explore-classes": "Khám phá",
+  "new-classes": "Lớp học mới",
+  "browse-classes-and-original-series": "Tìm Kiếm Các Lớp Và Se-ri Gốc",
+  "watch-sample": "Xem video mẫu",
+  "view-class-info": "Thông tin lớp học",
+
+  "sign-up": "Đăng ký",
+  "sign-up-here": "Đăng ký tại đây",
+  "about-this-class": "Thông tin về lớp học",
+  "instructor": "Người hướng dẫn",
+  "class": "Lớp học",
+  "length": "Thời lượng",
+  "class-length": "Thời lượng lớp học",
+  "category": "Danh mục",
+  "starting-at-15-for-all-classes-and-sessions": "Bắt đầu từ $15/tháng (thanh toán hàng năm) cho tất cả các lớp và các phần",
+  "browse-lesson-plan": "Lộ trình bài học",
+  "discover": "Khám phá",
+  "read-more": "Đọc thêm",
+
+  "account": "Tài khoản",
+  "email": "Email",
+  "password": "Mật khẩu",
+  "app-language": "Ngôn ngữ ứng dụng",
+  "change-default-language": "Thay đổi ngôn ngữ mặc định",
+  "edit": "Chỉnh sửa",
+  "enter-email-for-this-amazing-monthly-gift": "Nhập Email để nhận Quà tặng hàng tháng tuyệt vời này",
+  "your-email-address": "Địa chỉ email của bạn",
+
+  "by-logging-in": "Bằng cách đăng nhập, bạn đồng ý với Chính sách bảo mật và Điều khoản dịch vụ của chúng tôi",
+  "remember-me": "Lưu thông tin",
+  "forgot-your-password": "Quên Mật khẩu?",
+  "need-an-account": "Cần một tài khoản",
+  "already-have-an-account": "Bạn đã có tài khoản?",
+  "sign-up-now": "Đăng ký ngay",
+
+  "first-name": "Tên",
+  "last-name": "Họ",
+  "confirm-password": "Xác nhận mật khẩu",
+  "no-worries-instrucions": "Đừng lo lắng, chúng tôi sẽ gửi cho bạn hướng dẫn đặt lại",
+  "send-email": "Gửi email",
+
+  "set-new-password": "Đặt mật khẩu mới",
+  "reset-password": "Đặt lại mật khẩu",
+  "back-to-log-in": "Quay lại đăng nhập",
+
+  "enter-the-confirmation-code": "Nhập mã xác nhận từ email của bạn để đặt lại mật khẩu",
+  "check-your-email": "Kiểm tra email của bạn",
+  "verify": "Xác minh",
+
+  "cancel": "Huỷ bỏ",
+  "current-password": "Mật khẩu hiện tại",
+
+  "r-current-password": "Mật khẩu hiện tại là bắt buộc",
+  "r-password": "Mật khẩu là bắt buộc",
+  "r-email": "Email là bắt buộc",
+  "r-confirm-password": "Xác nhận mật khẩu là bắt buộc",
+  "r-min-3": "Tối thiểu 3 kí tự",
+  "r-min-8": "Tối thiểu 8 kí tự",
+  "r-max-16": "Tối đa 16 kí tự",
+  "r-max-20": "Tối đa 20 kí tự",
+  "r-max-50": "Tối đa 50 kí tự",
+
+  "r-did-match": "Mật khẩu và xác nhận mật khẩu không khớp",
+
+  "r-first-name": "Tên là bắt buộc",
+  "r-last-name": "Họ là bắt buộc",
+
+  "change-password": "Thay đổi mật khẩu",
+  "not-email": "Định dạng email sai"
+}

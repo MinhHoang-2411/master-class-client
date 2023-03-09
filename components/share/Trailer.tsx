@@ -2,8 +2,8 @@ import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
-
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import ReactPlayer from 'react-player';
 import styles from '../../styles/layout-page.module.scss';
 import FeaturedPreview from '../trailer/featured-preview';
@@ -47,6 +47,7 @@ interface TrailerModel {
 }
 
 const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
+  const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const { trailer, welcome } = layoutPage;
 
@@ -135,7 +136,7 @@ const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
           <Box sx={styleDescription}>
             <span className={styles.description}>{welcome?.description}</span>
             <Box sx={styleBtnSignUp} onClick={() => dispatch(authActions.openSignUpModal())}>
-              Sign Up Here
+              {t('sign-up-here')}
             </Box>
           </Box>
 

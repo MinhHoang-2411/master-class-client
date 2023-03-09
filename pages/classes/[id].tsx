@@ -1,5 +1,6 @@
 import classAPI from '@/services/api/class';
 import { useAppSelector } from '@/store/hooks';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -19,7 +20,6 @@ const Classes = ({ classes, categories }: Props) => {
   const [isFavourite, setIsFavourite] = useState<any>(null);
   const router = useRouter();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-
   const fetchData = async () => {
     try {
       let response: any;
@@ -61,32 +61,29 @@ const Classes = ({ classes, categories }: Props) => {
   );
 };
 
-Classes.getInitialProps = async (ctx: any) => {
-  const { id } = ctx?.query;
-
-  const payload = {
-    webName: id,
-  };
-
-  const payloadCategory = {
-    page: 1,
-    limit: 100,
-  };
-
+export async function getServerSideProps({ locale }: any) {
   try {
-    // const response: any = await classAPI.getDetailByWebName(payload);
+    const payloadCategory = {
+      page: 1,
+      limit: 100,
+    };
+
     const categories: any = await classAPI.getListCategory(payloadCategory);
 
     return {
-      // classes: response?.data,
-      categories: categories?.data,
+      props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+        categories: categories?.data,
+      },
     };
   } catch (error) {
     console.error(error);
   }
   return {
-    props: {},
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
   };
-};
+}
 
 export default Classes;

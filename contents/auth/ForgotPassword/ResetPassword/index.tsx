@@ -14,27 +14,29 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import * as Yup from 'yup';
 
-const ResetPasswordSchema = Yup.object().shape({
-  password: Yup.string()
-    .min(8, 'Minimum 8 symbols')
-    .max(16, 'Maximum 16 symbols')
-    .required('Password is required'),
-  confirmPassword: Yup.string()
-    .required('Password confirmation is required')
-    .when('password', {
-      is: (val: string) => (val && val.length > 0 ? true : false),
-      then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
-    }),
-});
-
 const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
+  const { t } = useTranslation('common');
+
+  const ResetPasswordSchema = Yup.object().shape({
+    password: Yup.string()
+      .min(8, `${t('r-min-8')}`)
+      .max(16, `${t('r-max-16')}`)
+      .required(`${t('r-password')}`),
+    confirmPassword: Yup.string()
+      .required(`${t('r-confirm-password')}`)
+      .when('password', {
+        is: (val: string) => (val && val.length > 0 ? true : false),
+        then: Yup.string().oneOf([Yup.ref('password')], `${t('r-did-match')}`),
+      }),
+  });
+
   const { loadingResetPass: loading, tokenForgotPass } = useAppSelector((state) => state?.auth);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useAppDispatch();
-
   const onSubmit = (values: any, action: any) => {
     action.setSubmitting(true);
     try {
@@ -75,16 +77,7 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
             <KeyIcon color="secondary" />
           </Box>
           <Typography variant="h5" component="h2" sx={{ textAlign: 'center', mb: 2, mt: 2 }}>
-            {`Set new password`}
-          </Typography>
-
-          <Typography
-            variant="body1"
-            component="span"
-            color="primary.light"
-            sx={{ textAlign: 'center' }}
-          >
-            {`Your new password must be different to previously used password`}
+            {t('set-new-password')}
           </Typography>
         </Box>
         <Grid sx={{ mb: 2 }}>
@@ -104,7 +97,7 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
                         id="password"
                         name="password"
                         type={showPassword ? 'text' : 'password'}
-                        label="Password*"
+                        label={`${t('password')}*`}
                         variant="outlined"
                         InputProps={{
                           endAdornment: (
@@ -127,7 +120,7 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
                         id="confirmPassword"
                         name="confirmPassword"
                         type={showConfirmPassword ? 'text' : 'password'}
-                        label="Confirm Password*"
+                        label={`${t('confirm-password')}*`}
                         variant="outlined"
                         InputProps={{
                           endAdornment: (
@@ -154,7 +147,7 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
                   size="large"
                   fullWidth
                 >
-                  {isSubmitting ? 'Reset password...' : 'Reset password'}
+                  {isSubmitting ? `${t('reset-password')}...` : `${t('reset-password')}`}
                 </Button>
                 <Box sx={{ ...displayCenter, mt: 3 }}>
                   <Button
@@ -167,7 +160,7 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
                       sx={{ mr: 0.8 }}
                       fontSize="inherit"
                     ></KeyboardBackspaceIcon>
-                    {`Back to log in`}
+                    {t('back-to-log-in')}
                   </Button>
                 </Box>
               </Form>

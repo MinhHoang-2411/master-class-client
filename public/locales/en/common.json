@@ -1,0 +1,88 @@
+{
+  "all-categories": "All Categories",
+  "search": "Search",
+  "view-plans": "View plans",
+  "at-work": "At work",
+  "home": "Home",
+  "bookmark": "Bookmark",
+  "settings": "Settings",
+  "log-out": "Log out",
+  "log-in": "Log in",
+
+  "trailer": "Trailer",
+  "sample": "Sample",
+  "share": "Share",
+
+  "messages-from-the-team": "Messages from the Team",
+  "trending": "Trending",
+  "explore-classes": "Explore Classes",
+  "new-classes": "New Classes",
+  "browse-classes-and-original-series": "Browse Classes And Original Series",
+  "watch-sample": "Watch sample",
+  "view-class-info": "View class info",
+
+  "sign-up": "Sign up",
+  "sign-up-here": "Sign Up Here",
+  "about-this-class": "About this class",
+  "instructor": "Instructor",
+  "class": "Class",
+  "length": "Length",
+  "class-length": "Class Length",
+  "category": "category",
+  "starting-at-15-for-all-classes-and-sessions": "Starting at $15/month (billed annually) for all classes and sessions",
+  "browse-lesson-plan": "Browse Lesson Plan",
+  "discover": "Discover",
+  "read-more": "Read More",
+
+  "account": "Account",
+  "email": "Email",
+  "password": "Password",
+  "app-language": "App Language",
+  "change-default-language": "Change default language",
+  "edit": "Edit",
+  "enter-email-for-this-amazing-monthly-gift": "Enter Email for this amazing Monthly Gift",
+  "your-email-address": "Your email address",
+
+  "by-logging-in": "By logging in, you agree to our Privacy Policy and Terms of Service",
+  "remember-me": "Remember Me",
+  "forgot-your-password": "Forgot your password?",
+  "need-an-account": "Need an account",
+  "already-have-an-account": "Already have an account",
+  "sign-up-now": "Sign up now",
+
+  "first-name": "First Name",
+  "last-name": "Last Name",
+  "confirm-password": "Confirm Password",
+  "no-worries-instrucions": "No worries, we'll send you reset instrucions",
+  "send-email": "Send email",
+
+  "set-new-password": "Set new password",
+  "reset-password": "Reset password",
+  "back-to-log-in": "Back to log in",
+
+  "enter-the-confirmation-code": "Enter the confirmation code from your email to reset your password.",
+  "check-your-email": "Check your email",
+  "verify": "Verify",
+
+  "cancel": "Cancel",
+  "current-password": "Current Password",
+
+  "r-current-password": "Current password is required",
+  "r-password": "Password is required",
+  "r-email": "Email is required",
+  "r-confirm-password": "Password confirmation is required",
+  "r-min-3": "Minimum 3 symbols",
+  "r-min-8": "Minimum 8 symbols",
+  "r-max-16": "Maximum 16 symbols",
+  "r-max-20": "Maximum 20 symbols",
+  "r-max-50": "Maximum 50 symbols",
+  "r-did-match": "Password and Confirm Password didn't match",
+
+  "r-first-name": "First name is required",
+  "r-last-name": "Last name is required",
+
+  "change-password": "Change password",
+  "not-email": "Wrong email format"
+
+
+}

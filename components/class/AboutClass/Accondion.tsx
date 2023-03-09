@@ -2,6 +2,7 @@ import { ExpandMore } from '@mui/icons-material';
 import { Accordion, AccordionDetails, AccordionSummary, Box, duration } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
+import { useTranslation } from 'next-i18next';
 import styles from './../../../styles/classes.module.scss';
 
 const CustomAccordion = styled(Accordion)({
@@ -53,6 +54,7 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
   index,
   duration,
 }) => {
+  const { t } = useTranslation('common');
   return (
     <Box className={styles.accordionLesson}>
       <CustomAccordion>
@@ -70,7 +72,7 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
           <CustomAccordionDetails>{description}</CustomAccordionDetails>
 
           <CustomAccordionDetails>
-            <Box sx={{ textDecoration: 'underline' }}>Read More...</Box>
+            <Box sx={{ textDecoration: 'underline' }}>{`${t('read-more')}...`}</Box>
           </CustomAccordionDetails>
         </Box>
       </CustomAccordion>

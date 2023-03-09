@@ -2,6 +2,7 @@ import { CategoryModel } from '@/declares/models/Categories';
 import { isArray } from 'lodash';
 import Link from 'next/link';
 import { useCallback } from 'react';
+import { useTranslation } from 'next-i18next';
 import styles from '../../styles/dropdown.module.scss';
 
 interface CategoriesModel {
@@ -10,6 +11,7 @@ interface CategoriesModel {
 }
 
 const ModalCategories: React.FC<CategoriesModel> = (props) => {
+  const { t } = useTranslation('common');
   const { setShowCategory, listCategories } = props;
 
   const renderList = useCallback(() => {
@@ -74,7 +76,7 @@ const ModalCategories: React.FC<CategoriesModel> = (props) => {
             <div className={styles.dropdown_footer}>
               <div style={{ padding: '12px 16px' }}>
                 <a className={styles.button} href="#">
-                  Discover
+                  {t('discover')}
                 </a>
               </div>
             </div>
