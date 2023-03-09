@@ -11,13 +11,16 @@ import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
+import { useTranslation } from 'next-i18next';
 import * as Yup from 'yup';
 
+const SendEmail = ({ isOpen, CloseModal }: IModal) => {
+  const { t } = useTranslation('common');
+
 const SendEmailSchema = Yup.object().shape({
-  email: Yup.string().email('Wrong email format').required('Email is required'),
+  email: Yup.string().email(`${t('not-email')}`).required(`${t('r-email')}`),
 });
 
-const SendEmail = ({ isOpen, CloseModal }: IModal) => {
   const dispatch = useAppDispatch();
   const onSubmit = (values: any, action: any) => {
     action.setSubmitting(true);
@@ -55,11 +58,11 @@ const SendEmail = ({ isOpen, CloseModal }: IModal) => {
             <KeyIcon color="secondary" />
           </Box>
           <Typography variant="h5" component="h2" sx={{ textAlign: 'center', mb: 2, mt: 2 }}>
-            Forgot password?
+            {t('forgot-your-password')}
           </Typography>
 
-          <Typography variant="body1" component="span" color="primary.light">
-            {`No worries, we'll send you reset instrucions`}
+          <Typography variant="body1" component="span" color="primary.light" sx={{ textAlign: 'center'}}>
+            {t('no-worries-instrucions')}
           </Typography>
         </Box>
         <Grid sx={{ mb: 2 }}>
@@ -92,7 +95,7 @@ const SendEmail = ({ isOpen, CloseModal }: IModal) => {
                   size="large"
                   fullWidth
                 >
-                  {isSubmitting ? 'Send email...' : 'Send email'}
+                  {isSubmitting ? `${t('send-email')}...` : `${t('send-email')}`}
                 </Button>
                 <Box sx={{ ...displayCenter, mt: 3 }}>
                   <Button
@@ -105,7 +108,7 @@ const SendEmail = ({ isOpen, CloseModal }: IModal) => {
                       sx={{ mr: 0.8 }}
                       fontSize="inherit"
                     ></KeyboardBackspaceIcon>
-                    {`Back to log in`}
+                    {t('back-to-log-in')}
                   </Button>
                 </Box>
               </Form>

@@ -17,6 +17,7 @@ import { useState } from 'react';
 import SignUpSchema from './Validate';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@/components/share/Button';
+import { useTranslation } from 'next-i18next';
 
 interface ISignUp {
   firstName: string;
@@ -26,6 +27,7 @@ interface ISignUp {
   confirmPassword: string;
 }
 const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
+  const { t } = useTranslation('common');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -52,7 +54,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
     <Modal open={isOpen} onClose={CloseModal}>
       <Box sx={styleModal}>
         <Typography variant="h4" component="h2" sx={{ mb: 4, mt: 2, textAlign: 'center' }}>
-          Sign up
+          {t('sign-up')}
         </Typography>
         <Box sx={{ position: 'absolute', top: '12px', right: '12px' }}>
           <IconButton onClick={() => dispatch(authActions.closeSignUpModal())}>
@@ -63,7 +65,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
           <Formik
             initialValues={initialValues}
             validateOnBlur={false}
-            validationSchema={SignUpSchema}
+            validationSchema={SignUpSchema(t)}
             onSubmit={onSubmit}
           >
             {({ isSubmitting, dirty }) => (
@@ -75,7 +77,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                         as={TextField}
                         id="firstName"
                         name="firstName"
-                        label="First name*"
+                        label={`${t('first-name')}*`}
                         variant="outlined"
                       />
                       <ErrorMessage name="firstName" />
@@ -87,7 +89,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                         as={TextField}
                         id="lastName"
                         name="lastName"
-                        label="Last name*"
+                        label={`${t('last-name')}*`}
                         variant="outlined"
                       />
                       <ErrorMessage name="lastName" />
@@ -110,7 +112,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                         id="password"
                         name="password"
                         type={showPassword ? 'text' : 'password'}
-                        label="Password*"
+                        label={`${t('password')}*`}
                         variant="outlined"
                         InputProps={{
                           endAdornment: (
@@ -134,7 +136,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                         id="confirmPassword"
                         name="confirmPassword"
                         type={showConfirmPassword ? 'text' : 'password'}
-                        label="Confirm Password*"
+                        label={`${t('confirm-password')}*`}
                         variant="outlined"
                         InputProps={{
                           endAdornment: (
@@ -157,7 +159,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                 <Grid>
                   <Box sx={{ ...displayCenter }}>
                     <Typography variant="body2" component="span">
-                      Already have an account?
+                      {t('already-have-an-account')}
                     </Typography>
                     <Button
                       variant="text"
@@ -165,7 +167,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                       color="inherit"
                       onClick={() => dispatch(authActions.openSignInModal())}
                     >
-                      Log in.
+                      {t('log-in')}
                     </Button>
                   </Box>
                 </Grid>
@@ -183,7 +185,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                     sx={{ textAlign: 'center' }}
                     color="primary.light"
                   >
-                    By logging in, you agree to our Privacy Policy and Terms of Service
+                    {t('by-logging-in')}
                   </Typography>
                 </Box>
 
@@ -194,7 +196,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                   size="large"
                   fullWidth
                 >
-                  {isSubmitting ? 'Sign up...' : 'Sign up'}
+                  {isSubmitting ? `${t('sign-up')}...` : `${t('sign-up')}`}
                 </Button>
               </Form>
             )}

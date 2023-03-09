@@ -8,8 +8,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
+import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -19,11 +19,16 @@ import Logo from '../../public/logo.png';
 import ModalCategories from '../categories/modalCategories';
 import ModalSearch from '../categories/modalSearch';
 import Button from '../share/Button';
-import Typography from '../share/Typography';
 
 const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
-const Navbar: React.FC = () => {
+interface Props {
+  locale?: any;
+}
+
+const Navbar = (props: Props) => {
+  const { t, i18n } = useTranslation('common');
+
   const dispatch = useAppDispatch();
   const listCategories = useAppSelector((state) => state.categories.listData);
   const currentUser = getAuth()?.user;
@@ -46,6 +51,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     dispatch(categoriesActions.fetchData({}));
   }, []);
+
 
   return (
     <>
@@ -95,7 +101,7 @@ const Navbar: React.FC = () => {
                   color="inherit"
                   onClick={() => setShowCategory((preState) => !preState)}
                 >
-                  {'All Categories'}
+                  {t('all-categories')}
                   <ExpandMoreIcon />
                 </Button>
                 {showCategory && (
@@ -120,7 +126,7 @@ const Navbar: React.FC = () => {
                   onClick={() => setShowSearch((preState) => !preState)}
                 >
                   <SearchIcon fontSize="small" color="inherit" sx={{ mr: 0.5 }} />
-                  {'Search'}
+                  {t('search')}
                 </Button>
                 {showSearch && (
                   <ModalSearch listCategories={listCategories} setShowSearch={setShowSearch} />
@@ -137,7 +143,7 @@ const Navbar: React.FC = () => {
                   },
                 }}
               >
-                {'View Plans'}
+                {t('view-plans')}
               </Button>
               <Box
                 sx={{
@@ -156,34 +162,38 @@ const Navbar: React.FC = () => {
                 {showMenu && <ModalSearch setShowSearch={setShowMenu} showMenu={true} />}
               </Box>
             </Box>
-            {currentUser ? (
-              <>
-                <Profile />
-              </>
-            ) : (
-              <>
-                <Box
-                  sx={{
-                    display: {
-                      xs: 'none',
-                      sm: 'flex',
-                    },
-                  }}
-                >
-                  <Button variant="text" size="small" color="inherit">
-                    At work
-                  </Button>
-                  <Button
-                    variant="text"
-                    size="small"
-                    color="inherit"
-                    onClick={() => dispatch(authActions.openSignInModal())}
+
+            <div className="">
+              {/* <LanguagePopover handleChangeLanguage={handleChangeLanguage} /> */}
+              {currentUser ? (
+                <>
+                  <Profile />
+                </>
+              ) : (
+                <>
+                  <Box
+                    sx={{
+                      display: {
+                        xs: 'none',
+                        sm: 'flex',
+                      },
+                    }}
                   >
-                    Log in
-                  </Button>
-                </Box>
-              </>
-            )}
+                    <Button variant="text" size="small" color="inherit">
+                      {t('at-work')}
+                    </Button>
+                    <Button
+                      variant="text"
+                      size="small"
+                      color="inherit"
+                      onClick={() => dispatch(authActions.openSignInModal())}
+                    >
+                      {t('log-in')}
+                    </Button>
+                  </Box>
+                </>
+              )}
+            </div>
           </Toolbar>
         </Container>
       </AppBar>

@@ -1,5 +1,6 @@
 import { getAuth } from '@/utils/auth';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import Cookies from 'js-cookie';
 
 const URL_API = process.env.NEXT_PUBLIC_API_URL;
 
@@ -22,6 +23,9 @@ axiosClient_V2.interceptors.request.use(
       'Access-Control-Allow-Origin': '*',
       Authorization: `Bearer ${auth.api_token}`,
     };
+    let locale = Cookies.get('appLocale') || 'en';
+    config.headers['Accept-Language'] = ['vi', 'en'].includes(locale) ? locale : 'en';
+
     return config;
   },
   function (error) {

@@ -9,6 +9,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import bookmarkApi from '@/services/api/bookmark';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'next-i18next';
 
 interface PreviewDetailClassModel {}
 
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }: Props) => {
+  const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const router = useRouter();
@@ -208,7 +210,7 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                             fill="currentColor"
                           />
                         </svg>
-                        Trailer
+                        {t('trailer')}
                       </button>
                       <button
                         type="button"
@@ -232,7 +234,7 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                             fill="currentColor"
                           />
                         </svg>
-                        Sample
+                        {t('sample')}
                       </button>
                       <button
                         type="button"
@@ -267,7 +269,7 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                             fill="currentColor"
                           />
                         </svg>
-                        Share
+                        {t('share')}
                       </button>
 
                       {isLoggedIn ? (
@@ -286,7 +288,7 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                               onClick={() => onBookmarkClass(classes._id)}
                             />
                           )}
-                          Bookmark
+                          {t('bookmark')}
                         </button>
                       ) : (
                         <></>
@@ -305,14 +307,12 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                         className={`${styles['c-button']} ${styles['c-button--full-width']} ${styles['c-button--primary']} ${styles['c-button--md']}`}
                         onClick={() => dispatch(authActions.openSignUpModal())}
                       >
-                        Sign Up
+                        {t('sign-up')}
                       </span>
                       <p
                         className={`${styles['mc-text-small']} ${styles['mc-opacity--hinted']} ${styles['mc-mt-3']}`}
                       >
-                        <span>
-                          Starting at $15/month (billed annually) for all classes and sessions
-                        </span>
+                        <span>{t('starting-at-15-for-all-classes-and-sessions')}</span>
                       </p>
                     </div>
                   </div>

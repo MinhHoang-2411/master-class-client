@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import styles from '../../styles/categories.module.scss';
 import stylesTrailer from '../../styles/layout-page.module.scss';
 
@@ -7,6 +8,7 @@ interface FeaturedPreviewModel {
 }
 
 const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
+  const { t } = useTranslation('common');
   const [email, setEmail] = useState('');
   const [error, setError] = useState(false);
 
@@ -724,13 +726,13 @@ const FeaturedPreview: React.FC<FeaturedPreviewModel> = ({}) => {
         </div>
       </div>
       <div className={`${stylesTrailer.divEmail}`}>
-        <span>Enter Email for this amazing Monthly Gift.</span>
+        <span>{t('enter-email-for-this-amazing-monthly-gift')}</span>
         <div className={`${stylesTrailer.inputEmail} ${error && stylesTrailer.inputEmailError}`}>
           <input
             value={email}
             type="email"
             onChange={(e) => handleChangeEmail(e)}
-            placeholder="Your email address"
+            placeholder={`${t('your-email-address')}`}
           />
           {error && (
             <span className={stylesTrailer.textError}>

@@ -3,6 +3,7 @@ import { classActions } from '@/store/class/classSlice';
 import { isArray } from 'lodash';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import styles from '../../styles/categories.module.scss';
 
 interface ListClassModel {
@@ -10,6 +11,7 @@ interface ListClassModel {
 }
 
 const ListClass: React.FC<ListClassModel> = (props) => {
+  const { t } = useTranslation('common');
   const [params, setParams] = useState({
     page: 1,
     limit: 100,
@@ -201,7 +203,7 @@ const ListClass: React.FC<ListClassModel> = (props) => {
                                     fill="currentColor"
                                   />
                                 </svg>
-                                Watch Sample
+                                {t('watch-sample')}
                               </button>
                               <Link
                                 className={styles['button-view']}
@@ -234,7 +236,7 @@ const ListClass: React.FC<ListClassModel> = (props) => {
                                     fill="currentColor"
                                   />
                                 </svg>
-                                View Class Info
+                                {t('view-class-info')}
                               </Link>
                             </div>
                           </div>

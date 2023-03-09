@@ -1,9 +1,11 @@
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/system';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import ReactPlayer from 'react-player';
 
 import Video from '../trailer/video';
+import Typography from './Typography';
 
 const styleBigVideo = {
   objectFit: 'contain',
@@ -15,6 +17,7 @@ interface MessagesFromTeamModel {
 }
 
 const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
+  const { t } = useTranslation('common');
   const { messagesTeam } = layoutPage;
 
   const [lightVideoFounder, setLightVideoFounder] = useState(messagesTeam[0]?.thumbnail);
@@ -40,11 +43,13 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
           lg: '100%',
           xl: '1600px',
         },
-        margin: 'auto',
+        margin: '32px auto',
       }}
     >
       <Box>
-        <h2>Messages from the Team</h2>
+        <Typography variant="h4" component={'h2'} color="#fff" sx={{ mb: 3, fontSize: '32px' }}>
+          {t('messages-from-the-team')}
+        </Typography>
       </Box>
       <Grid
         container

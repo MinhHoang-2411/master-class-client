@@ -10,13 +10,16 @@ import {
   MenuItem,
   Popover,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 interface IProfile {}
-const Profile = ({  }: any) => {
+const Profile = ({}: any) => {
+  const { t } = useTranslation('common');
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const currentUser = getAuth()?.user;
@@ -74,7 +77,7 @@ const Profile = ({  }: any) => {
               onClick={() => router.push(`/`)}
               sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
             >
-              Home
+              {t('home')}
             </Button>
           </MenuItem>
 
@@ -83,7 +86,7 @@ const Profile = ({  }: any) => {
               onClick={() => router.push(`/bookmark`)}
               sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
             >
-              Bookmark
+              {t('bookmark')}
             </Button>
           </MenuItem>
 
@@ -92,7 +95,7 @@ const Profile = ({  }: any) => {
               onClick={() => router.push(`/settings`)}
               sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
             >
-              Settings
+              {t('settings')}
             </Button>
           </MenuItem>
         </Stack>
@@ -104,7 +107,7 @@ const Profile = ({  }: any) => {
             onClick={() => dispatch(authActions.logout({}))}
             sx={{ color: '#fff', fontWeight: 'bold' }}
           >
-            Log out
+            {t('log-out')}
           </Button>
         </MenuItem>
       </Popover>

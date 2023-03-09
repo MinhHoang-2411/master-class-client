@@ -18,7 +18,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import SignInSchema from './Validate';
+import { useTranslation } from 'next-i18next';
+import * as Yup from 'yup';
 
 interface ILogin {
   email: string;
@@ -26,8 +27,18 @@ interface ILogin {
 }
 
 const SignInModal = ({ isOpen, CloseModal }: IModal) => {
+  const { t } = useTranslation('common');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+
+  const SignInSchema = Yup.object().shape({
+    email: Yup.string()
+      .email(`${t('not-email')}`)
+      .min(3, `${t('r-min-3')}`)
+      .max(50, `${t('r-max-50')}`)
+      .required(`${t('r-email')}`),
+    password: Yup.string().required(`${t('r-password')}`),
+  });
 
   const onSubmit = async (values: ILogin, action: any) => {
     action.setSubmitting(true);
@@ -48,7 +59,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
     <Modal open={isOpen} onClose={CloseModal}>
       <Box sx={styleModal}>
         <Typography variant="h4" component="h2" sx={{ mb: 4, mt: 2, textAlign: 'center' }}>
-          Log in
+          {t('log-in')}
         </Typography>
         <Box sx={{ position: 'absolute', top: '12px', right: '12px' }}>
           <IconButton onClick={() => dispatch(authActions.closeSignInModal())}>
@@ -74,7 +85,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
-                  label="Password*"
+                  label={`${t('password')}*`}
                   variant="outlined"
                   InputProps={{
                     endAdornment: (
@@ -99,7 +110,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                   sx={{ textAlign: 'center' }}
                   color="primary.light"
                 >
-                  By logging in, you agree to our Privacy Policy and Terms of Service
+                  {t('by-logging-in')}
                 </Typography>
               </Box>
               <Button
@@ -109,12 +120,13 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 size="large"
                 fullWidth
               >
-                {isSubmitting ? 'Log in...' : 'Log in'}
+                {/* {isSubmitting ? 'Log in...' : 'Log in'} */}
+                {isSubmitting ? `${t('log-in')}...` : `${t('log-in')}`}
               </Button>
               <Grid container alignItems="center" justifyContent="space-between" sx={{ mt: 1 }}>
                 <Box sx={displayCenter}>
                   <Field as={Checkbox} name="remember" />
-                  <Typography variant="caption">Remember me</Typography>
+                  <Typography variant="caption"> {t('remember-me')} </Typography>
                 </Box>
                 <Button
                   variant="text"
@@ -122,13 +134,13 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                   color="inherit"
                   onClick={() => dispatch(authActions.openModalSendEmail())}
                 >
-                  Forgot your password?
+                  {t('forgot-your-password')}
                 </Button>
               </Grid>
               <Grid>
                 <Box sx={displayCenter}>
                   <Typography variant="body1" component="span">
-                    Need an account?
+                    {t('need-an-account')}
                   </Typography>
                   <Button
                     variant="text"
@@ -136,7 +148,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                     color="inherit"
                     onClick={() => dispatch(authActions.openSignUpModal())}
                   >
-                    Sign up now.
+                    {t('sign-up-now')}
                   </Button>
                 </Box>
               </Grid>
