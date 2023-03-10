@@ -36,7 +36,7 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
     const response: any = await bookmarkApi.postMyFavorite(params);
     if (response.data) {
       setIsFavourite(true);
-      toast.success('Add lessons to successful bookmarks');
+      toast.success(t('add-lesson-bookmark'));
     }
   };
 
@@ -48,10 +48,15 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
     const response: any = await bookmarkApi.deleteMyFavorite(params);
     if (response.data) {
       setIsFavourite(false);
-      toast.success('Delete lessons to successful bookmarks');
+      toast.success(t('delete-lesson-bookmark'));
     }
   };
 
+  const handlePlayVideoTrailer = () => {
+    setModalVideo(true);
+  };
+
+  console.log('classes', classes)
   return (
     <>
       <div className={styles.Hero_tileContainer}>
@@ -117,58 +122,19 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                 <div className={`${styles['container']} ${styles['mc-text--center']}`}>
                   <div className={`${styles['row']} ${styles['justify-content-center']}`}>
                     <div
-                      className={`${styles['col-8']} ${styles['col-sm-6']} ${styles['col-md-3']}`}
+                      className={`${styles['col-8']} ${styles['col-sm-6']} ${styles['col-md-3']} ${styles['py-2']}`}
                     >
                       <div
-                        className={`${styles['mc-nameplate']} ${styles['mc-nameplate--small']} ${styles['mc-text--center']}`}
+                        className={`${styles['mc-nameplate--small']} ${styles['mc-text--center']}`}
                         data-testid="nameplate"
                       >
                         <div className={`${styles['mc-nameplate__inner']}`}>
                           <h1 className={`${styles['Hero_nameplateImageContainer']}`}>
-                            <span
-                              style={{
-                                boxSizing: 'border-box',
-                                display: 'block',
-                                overflow: 'hidden',
-                                width: 'initial',
-                                height: 'initial',
-                                background: 'none',
-                                opacity: 1,
-                                border: 0,
-                                margin: 0,
-                                padding: 0,
-                                position: 'absolute',
-                                inset: 0,
-                              }}
-                            >
-                              <img
-                                alt="Gordon Ramsay"
-                                sizes="220px"
-                                src="https://www.masterclass.com/course-images/attachments/M9gAFDV18n8Z1ULC54QB8YXH?width=3840&quality=75&format=webp"
-                                decoding="async"
-                                data-nimg="fill"
-                                className={`${styles['Hero_nameplateImage']}`}
-                                style={{
-                                  position: 'absolute',
-                                  inset: 0,
-                                  boxSizing: 'border-box',
-                                  padding: 0,
-                                  border: 'none',
-                                  margin: 'auto',
-                                  display: 'block',
-                                  width: 0,
-                                  height: 0,
-                                  minWidth: '100%',
-                                  maxWidth: '100%',
-                                  minHeight: '100%',
-                                  maxHeight: '100%',
-                                }}
-                              />
-                            </span>
+                            {classes?.authorName}
                           </h1>
                           <div className={`${styles['mc-nameplate__separator']}`} />
                           <p
-                            className={`${styles['mc-text--2-lines']} ${styles['mc-text-h6']}`}
+                            className={`${styles['nameplate__sub-text']} ${styles['mc-text-h6']}`}
                             data-testid="nameplate__sub-text"
                           >
                             {classes?.name}
@@ -177,22 +143,24 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                       </div>
                     </div>
                   </div>
+
                   <div
                     className={`${styles['row']} ${styles['d-flex']} ${styles['justify-content-center']}`}
                   >
                     <div
                       className={`${styles['row']} ${styles['col-12']} ${styles['col-md-8']} ${styles['col-lg-6']}`}
                     >
-                      {classes?.overview?.description}
+                      {classes?.title}
                     </div>
                   </div>
+
                   <div
                     className={`${styles['row']} ${styles['justify-content-center']} ${styles['mc-mt-4']}`}
                   >
                     <div className={styles['col-auto']}>
                       <button
                         type="button"
-                        onClick={() => setModalVideo(true)}
+                        onClick={handlePlayVideoTrailer}
                         className={`${styles['c-button']} ${styles['c-button--link']} ${styles['c-button--md']} ${styles['d-inline-flex']} ${styles['flex-column']}`}
                       >
                         <svg
@@ -215,7 +183,7 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                       <button
                         type="button"
                         className={`${styles['c-button']} ${styles['c-button--link']} ${styles['c-button--md']} ${styles['d-inline-flex']} ${styles['flex-column']}`}
-                        onClick={() => setModalVideo(true)}
+                        onClick={handlePlayVideoTrailer}
                       >
                         <svg
                           width={24}
@@ -296,6 +264,7 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                     </div>
                   </div>
                 </div>
+
                 <div className={styles.container}>
                   <div
                     className={`${styles['row']} ${styles['mc-text--center']} ${styles['justify-content-center']}`}
@@ -325,12 +294,7 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
 
       <AboutClass classes={classes} categories={categories} />
       {modalVideo && (
-        <ModalVideo
-          openModal={modalVideo}
-          setOpenModal={setModalVideo}
-          classes={classes}
-          categories={categories}
-        />
+        <ModalVideo openModal={modalVideo} setOpenModal={setModalVideo} classes={classes} />
       )}
     </>
   );

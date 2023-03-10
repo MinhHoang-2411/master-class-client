@@ -8,6 +8,7 @@ import _, { isArray } from 'lodash';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import Highlighter from 'react-highlight-words';
+import { useTranslation } from 'next-i18next';
 import styles from '../../styles/dropdown.module.scss';
 
 interface SearchModel {
@@ -26,6 +27,7 @@ interface ParamsModel {
 
 const ModalSearch: React.FC<SearchModel> = (props) => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation('common');
   const { setShowSearch, listCategories, showMenu } = props;
   const [search, setSearch] = useState('');
   const [params, setParams] = useState<ParamsModel>({
@@ -228,7 +230,7 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
                   className={`${styles['d-flex']} ${styles['align-items-center']} ${styles['mc-w-100']}`}
                 >
                   <label htmlFor="search-bar" className={styles['mc-sr-only']}>
-                    Search Instructors, Classes, Topics and more
+                    {t('search-instructors-classes-topics-and-more')}
                   </label>
                   <div
                     className={`${styles['mc-form-input']} ${styles['mc-form-element']} ${styles['mc-form-element--default']} ${styles['mc-text-medium']}`}
@@ -262,7 +264,7 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
                       id="search-bar"
                       type="text"
                       className={`${styles['mc-form-element__element']}`}
-                      placeholder="Search Instructors, Classes, Topics and more"
+                      placeholder={`${t('search-instructors-classes-topics-and-more')}`}
                       spellCheck="false"
                       autoCorrect="false"
                       aria-invalid="false"
@@ -307,7 +309,7 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
                     className={`${styles['Results_wrapper']} ${styles['Results_showHighlight']}`}
                   >
                     <div className={`${styles['mc-p-1']} ${styles['mc-text--center']}`}>
-                      {`No results found for "${params?.search}"`}
+                      {`${t('no-results-found-for')} "${params?.name_category}"`}
                     </div>
                   </div>
                 )

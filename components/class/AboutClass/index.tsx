@@ -21,9 +21,12 @@ const AboutClass = ({ classes, categories }: Props) => {
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const [listCategory, setListCategory] = useState<any>([]);
+
+  console.log('listCategory', listCategory);
+  
   useEffect(() => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
-  }, []);
+  }, [classes]);
 
   const [playingVideo, setPlayingVideo] = useState(false);
   const [lightVideo, setLightVideo] = useState(classes?.videoPreview?.thumbnail);
@@ -128,7 +131,7 @@ const AboutClass = ({ classes, categories }: Props) => {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', pt: '24px', pb: '8px' }}>
               <Typography sx={{ opacity: '.6', fontSize: '14px' }} component="p">
-                {`${t('instructor')}(s):`}
+                {`${t('instructor')}:`}
               </Typography>
               <Typography sx={{ fontWeight: 'bold', fontSize: '14px', pl: 1 }} component="p">
                 {classes?.authorName}
@@ -149,7 +152,7 @@ const AboutClass = ({ classes, categories }: Props) => {
               <Typography sx={{ fontWeight: 'bold', fontSize: '14px', pl: 1 }} component="p">
                 {isMappable(listCategory)
                   ? listCategory.map((cate: any, index: number) => (
-                      <>{`${cate.name} ${index + 1 !== listCategory.length ? '||' : ''}`}</>
+                      <>{`${cate.name}${index + 1 !== listCategory.length ? ', ' : ''}`}</>
                     ))
                   : ''}
               </Typography>

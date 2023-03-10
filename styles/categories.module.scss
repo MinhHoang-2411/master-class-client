@@ -228,6 +228,11 @@
 .author-name {
     font-size: 40px;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 }
 
 .animation-zoom {
@@ -292,6 +297,11 @@
 
 .text--2-lines {
     height: calc(2 * 1.25 * 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .CourseOverlaySlideUpContent_slideUp__7fhL2 .CourseOverlaySlideUpContent_buttons__9SVAg {

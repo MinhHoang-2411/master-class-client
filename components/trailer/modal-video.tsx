@@ -1,25 +1,26 @@
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import styles from '../../styles/classes.module.scss';
 import PlayVideo from '../class/AboutClass/PlayVideo';
+import VideoPreview from '../class/AboutClass/VideoPreview';
 
 interface ModalVideoModel {
   openModal?: boolean;
   setOpenModal: (show: boolean) => void;
   classes: any;
-  categories: any;
 }
 
 const ModalVideo: React.FC<ModalVideoModel> = ({
   openModal,
   setOpenModal,
   classes,
-  categories,
 }) => {
+  const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
-  const [playing, setPlaying] = useState(false);
-  const [pauseVideo, setPauseVideo] = useState(false);
+  const [playingVideo, setPlayingVideo] = useState(true);
+  const [lightVideo, setLightVideo] = useState(false);
 
   return (
     <>
@@ -35,7 +36,7 @@ const ModalVideo: React.FC<ModalVideoModel> = ({
               data-testid="modal-close-button"
               onClick={() => setOpenModal(false)}
             >
-              <span className={styles['mc-sr-only']}>Close</span>
+              <span className={styles['mc-sr-only']}>{t('close')}</span>
               <svg
                 width={24}
                 height={25}
@@ -113,12 +114,12 @@ const ModalVideo: React.FC<ModalVideoModel> = ({
                     </div>
                   </div>
                 </div>
-                <div className={styles['col']}>
+                <div className={`${styles['col']} ${styles['py-2']}`}>
                   <h1
                     id="trailer-modal-heading"
                     className={`${styles['mc-text-h5']} ${styles['mc-text--1-line-max']} `}
                   >
-                    Trailer for {classes?.authorName}
+                    {`${t('trailer-for')} ${classes?.authorName}`}
                   </h1>
                   <p className={styles['mc-mt-1']}>{classes?.name}</p>
                 </div>
@@ -127,7 +128,7 @@ const ModalVideo: React.FC<ModalVideoModel> = ({
                     className={`${styles['c-button']} ${styles['c-button--primary']} ${styles['c-button--md']} `}
                     onClick={() => dispatch(authActions.openSignUpModal())}
                   >
-                    Sign Up
+                    {t('sign-up')}
                   </span>
                 </div>
               </div>
@@ -143,77 +144,14 @@ const ModalVideo: React.FC<ModalVideoModel> = ({
                     role="region"
                     aria-label="Video Player"
                   >
-                    {/* {pauseVideo && (
-                      <div>
-                        <div
-                          className={`${styles['bc-player__screen']} ${styles['bc-player__screen--pausescreen']} ${styles['bc-player__screen--enter-done']} `}
-                        >
-                          <div className={`${styles['mc-tile']} ${styles['mc-tile--16x9']}`}>
-                            <div className={`${styles['mc-tile__content']} ${styles['content']}`}>
-                              <div
-                                className={`${styles['mc-tile__component']} ${styles['mc-tile-overlay']} ${styles['mc-tile-overlay--solid']}`}
-                              />
-                              <div
-                                className={`${styles['mc-tile__component']} ${styles['mc-tile-caption']} ${styles['mc-tile-caption--x-left']} ${styles['mc-tile-caption--y-top']}`}
-                              >
-                                <div
-                                  className={`${styles['mc-tile-caption__content']} ${styles['mc-p-3']}`}
-                                >
-                                  <p className={`${styles['mc-text-small']} ${styles['mc-p-5']}`}>
-                                    Class Trailer
-                                  </p>
-                                </div>
-                              </div>
-                              <div
-                                className={`${styles['mc-tile__component']} ${styles['mc-tile-caption']} ${styles['mc-tile-caption--x-center']} ${styles['mc-tile-caption--y-center']}`}
-                              >
-                                <div
-                                  className={`${styles['mc-tile-caption__content']} ${styles['mc-p-3']}`}
-                                >
-                                  <div>
-                                    <div className={styles['row']}>
-                                      <div
-                                        className={`${styles['col-12']} ${styles['col-md-8']} ${styles['offset-md-2']} ${styles['col-lg-6']} ${styles['offset-lg-3']}`}
-                                      >
-                                        <h5 className={styles['mc-text-h5']}>
-                                          Subscribe to MasterClass to continue watching
-                                        </h5>
-                                        <p
-                                          className={`${styles['d-none']} ${styles['d-md-block']} ${styles['mc-mt-3']}`}
-                                        >
-                                          <span>Starting at $15/month (billed annually)</span>
-                                        </p>
-                                        <span
-                                          className={`${styles['c-button']} ${styles['c-button--primary']} ${styles['c-button--md']} ${styles['mc-mt-3']}`}
-                                        >
-                                          Sign Up
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )} */}
-                    <PlayVideo
-                      videoPreview={classes.videoPreview}
-                      playing={playing}
-                      setPlaying={setPlaying}
-                      setPauseVideo={setPauseVideo}
-                      height="600px"
+                    <VideoPreview
+                      lightVideo={lightVideo}
+                      url={classes?.videoPreview?.url}
+                      playingVideo={playingVideo}
+                      setLightVideo={setLightVideo}
+                      setPlayingVideo={setPlayingVideo}
+                      height={"600px"}
                     />
-                    {/* <div
-                      className="vjs-poster"
-                      tabIndex={-1}
-                      aria-disabled="false"
-                      style={{
-                        backgroundImage:
-                          'url("https://cf-images.us-east-1.prod.boltdns.net/v1/jit/5344802162001/b1ff9874-e6f8-41a9-9761-5226f23367f3/main/1920x1080/41s824ms/match/image.jpg")',
-                      }}
-                    /> */}
                   </div>
                 </div>
               </div>

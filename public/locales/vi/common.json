@@ -73,7 +73,7 @@
   "r-confirm-password": "Xác nhận mật khẩu là bắt buộc",
   "r-min-3": "Tối thiểu 3 kí tự",
   "r-min-8": "Tối thiểu 8 kí tự",
-  "r-max-16": "Tối đa 16 kí tự",
+  "r-max-15": "Tối đa 15 kí tự",
   "r-max-20": "Tối đa 20 kí tự",
   "r-max-50": "Tối đa 50 kí tự",
 
@@ -87,7 +87,14 @@
 
   "my-favourites": "Danh sách yêu thích của tôi",
 
-  "delete-lesson-bookmark": "Xoá bài học đã đánh dấu thành công",
-  "add-lesson-bookmark": "Thêm bài học đã đánh dấu thành công",
-  "remove-favourite": "Xoá mục yêu thích"
+  "delete-lesson-bookmark": "Xoá bài học khỏi mục yêu thích thành công",
+  "add-lesson-bookmark": "Thêm bài học vào mục yêu thích thành công",
+  "remove-favourite": "Xoá mục yêu thích",
+
+  "search-instructors-classes-topics-and-more": "Tìm kiếm giảng viên, lớp học, chủ đề và hơn thế nữa",
+  "no-results-found-for":"Không tìm thấy kết quả cho",
+
+  "close": "Đóng",
+  "trailer-for": "Video giới thiệu cho"
+
 }

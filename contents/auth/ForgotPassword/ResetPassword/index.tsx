@@ -23,7 +23,7 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
   const ResetPasswordSchema = Yup.object().shape({
     password: Yup.string()
       .min(8, `${t('r-min-8')}`)
-      .max(16, `${t('r-max-16')}`)
+      .max(15, `${t('r-max-15')}`)
       .required(`${t('r-password')}`),
     confirmPassword: Yup.string()
       .required(`${t('r-confirm-password')}`)
@@ -106,7 +106,7 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
                                 onClick={() => setShowPassword(!showPassword)}
                                 color="secondary"
                               >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),
@@ -129,7 +129,7 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 color="secondary"
                               >
-                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),

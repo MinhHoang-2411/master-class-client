@@ -14,8 +14,8 @@ const SignUpSchema = (t: any) =>
       .max(50, `${t('r-max-50')}`)
       .required(`${t('r-last-name')}`),
     password: Yup.string()
-      .min(8, `${t('r-min-3')}`)
-      .max(20, `${t('r-max-20')}`)
+      .min(8, `${t('r-min-8')}`)
+      .max(15, `${t('r-max-15')}`)
       .required(`${t('r-password')}`),
     confirmPassword: Yup.string()
       .required(`${t('r-confirm-password')}`)
