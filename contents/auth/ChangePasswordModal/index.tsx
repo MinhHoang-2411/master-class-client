@@ -13,7 +13,7 @@ import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import * as Yup from 'yup';
 
@@ -23,7 +23,7 @@ const ChangePassword = ({ isOpen, CloseModal }: IModal) => {
     currentPassword: Yup.string().required(`${t('r-current-password')}`),
     password: Yup.string()
       .min(8, `${t('r-min-8')}`)
-      .max(16, `${t('r-max-16')}`)
+      .max(15, `${t('r-max-15')}`)
       .required(`${t('r-password')}`),
     confirmPassword: Yup.string()
       .required(`${t('r-confirm-password')}`)
@@ -32,7 +32,6 @@ const ChangePassword = ({ isOpen, CloseModal }: IModal) => {
         then: Yup.string().oneOf([Yup.ref('password')], `${t('r-did-match')}`),
       }),
   });
-  const { loadingResetPass: loading, tokenForgotPass } = useAppSelector((state) => state?.auth);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -51,6 +50,17 @@ const ChangePassword = ({ isOpen, CloseModal }: IModal) => {
       action.setSubmitting(false);
     }
   };
+
+  const modalChangePassword = useAppSelector((state) => state.auth.modalChangePassword.isOpen);
+
+  useEffect(() => {
+    if (!modalChangePassword) {
+      setShowCurrentPassword(false)
+      setShowPassword(false)
+      setShowConfirmPassword(false)
+    }
+  }, [modalChangePassword])
+
 
   return (
     <Modal open={isOpen} onClose={CloseModal}>
@@ -107,7 +117,7 @@ const ChangePassword = ({ isOpen, CloseModal }: IModal) => {
                                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                                 color="secondary"
                               >
-                                {showCurrentPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showCurrentPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),
@@ -130,7 +140,7 @@ const ChangePassword = ({ isOpen, CloseModal }: IModal) => {
                                 onClick={() => setShowPassword(!showPassword)}
                                 color="secondary"
                               >
-                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),
@@ -153,7 +163,7 @@ const ChangePassword = ({ isOpen, CloseModal }: IModal) => {
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 color="secondary"
                               >
-                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                               </Button>
                             </InputAdornment>
                           ),

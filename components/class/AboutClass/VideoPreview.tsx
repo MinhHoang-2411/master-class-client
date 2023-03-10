@@ -7,9 +7,18 @@ interface Props {
   playingVideo: any;
   setLightVideo: any;
   setPlayingVideo: any;
+  height?: any;
 }
 
-const VideoPreview = ({ lightVideo, url, playingVideo, setLightVideo, setPlayingVideo }: Props) => {
+const VideoPreview = ({
+  lightVideo,
+  url,
+  playingVideo,
+  setLightVideo,
+  setPlayingVideo,
+  height,
+}: Props) => {
+  
   return (
     <>
       <ReactPlayer
@@ -17,6 +26,7 @@ const VideoPreview = ({ lightVideo, url, playingVideo, setLightVideo, setPlaying
         url={url}
         controls={true}
         width="100%"
+        height={height}
         playing={playingVideo}
         onClickPreview={() => {
           setLightVideo(false);

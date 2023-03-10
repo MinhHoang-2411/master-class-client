@@ -69,7 +69,6 @@ export async function getServerSideProps({ locale }: any) {
     };
 
     const categories: any = await classAPI.getListCategory(payloadCategory);
-
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),

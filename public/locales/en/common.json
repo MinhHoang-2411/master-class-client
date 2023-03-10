@@ -28,7 +28,7 @@
   "class": "Class",
   "length": "Length",
   "class-length": "Class Length",
-  "category": "category",
+  "category": "Category",
   "starting-at-15-for-all-classes-and-sessions": "Starting at $15/month (billed annually) for all classes and sessions",
   "browse-lesson-plan": "Browse Lesson Plan",
   "discover": "Discover",
@@ -73,7 +73,7 @@
   "r-confirm-password": "Password confirmation is required",
   "r-min-3": "Minimum 3 symbols",
   "r-min-8": "Minimum 8 symbols",
-  "r-max-16": "Maximum 16 symbols",
+  "r-max-15": "Maximum 15 symbols",
   "r-max-20": "Maximum 20 symbols",
   "r-max-50": "Maximum 50 symbols",
   "r-did-match": "Password and Confirm Password didn't match",
@@ -86,8 +86,15 @@
 
   "my-favourites": "My Farouvites",
 
-  "delete-lesson-bookmark": "Delete lessons to successful bookmarks",
-  "add-lesson-bookmark": "Add lessons to successful bookmarks",
-  "remove-favourite": "Remove favourite"
+  "delete-lesson-bookmark": "Delete lesson to favourites successfully",
+  "add-lesson-bookmark": "Add lesson to favourites successfully",
+  "remove-favourite": "Remove favourite",
+
+
+  "search-instructors-classes-topics-and-more": "Search Instructors, Classes, Topics and more",
+  "no-results-found-for": "No results found for",
+
+  "close": "Close",
+  "trailer-for": "Trailer for"
 
 }
