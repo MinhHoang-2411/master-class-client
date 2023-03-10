@@ -56,7 +56,6 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
     setModalVideo(true);
   };
 
-  console.log('classes', classes)
   return (
     <>
       <div className={styles.Hero_tileContainer}>
