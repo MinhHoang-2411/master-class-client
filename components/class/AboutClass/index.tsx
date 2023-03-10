@@ -21,15 +21,13 @@ const AboutClass = ({ classes, categories }: Props) => {
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const [listCategory, setListCategory] = useState<any>([]);
+  const [playingVideo, setPlayingVideo] = useState(false);
+  const [lightVideo, setLightVideo] = useState<any>(false);
 
-  console.log('listCategory', listCategory);
-  
   useEffect(() => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
+    setLightVideo(classes?.videoPreview?.thumbnail)
   }, [classes]);
-
-  const [playingVideo, setPlayingVideo] = useState(false);
-  const [lightVideo, setLightVideo] = useState(classes?.videoPreview?.thumbnail);
 
   const TimeConvert = () => {
     const totalTime = classes?.lessons?.reduce(
