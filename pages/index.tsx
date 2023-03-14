@@ -40,7 +40,7 @@ function HomePage(props: HomePageModel) {
     </>
   );
 }
-export async function getStaticProps({ locale }: any) {
+export async function getServerSideProps({ locale }: any) {
   try {
     const res: any = await bannerApi.getAll();
     const layout: any = await bannerApi.getHomeLayout();
@@ -54,7 +54,7 @@ export async function getStaticProps({ locale }: any) {
         newCourse: newCourse?.data,
         popularCourse: popularCourse?.data,
       },
-      revalidate: 10,
+      // revalidate: 10,
     };
   } catch (error) {
     console.error(error);
