@@ -49,8 +49,9 @@ interface TrailerModel {
 const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
-  const { trailer, welcome } = layoutPage;
-
+  // const { trailer, welcome } = layoutPage;
+  const trailer = layoutPage?.trailer;
+  const welcome = layoutPage?.welcome;
   const [lightTrailer, setLightTrailer] = useState(trailer?.thumbnail);
   const [playingTrailer, setPlayingTrailer] = useState(false);
 
