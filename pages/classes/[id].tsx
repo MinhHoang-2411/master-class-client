@@ -42,7 +42,7 @@ const Classes = ({ classes, categories }: Props) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [router.query.id]);
 
   return (
     <>
