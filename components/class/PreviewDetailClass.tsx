@@ -144,10 +144,10 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                   </div>
 
                   <div
-                    className={`${styles['row']} ${styles['d-flex']} ${styles['justify-content-center']}`}
+                    className={`${styles['row']} ${styles['d-flex']} ${styles['mc-mt-3']} ${styles['justify-content-center']}`}
                   >
                     <div
-                      className={`${styles['row']} ${styles['col-12']} ${styles['col-md-8']} ${styles['col-lg-6']}`}
+                      className={`${styles['row']} ${styles['col-12']} ${styles['col-md-8']} ${styles['col-lg-6']} ${styles['justify-content-center']}`}
                     >
                       {classes?.title}
                     </div>
