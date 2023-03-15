@@ -42,6 +42,7 @@ axiosClient.interceptors.request.use(
     let locale = Cookies.get('appLocale') || 'en';
     config.headers['Accept-Language'] = ['vi', 'en'].includes(locale) ? locale : 'en';
 
+
     return config;
   },
   function (error) {
