@@ -18,6 +18,11 @@ axiosClient.interceptors.request.use(
   function (config: AxiosRequestConfig) {
     const auth = getAuth();
     const accessToken = getAccessToken();
+    if (!!accessToken) {
+      config.headers = {
+        Authorization: `Bearer ${accessToken}`,
+      };
+    }
     // if (auth) {
     //   config.headers = {
     //     Authorization: `Bearer ${auth.api_token}`,
@@ -27,7 +32,6 @@ axiosClient.interceptors.request.use(
     config.headers = {
       'Accept-Language': 'en',
       'Access-Control-Allow-Origin': '*',
-      Authorization: `Bearer ${accessToken}`,
     };
 
     return config;
