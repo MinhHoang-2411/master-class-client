@@ -18,21 +18,27 @@ axiosClient.interceptors.request.use(
   function (config: AxiosRequestConfig) {
     const auth = getAuth();
     const accessToken = getAccessToken();
-    if (!!accessToken) {
-      config.headers = {
-        Authorization: `Bearer ${accessToken}`,
-      };
-    }
+    // if (!!accessToken) {
+    //   config.headers = {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   };
+    // }
     // if (auth) {
     //   config.headers = {
     //     Authorization: `Bearer ${auth.api_token}`,
     //   };
     // }
 
-    config.headers = {
-      'Accept-Language': 'en',
-      'Access-Control-Allow-Origin': '*',
-    };
+    config.headers = accessToken
+      ? {
+          'Accept-Language': 'en',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${accessToken}`,
+        }
+      : {
+          'Accept-Language': 'en',
+          'Access-Control-Allow-Origin': '*',
+        };
     let locale = Cookies.get('appLocale') || 'en';
     config.headers['Accept-Language'] = ['vi', 'en'].includes(locale) ? locale : 'en';
 
