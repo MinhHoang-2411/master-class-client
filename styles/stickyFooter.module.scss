@@ -1,0 +1,29 @@
+.sticky{
+  position: fixed;
+  width: 100%;
+  z-index: 1001;
+  background:rgba(25,28,33,.95);
+  bottom: 0;
+  padding:16px 64px;
+  color:#fff
+}
+.stickyUnActive {
+    opacity: 0;
+    transform: translateY(100%);
+    visibility: hidden;
+    transition: transform .5s ease,opacity .5s ease,visibility .5s ease;
+
+  }
+
+.stickyActive {
+    transition: transform .5s ease,opacity .5s ease,visibility .5s ease;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+.stickyText{
+  opacity: .8 !important;
+  margin-right: 12px ;
+  font-weight: 600;
+  font-size: 14px;
+}
