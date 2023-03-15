@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import styles from '../../styles/categories.module.scss';
+import { Skeleton } from '@mui/material';
 
 interface ListClassModel {
   idCategory: string | null;
@@ -257,7 +258,90 @@ const ListClass: React.FC<ListClassModel> = (props) => {
   return (
     <>
       <div className={`${styles['col-md-8']} ${styles['col-lg-9']} ${styles['pl-0']}`}>
-        <div className={styles.row}>{Array(isArray(listClass)) && renderList()}</div>
+        {!loading ? (
+          <div className={styles.row}>{Array(isArray(listClass)) && renderList()}</div>
+        ) : (
+          <div className={styles.row}>
+            <div
+              className={`${styles['col-12']} ${styles['col-md-6']} ${styles['col-lg-4']} ${styles['pb-4']} ${styles['px-0']} ${styles['py-0']}`}
+              role="group"
+              aria-label="Class"
+            >
+              <div
+                className={styles['pl-4']}
+                data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
+              >
+                <div className={styles['fresnel-container']}>
+                  <div
+                    className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
+                    aria-labelledby="tile-desktop-nameplate-312"
+                  >
+                    <span>
+                      <Skeleton
+                        sx={{ bgcolor: 'grey.600' }}
+                        variant="rounded"
+                        width={350}
+                        height={500}
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className={`${styles['col-12']} ${styles['col-md-6']} ${styles['col-lg-4']} ${styles['pb-4']} ${styles['px-0']} ${styles['py-0']}`}
+              role="group"
+              aria-label="Class"
+            >
+              <div
+                className={styles['pl-4']}
+                data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
+              >
+                <div className={styles['fresnel-container']}>
+                  <div
+                    className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
+                    aria-labelledby="tile-desktop-nameplate-312"
+                  >
+                    <span>
+                      <Skeleton
+                        sx={{ bgcolor: 'grey.600' }}
+                        variant="rounded"
+                        width={350}
+                        height={500}
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className={`${styles['col-12']} ${styles['col-md-6']} ${styles['col-lg-4']} ${styles['pb-4']} ${styles['px-0']} ${styles['py-0']}`}
+              role="group"
+              aria-label="Class"
+            >
+              <div
+                className={styles['pl-4']}
+                data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
+              >
+                <div className={styles['fresnel-container']}>
+                  <div
+                    className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
+                    aria-labelledby="tile-desktop-nameplate-312"
+                  >
+                    <span>
+                      <Skeleton
+                        sx={{ bgcolor: 'grey.600' }}
+                        variant="rounded"
+                        width={350}
+                        height={500}
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
