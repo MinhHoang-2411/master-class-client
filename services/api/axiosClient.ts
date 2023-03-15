@@ -29,8 +29,6 @@ axiosClient.interceptors.request.use(
       'Access-Control-Allow-Origin': '*',
       Authorization: `Bearer ${accessToken}`,
     };
-    let locale = Cookies.get('appLocale') || 'en';
-    config.headers['Accept-Language'] = ['vi', 'en'].includes(locale) ? locale : 'en';
 
     return config;
   },
