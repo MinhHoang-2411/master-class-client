@@ -49,6 +49,7 @@ function* handleLogin(action: PayloadAction<LoginPayload>) {
 function* handleLogout(action: PayloadAction<LogoutPayload>) {
   yield call(logout);
   Cookies.remove('appLocale');
+  localStorage.removeItem('appLocale');
 }
 
 function* handleRegister(action: PayloadAction<RegisterPayload>) {

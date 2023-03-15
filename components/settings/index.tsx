@@ -51,6 +51,7 @@ const SettingComponent = ({}: Props) => {
     router.push('/settings', undefined, { locale: lang });
     handleClose();
     Cookies.set('appLocale', lang);
+    localStorage.setItem('appLocale', lang);
     setLanguage(lang);
   };
 
