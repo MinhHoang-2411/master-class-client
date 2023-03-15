@@ -10,6 +10,13 @@ const getAccessToken = () => {
     return accessToken;
   }
 };
+const getLanguage = () => {
+  if (typeof window !== 'undefined') {
+    const language = localStorage.getItem('appLocale');
+
+    return language;
+  }
+};
 
 const getAuth = (): AuthModel | undefined => {
   let lsValue: string | null = '';
@@ -99,4 +106,4 @@ const logout = () => {
   }
 };
 
-export { getAuth, setAuth, removeAuth, logout, getSessionStorage, getAccessToken };
+export { getAuth, setAuth, removeAuth, logout, getSessionStorage, getAccessToken, getLanguage };
