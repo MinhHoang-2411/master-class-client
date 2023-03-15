@@ -3,6 +3,14 @@ import { AuthModel } from '@/declares/models/AuthModels';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
 
+const getAccessToken = () => {
+  if (typeof window !== 'undefined') {
+    const auth = window.localStorage.getItem(COOKIE_KEYS.accessToken);
+    const accessToken = JSON.parse(auth as string)?.api_token;
+    return accessToken;
+  }
+};
+
 const getAuth = (): AuthModel | undefined => {
   let lsValue: string | null = '';
 
@@ -91,4 +99,4 @@ const logout = () => {
   }
 };
 
-export { getAuth, setAuth, removeAuth, logout, getSessionStorage };
+export { getAuth, setAuth, removeAuth, logout, getSessionStorage, getAccessToken };

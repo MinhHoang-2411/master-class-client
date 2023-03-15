@@ -90,11 +90,13 @@
   "add-lesson-bookmark": "Add lesson to favourites successfully",
   "remove-favourite": "Remove favourite",
 
-
   "search-instructors-classes-topics-and-more": "Search Instructors, Classes, Topics and more",
   "no-results-found-for": "No results found for",
 
   "close": "Close",
-  "trailer-for": "Trailer for"
+  "trailer-for": "Trailer for",
 
+  "Starting at $24.99/month (billed annually) for all classes and sessions": "Starting at $24.99/month (billed annually) for all classes and sessions",
+  "Subscribe": "Subscribe",
+  "Choose": "Choose"
 }

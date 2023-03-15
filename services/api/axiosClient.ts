@@ -1,4 +1,4 @@
-import { getAuth } from '@/utils/auth';
+import { getAccessToken, getAuth } from '@/utils/auth';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 
@@ -17,15 +17,17 @@ export default axiosClient;
 axiosClient.interceptors.request.use(
   function (config: AxiosRequestConfig) {
     const auth = getAuth();
-    if (auth) {
-      config.headers = {
-        Authorization: `Bearer ${auth}`,
-      };
-    }
+    const accessToken = getAccessToken();
+    // if (auth) {
+    //   config.headers = {
+    //     Authorization: `Bearer ${auth.api_token}`,
+    //   };
+    // }
 
     config.headers = {
       'Accept-Language': 'en',
       'Access-Control-Allow-Origin': '*',
+      Authorization: `Bearer ${accessToken}`,
     };
     let locale = Cookies.get('appLocale') || 'en';
     config.headers['Accept-Language'] = ['vi', 'en'].includes(locale) ? locale : 'en';
