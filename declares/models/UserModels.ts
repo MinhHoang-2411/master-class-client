@@ -4,4 +4,9 @@ export interface UserModel {
   lastName?: string
   email?: string
   role?: string[]
+  name?: string
+  socialAccount?: {
+    email?: string;
+    socialName?: string
+  } 
 }

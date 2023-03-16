@@ -166,6 +166,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                       size="small"
                       color="inherit"
                       onClick={() => dispatch(authActions.openSignInModal())}
+                      sx={{ color: '#ff3366' }}
                     >
                       {t('log-in')}
                     </Button>

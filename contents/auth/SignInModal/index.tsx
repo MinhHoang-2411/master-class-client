@@ -1,3 +1,4 @@
+import LoginWithSocial from '@/components/layouts/LoginWithSocial';
 import Button from '@/components/share/Button';
 import { ErrorMessage } from '@/components/share/ErrorMessage';
 import { displayCenter, styleModal } from '@/declares/modal';
@@ -8,17 +9,15 @@ import { setAuth } from '@/utils/auth';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
-import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
 import * as Yup from 'yup';
 
 interface ILogin {
@@ -79,7 +78,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 <Field as={TextField} id="email" name="email" label="Email*" variant="outlined" />
                 <ErrorMessage name={`email`} />
               </FormControl>
-              <FormControl sx={{ mb: 3 }} fullWidth>
+              <FormControl sx={{ mb: 2 }} fullWidth>
                 <Field
                   as={TextField}
                   id="password"
@@ -103,7 +102,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 />
                 <ErrorMessage name={`password`} />
               </FormControl>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3, mt: 1, px: 2 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, px: 2 }}>
                 <Typography
                   variant="body2"
                   component="span"
@@ -123,21 +122,23 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 {/* {isSubmitting ? 'Log in...' : 'Log in'} */}
                 {isSubmitting ? `${t('log-in')}...` : `${t('log-in')}`}
               </Button>
-              <Grid container alignItems="center" justifyContent="space-between" sx={{ mt: 1 }}>
-                <Box sx={displayCenter}>
-                  <Field as={Checkbox} name="remember" />
-                  <Typography variant="caption"> {t('remember-me')} </Typography>
+
+              <Box sx={{ ...displayCenter }}>
+                <LoginWithSocial />
+              </Box>
+
+              <Box sx={{ ...displayCenter, flexDirection: 'column', mt: 1 }}>
+                <Box>
+                  <Button
+                    variant="text"
+                    size="small"
+                    color="inherit"
+                    onClick={() => dispatch(authActions.openModalSendEmail())}
+                    sx={{ py: 0 }}
+                  >
+                    {t('forgot-your-password')}
+                  </Button>
                 </Box>
-                <Button
-                  variant="text"
-                  size="small"
-                  color="inherit"
-                  onClick={() => dispatch(authActions.openModalSendEmail())}
-                >
-                  {t('forgot-your-password')}
-                </Button>
-              </Grid>
-              <Grid>
                 <Box sx={displayCenter}>
                   <Typography variant="body1" component="span">
                     {t('need-an-account')}
@@ -145,13 +146,13 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                   <Button
                     variant="text"
                     size="small"
-                    color="inherit"
                     onClick={() => dispatch(authActions.openSignUpModal())}
+                    sx={{ py: 0, color: '#ff3366' }}
                   >
                     {t('sign-up-now')}
                   </Button>
                 </Box>
-              </Grid>
+              </Box>
             </Form>
           )}
         </Formik>

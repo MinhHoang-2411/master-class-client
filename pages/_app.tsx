@@ -11,6 +11,7 @@ import theme from '../utils/theme';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { appWithTranslation } from 'next-i18next';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -38,11 +39,13 @@ function App({ Component, pageProps }: AppProps) {
       />
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <MyLayout>
-            <CssBaseline />
-            <Component {...pageProps} />
-            <ToastContainer />
-          </MyLayout>
+          <GoogleOAuthProvider clientId="780066260449-bdnruo5n00oqgbidusgnf4c69p2s9hjc.apps.googleusercontent.com">
+            <MyLayout>
+              <CssBaseline />
+              <Component {...pageProps} />
+              <ToastContainer />
+            </MyLayout>
+          </GoogleOAuthProvider>
         </ThemeProvider>
       </Provider>
     </>
