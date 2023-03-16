@@ -6,8 +6,8 @@ export const styleModal = {
   width: 400,
   bgcolor: 'common.white',
   boxShadow: 24,
-  p: 3,
-  borderRadius: 1,
+  p: 4,
+  borderRadius: 2,
 };
 
 export const displayCenter = {
