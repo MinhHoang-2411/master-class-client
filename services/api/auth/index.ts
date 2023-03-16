@@ -30,7 +30,7 @@ const authApi = {
   },
   changePassword(params: ResetPasswordModel) {
     const url = 'auth/change-password';
-    return axiosClient_V2.post(url, params);
+    return axiosClient.post(url, params);
   },
 };
 
