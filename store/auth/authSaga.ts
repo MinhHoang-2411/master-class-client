@@ -1,5 +1,6 @@
 import { TOKEN_FORGOT_PASS } from '@/constants/auth';
 import { ErrorModel, ResponseAuth, UserModel } from '@/declares/models';
+import type { AxiosResponse } from 'axios';
 import {
   LoginPayload,
   LogoutPayload,
@@ -153,12 +154,12 @@ function* handleResetPass(action: PayloadAction<ResetPasswordModel>) {
 function* handleChangePass(action: PayloadAction<ResetPasswordModel>) {
   const params = action.payload;
   try {
-    yield call(authApi.changePassword, params);
+    const res: AxiosResponse<{ data: string }> = yield call(authApi.changePassword, params);
 
     yield put(authActions.changePasswordSuccess('Successfully changed password'));
     yield put(
       alertActions.showAlert({
-        text: 'Successfully changed password',
+        text: res?.data,
         type: 'success',
       })
     );
