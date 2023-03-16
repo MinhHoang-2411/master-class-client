@@ -309,7 +309,7 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
                     className={`${styles['Results_wrapper']} ${styles['Results_showHighlight']}`}
                   >
                     <div className={`${styles['mc-p-1']} ${styles['mc-text--center']}`}>
-                      {`${t('no-results-found-for')} "${params?.name_category}"`}
+                      {`${t('no-results-found-for')} "${params?.name_category ? params?.name_category : params?.search}"`}
                     </div>
                   </div>
                 )
