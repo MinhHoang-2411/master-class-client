@@ -39,7 +39,7 @@ function App({ Component, pageProps }: AppProps) {
       />
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <GoogleOAuthProvider clientId="780066260449-bdnruo5n00oqgbidusgnf4c69p2s9hjc.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID || ''}>
             <MyLayout>
               <CssBaseline />
               <Component {...pageProps} />

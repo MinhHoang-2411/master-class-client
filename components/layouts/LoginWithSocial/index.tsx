@@ -42,7 +42,7 @@ const LoginWithSocial = () => {
             <LoginGoogle />
           </Box>
           <Box className="">
-            {/* <LoginFacebook /> */}
+            <LoginFacebook />
           </Box>
         </Box>
       </Box>

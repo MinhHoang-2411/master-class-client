@@ -1,0 +1,16 @@
+.buttonLoginFacebook {
+    height: 40px;
+    margin-top: 2px;
+  .kep-login-facebook {
+    outline: none;
+    background-color: transparent;
+    padding: 4px 8px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    &:hover {
+      cursor: pointer;
+      border: 1px solid rgba(111, 157, 204, 0.4);
+      background-color: rgba(241, 241, 241, .25);
+    }
+  }
+}
