@@ -1,7 +1,6 @@
 import authApi from '@/services/api/auth';
 import { setAuth } from '@/utils/auth';
 import { GoogleLogin } from '@react-oauth/google';
-import { useTranslation } from 'next-i18next';
 
 interface credentialResponseProps {
   clientId?: string;
@@ -10,7 +9,6 @@ interface credentialResponseProps {
 }
 
 const LoginGoogle = () => {
-  const { t } = useTranslation();
 
   const onSuccess = async (credentialResponse: credentialResponseProps) => {
     try {

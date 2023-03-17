@@ -37,6 +37,10 @@ const authApi = {
     const url = 'auth/google';
     return axiosClient.post(url, params);
   },
+  loginWithFacebook(params: any) {
+    const url = 'auth/facebook';
+    return axiosClient.post(url, params);
+  },
 };
 
 export default authApi;
