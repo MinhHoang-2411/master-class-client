@@ -51,8 +51,7 @@ const Navbar = (props: Props) => {
   useEffect(() => {
     dispatch(categoriesActions.fetchData({}));
   }, []);
-
-
+  
   return (
     <>
       <AppBar sx={{ position: 'fixed', top: 0 }}>

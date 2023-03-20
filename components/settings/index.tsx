@@ -85,9 +85,13 @@ const SettingComponent = ({}: Props) => {
                   <Typography variant="subtitle1" component={'h3'}>
                     {t('password')}
                   </Typography>
-                  <IconButton onClick={() => dispatch(authActions.openChangePassModal())}>
-                    <EditIcon />
-                  </IconButton>
+                  {!user?.socialAccount ? (
+                    <IconButton onClick={() => dispatch(authActions.openChangePassModal())}>
+                      <EditIcon />
+                    </IconButton>
+                  ) : (
+                    <></>
+                  )}
                 </Box>
                 <div className="">••••••••</div>
               </Box>

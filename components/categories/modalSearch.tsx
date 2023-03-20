@@ -10,6 +10,8 @@ import { useCallback, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useTranslation } from 'next-i18next';
 import styles from '../../styles/dropdown.module.scss';
+import { Box, CircularProgress } from '@mui/material';
+import { displayCenter } from '@/declares/modal';
 
 interface SearchModel {
   setShowSearch: (show: boolean) => void;
@@ -303,13 +305,21 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
             <div className={styles.dropdown_body}>
               {(params?.search !== null && params?.search !== '') || params?.categories !== null ? (
                 Array(isArray(listClass)) && listClass?.length > 0 ? (
-                  renderListClass()
+                  !loading ? (
+                    renderListClass()
+                  ) : (
+                    <Box sx={{ ...displayCenter, py: 1.5 }}>
+                      <CircularProgress sx={{ color: 'rgb(144, 202, 249)' }} />
+                    </Box>
+                  )
                 ) : (
                   <div
                     className={`${styles['Results_wrapper']} ${styles['Results_showHighlight']}`}
                   >
                     <div className={`${styles['mc-p-1']} ${styles['mc-text--center']}`}>
-                      {`${t('no-results-found-for')} "${params?.name_category}"`}
+                      {`${t('no-results-found-for')} "${
+                        params?.name_category ? params?.name_category : params?.search
+                      }"`}
                     </div>
                   </div>
                 )

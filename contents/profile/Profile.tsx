@@ -34,7 +34,14 @@ const Profile = ({}: any) => {
     setOpen(null);
   };
 
-  return (
+  const DisplayNameUser = currentUser?.firstName
+    ? `${currentUser?.firstName} ${currentUser?.lastName}`
+    : currentUser?.name;
+  const DisplayEmail = currentUser?.socialAccount
+    ? currentUser?.socialAccount?.email
+    : currentUser?.email;
+
+    return (
     <>
       <IconButton onClick={handleOpen}>
         <Avatar alt="avatar" sx={{ bgcolor: 'secondary.dark' }}></Avatar>
@@ -61,11 +68,11 @@ const Profile = ({}: any) => {
         }}
       >
         <Box sx={{ my: 2, px: 3 }}>
-          <Typography variant="subtitle2" noWrap sx={{ fontWeight: 'bold' }}>
-            {`${currentUser?.firstName} ${currentUser?.lastName}`}
+          <Typography variant="subtitle2" noWrap sx={{ fontWeight: 'bold', maxWidth: "200px" }}>
+            {DisplayNameUser}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'primary.secondary' }} noWrap>
-            {currentUser?.email}
+          <Typography variant="body2" sx={{ color: 'primary.secondary', maxWidth: "200px" }} noWrap>
+            {DisplayEmail}
           </Typography>
         </Box>
 
