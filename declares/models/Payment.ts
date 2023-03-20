@@ -12,3 +12,13 @@ export interface ResponseGetListProduct {
     interval: string;
   }[];
 }
+
+export interface ResponseCreateCard {
+  id?: string;
+}
+
+export interface ResponseAddCardToCustomer {
+  data?: {
+    cardId: string;
+  };
+}

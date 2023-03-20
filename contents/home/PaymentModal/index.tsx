@@ -75,6 +75,10 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
                   transition: 'background 0.3s ease, color 0.3s ease ',
                 }}
                 className={styles.wrapper}
+                onClick={() => {
+                  dispatch(paymentActions.getDetailProduct(product));
+                  dispatch(paymentActions.openModalAddCard());
+                }}
               >
                 <h2 style={{ margin: '12px 0' }}>{product?.name}</h2>
                 <Stack direction="row" alignItems="center">

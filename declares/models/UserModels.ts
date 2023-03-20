@@ -1,4 +1,5 @@
 export interface UserModel {
+
   id?: string | number
   firstName?: string
   lastName?: string
@@ -9,4 +10,5 @@ export interface UserModel {
     email?: string;
     socialName?: string
   } 
+  stripeCustomerId?: string;
 }
