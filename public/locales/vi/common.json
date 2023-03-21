@@ -45,7 +45,7 @@
 
   "by-logging-in": "Bằng cách đăng nhập, bạn đồng ý với Chính sách bảo mật và Điều khoản dịch vụ của chúng tôi",
   "remember-me": "Lưu thông tin",
-  "forgot-your-password": "Quên Mật khẩu?",
+  "forgot-password": "Quên mật khẩu?",
   "need-an-account": "Cần một tài khoản",
   "already-have-an-account": "Bạn đã có tài khoản?",
   "sign-up-now": "Đăng ký ngay",
@@ -100,5 +100,5 @@
   "Starting at $24.99/month (billed annually) for all classes and sessions": "Bắt đầu từ $ 24.99 / tháng (thanh toán hàng năm) cho tất cả các lớp học và buổi học",
   "Subscribe": "Đăng ký",
   "Choose": "Chọn",
-  "Login with another account": "Đăng nhập với tài khoản khác"
+  "Or Sign in with": "Hoặc đăng nhập bằng"
 }

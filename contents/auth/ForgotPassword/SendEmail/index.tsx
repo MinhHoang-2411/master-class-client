@@ -17,9 +17,11 @@ import * as Yup from 'yup';
 const SendEmail = ({ isOpen, CloseModal }: IModal) => {
   const { t } = useTranslation('common');
 
-const SendEmailSchema = Yup.object().shape({
-  email: Yup.string().email(`${t('not-email')}`).required(`${t('r-email')}`),
-});
+  const SendEmailSchema = Yup.object().shape({
+    email: Yup.string()
+      .email(`${t('not-email')}`)
+      .required(`${t('r-email')}`),
+  });
 
   const dispatch = useAppDispatch();
   const onSubmit = (values: any, action: any) => {
@@ -58,10 +60,15 @@ const SendEmailSchema = Yup.object().shape({
             <KeyIcon color="secondary" />
           </Box>
           <Typography variant="h5" component="h2" sx={{ textAlign: 'center', mb: 2, mt: 2 }}>
-            {t('forgot-your-password')}
+            {t('forgot-password')}
           </Typography>
 
-          <Typography variant="body1" component="span" color="primary.light" sx={{ textAlign: 'center'}}>
+          <Typography
+            variant="body1"
+            component="span"
+            color="primary.light"
+            sx={{ textAlign: 'center' }}
+          >
             {t('no-worries-instrucions')}
           </Typography>
         </Box>

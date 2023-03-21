@@ -32,7 +32,7 @@ const LoginFacebook = () => {
         responseType={`token`}
         icon={
           <>
-            <Image src={IconFb} alt="fb" width={26} height={26} />
+            <Image src={IconFb} alt="fb" width={46} height={46} />
           </>
         }
         cssClass={styles['kep-login-facebook']}

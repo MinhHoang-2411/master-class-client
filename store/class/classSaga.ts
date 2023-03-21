@@ -27,8 +27,32 @@ function* handleFetchData(action: PayloadAction<ParamsGetListClass>) {
   }
 }
 
+function* handleFetchDataSearch(action: PayloadAction<ParamsGetListClass>) {
+  try {
+    const params = action.payload;
+    const response: ResponseGetClass = yield call(classAPI.fetchData, params);
+
+    yield put(classActions.fetchDataSearchSuccess(response.data));
+  } catch (error: ErrorModel | any) {
+    yield put(
+      classActions.fetchDataSearchFalse(
+        error?.response?.data?.message || 'An error occurred, please try again'
+      )
+    );
+    yield put(
+      alertActions.showAlert({
+        text: error?.response?.data?.message || 'An error occurred, please try again',
+        type: 'error',
+      })
+    );
+  }
+}
+
 function* classFlow() {
-  yield all([takeEvery(classActions.fetchData.type, handleFetchData)]);
+  yield all([
+    takeEvery(classActions.fetchData.type, handleFetchData),
+    takeEvery(classActions.fetchDataSearch.type, handleFetchDataSearch),
+  ]);
 }
 
 export function* classSaga() {

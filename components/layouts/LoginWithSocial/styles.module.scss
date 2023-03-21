@@ -1,16 +1,39 @@
-.buttonLoginFacebook {
-    height: 40px;
-    margin-top: 2px;
-  .kep-login-facebook {
-    outline: none;
-    background-color: transparent;
-    padding: 4px 8px;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    &:hover {
-      cursor: pointer;
-      border: 1px solid rgba(111, 157, 204, 0.4);
-      background-color: rgba(241, 241, 241, .25);
+.OrSignIn {
+  margin-top: 22px;
+  .headingText {
+    text-align: center;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      width: 32%;
+      height: 1px;
+      background-color: rgba(105, 105, 106, 0.7);
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      width: 32%;
+      height: 1px;
+      background-color: rgba(105, 105, 107, 0.7);
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+  }
+
+  .buttonLoginFacebook {
+    height: 46px;
+    .kep-login-facebook {
+      outline: none;
+      background-color: transparent;
+      &:hover {
+        cursor: pointer;
+      }
+      border: none;
     }
   }
 }

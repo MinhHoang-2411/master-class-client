@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import styles from '../../styles/categories.module.scss';
 import { Skeleton } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 interface ListClassModel {
   idCategory: string | null;
@@ -13,13 +14,33 @@ interface ListClassModel {
 
 const ListClass: React.FC<ListClassModel> = (props) => {
   const { t } = useTranslation('common');
+  const dispatch = useAppDispatch();
+  const [firstTime, setFirstTime] = useState(false);
   const [params, setParams] = useState({
     page: 1,
     limit: 100,
     search: null,
     categories: props?.idCategory || null,
   });
-  const { listData: listClass, loading } = useGetAllList(classActions, 'class', params);
+  // const { listData: listClass, loading } = useGetAllList(classActions, 'class', params);
+
+  const { listData: listClass, loading } = useAppSelector((state) => state.class);
+
+  const fetchData = (params: any) => {
+    try {
+      const paramsApi = { ...params };
+      dispatch(classActions.fetchData(paramsApi || {}));
+    } catch (error) {
+      console.error({ error });
+    }
+  };
+
+  useEffect(() => {
+    if (firstTime) {
+      fetchData(params);
+    }
+    setFirstTime(true);
+  }, [params]);
 
   useEffect(() => {
     setParams((preState) => ({ ...preState, categories: props?.idCategory || null }));

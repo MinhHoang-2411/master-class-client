@@ -102,7 +102,18 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 />
                 <ErrorMessage name={`password`} />
               </FormControl>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, px: 2 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'end', mb: 3 }}>
+                <Button
+                  variant="text"
+                  size="small"
+                  color="inherit"
+                  onClick={() => dispatch(authActions.openModalSendEmail())}
+                  sx={{ py: 0 }}
+                >
+                  {t('forgot-password')}
+                </Button>
+              </Box>
+              {/* <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2, px: 2 }}>
                 <Typography
                   variant="body2"
                   component="span"
@@ -111,7 +122,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 >
                   {t('by-logging-in')}
                 </Typography>
-              </Box>
+              </Box> */}
               <Button
                 type={isSubmitting ? `button` : `submit`}
                 color="secondary"
@@ -119,26 +130,12 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                 size="large"
                 fullWidth
               >
-                {/* {isSubmitting ? 'Log in...' : 'Log in'} */}
                 {isSubmitting ? `${t('log-in')}...` : `${t('log-in')}`}
               </Button>
-
-              <Box sx={{ ...displayCenter }}>
+              <Box>
                 <LoginWithSocial />
               </Box>
-
-              <Box sx={{ ...displayCenter, flexDirection: 'column', mt: 1 }}>
-                <Box>
-                  <Button
-                    variant="text"
-                    size="small"
-                    color="inherit"
-                    onClick={() => dispatch(authActions.openModalSendEmail())}
-                    sx={{ py: 0 }}
-                  >
-                    {t('forgot-your-password')}
-                  </Button>
-                </Box>
+              <Box sx={{ ...displayCenter, flexDirection: 'column', mt: 2.5 }}>
                 <Box sx={displayCenter}>
                   <Typography variant="body1" component="span">
                     {t('need-an-account')}
