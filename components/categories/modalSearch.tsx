@@ -1,17 +1,16 @@
+import { displayCenter } from '@/declares/modal';
 import { CategoryModel } from '@/declares/models/Categories';
-import useGetAllList from '@/hooks/useGetAllList';
 import { authActions } from '@/store/auth/authSlice';
 import { classActions } from '@/store/class/classSlice';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { cleanText } from '@/utils/convert/string';
-import _, { isArray } from 'lodash';
-import Link from 'next/link';
-import { useCallback, useState } from 'react';
-import Highlighter from 'react-highlight-words';
-import { useTranslation } from 'next-i18next';
-import styles from '../../styles/dropdown.module.scss';
 import { Box, CircularProgress } from '@mui/material';
-import { displayCenter } from '@/declares/modal';
+import _, { isArray } from 'lodash';
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
+import Highlighter from 'react-highlight-words';
+import styles from '../../styles/dropdown.module.scss';
 
 interface SearchModel {
   setShowSearch: (show: boolean) => void;
@@ -32,6 +31,7 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
   const { t } = useTranslation('common');
   const { setShowSearch, listCategories, showMenu } = props;
   const [search, setSearch] = useState('');
+  const [firstTime, setFirstTime] = useState(false);
   const [params, setParams] = useState<ParamsModel>({
     page: 1,
     limit: 100,
@@ -39,7 +39,23 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
     categories: null,
     name_category: '',
   });
-  const { listData: listClass, loading } = useGetAllList(classActions, 'class', params);
+  const { listDataSearch: listClass, loadingSearch } = useAppSelector((state) => state.class);
+
+  const fetchData = (params: ParamsModel) => {
+    try {
+      const paramsApi = { ...params };
+      dispatch(classActions.fetchDataSearch(paramsApi || {}));
+    } catch (error) {
+      console.error({ error });
+    }
+  };
+
+  useEffect(() => {
+    if (firstTime) {
+      fetchData(params as ParamsModel);
+    }
+    setFirstTime(true);
+  }, [params]);
 
   const debounceSearch = useCallback(
     _.debounce(
@@ -305,7 +321,7 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
             <div className={styles.dropdown_body}>
               {(params?.search !== null && params?.search !== '') || params?.categories !== null ? (
                 Array(isArray(listClass)) && listClass?.length > 0 ? (
-                  !loading ? (
+                  !loadingSearch ? (
                     renderListClass()
                   ) : (
                     <Box sx={{ ...displayCenter, py: 1.5 }}>

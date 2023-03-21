@@ -45,7 +45,7 @@
 
   "by-logging-in": "By logging in, you agree to our Privacy Policy and Terms of Service",
   "remember-me": "Remember Me",
-  "forgot-your-password": "Forgot your password?",
+  "forgot-password": "Forgot password?",
   "need-an-account": "Need an account",
   "already-have-an-account": "Already have an account",
   "sign-up-now": "Sign up now",
@@ -99,5 +99,5 @@
   "Starting at $24.99/month (billed annually) for all classes and sessions": "Starting at $24.99/month (billed annually) for all classes and sessions",
   "Subscribe": "Subscribe",
   "Choose": "Choose",
-  "Login with another account": "Login with another account"
+  "Or Sign in with": "Or Sign in with"
 }

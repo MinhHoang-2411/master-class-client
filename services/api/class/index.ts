@@ -19,7 +19,7 @@ const classAPI = {
     const url = `${API_URL}/courses/${params.webName}`;
     return axiosClient_V2.get(url);
   },
-  
+
   getDetailByWebNameV1(params: any) {
     const url = `${API_URL}/courses/${params.webName}`;
     return axiosClient.get(url);

@@ -9,7 +9,6 @@ interface credentialResponseProps {
 }
 
 const LoginGoogle = () => {
-
   const onSuccess = async (credentialResponse: credentialResponseProps) => {
     try {
       const { credential } = credentialResponse;
@@ -39,7 +38,8 @@ const LoginGoogle = () => {
         }}
         type="icon"
         size="large"
-        shape="rectangular"
+        shape="circle"
+        logo_alignment="center"
       />
     </>
   );

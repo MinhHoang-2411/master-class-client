@@ -4,15 +4,19 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface ClassStateModel {
   listData: Array<ClassModel>;
+  listDataSearch: Array<ClassModel>;
   pagination: PaginationParams | undefined;
   loading: boolean;
+  loadingSearch: boolean;
   reloadList: boolean;
 }
 
 const initialState: ClassStateModel = {
   listData: [],
+  listDataSearch: [],
   pagination: undefined,
   loading: false,
+  loadingSearch: false,
   reloadList: false,
 };
 
@@ -30,6 +34,17 @@ const classSlice = createSlice({
     fetchDataFalse(state, action) {
       console.error(action.payload);
       state.loading = false;
+    },
+
+    fetchDataSearch(state, action) {
+      state.loadingSearch = true;
+    },
+    fetchDataSearchSuccess(state, action) {
+      state.listDataSearch = action.payload;
+      state.loadingSearch = false;
+    },
+    fetchDataSearchFalse(state, action) {
+      state.loadingSearch = false;
     },
   },
 });
