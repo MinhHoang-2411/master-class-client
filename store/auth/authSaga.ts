@@ -117,12 +117,21 @@ function* handleVerifyCode(action: PayloadAction<VerifyCodeModel>) {
   } catch (error: ErrorModel | any) {
     console.error(error);
     yield put(authActions.verifyCodeFailed(error as string));
-    yield put(
-      alertActions.showAlert({
-        text: error?.response?.data?.message || 'An error occurred, please try again',
-        type: 'error',
-      })
-    );
+    if (error?.response?.data?.message === 'jwt expired') {
+      yield put(
+        alertActions.showAlert({
+          text: 'The code has expired',
+          type: 'error',
+        })
+      );
+    } else {
+      yield put(
+        alertActions.showAlert({
+          text: error?.response?.data?.message || 'An error occurred, please try again',
+          type: 'error',
+        })
+      );
+    }
   }
 }
 
