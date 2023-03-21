@@ -61,6 +61,18 @@ const getSessionStorage = (key: string): any => {
   }
 };
 
+const removeSessionStorage = (key: string) => {
+  if (!sessionStorage) {
+    return;
+  }
+
+  try {
+    sessionStorage.removeItem(key);
+  } catch (error) {
+    console.error('AUTH SESSION STORAGE PARSE ERROR', error);
+  }
+};
+
 const setAuth = (auth: AuthModel | undefined) => {
   if (!localStorage) {
     return;
@@ -106,4 +118,13 @@ const logout = () => {
   }
 };
 
-export { getAuth, setAuth, removeAuth, logout, getSessionStorage, getAccessToken, getLanguage };
+export {
+  getAuth,
+  setAuth,
+  removeAuth,
+  logout,
+  getSessionStorage,
+  getAccessToken,
+  getLanguage,
+  removeSessionStorage,
+};
