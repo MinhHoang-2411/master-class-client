@@ -96,6 +96,7 @@ function* handleCreateSubscription(action: {
       })
     );
     yield put(paymentActions.createSubscriptionSuccess({}));
+    yield put(paymentActions.getListCard({}));
   } catch (error: any) {
     yield put(paymentActions.addCardToCustomerFail('An error occurred, please try again'));
     yield put(
