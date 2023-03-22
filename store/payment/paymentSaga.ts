@@ -32,7 +32,7 @@ function* handleGetListCard() {
 
 function* handleAddCardToCustomer(action: {
   payload: {
-    formData: URLSearchParams;
+    formData: any;
     stripeCustomerId: string;
     setSubmitting: (isSubmitting: boolean) => void;
     priceId: string;
@@ -46,9 +46,8 @@ function* handleAddCardToCustomer(action: {
 
     const cardData = {
       cardObj: {
-        token: responseCreateCard?.id,
+        token: responseCreateCard?.data.token,
       },
-      stripeCustomerId: action.payload.stripeCustomerId,
     };
     const responseAddCard: ResponseAddCardToCustomer = yield call(
       paymentApi.addCardToCustomer,

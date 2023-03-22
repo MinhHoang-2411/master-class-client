@@ -43,7 +43,8 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
 
     if (typeof window !== 'undefined') {
       const isOpen = localStorage.getItem('openModalPayment');
-      if (!!isOpen) {
+      const isLogin = localStorage.getItem('ACCESS_TOKEN');
+      if (!!isOpen && isLogin) {
         dispatch(paymentActions.openModalChoosePayment());
         localStorage.removeItem('openModalPayment');
       }

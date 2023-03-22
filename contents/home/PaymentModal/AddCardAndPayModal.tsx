@@ -30,6 +30,7 @@ import cardMastercard from '@/public/images/card-mastercard.svg';
 import cardVisa from '@/public/images/card-visa.svg';
 import PrimaryButton from '@/components/share/PrimaryButton';
 import { paymentMethod as paymentMethodConstant } from '@/constants/payment';
+import { cardImagePayment } from '@/constants/payment';
 
 interface IAddCard {
   card: {
@@ -139,13 +140,21 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
           validationSchema={AddCardSchema}
           onSubmit={(values, { setSubmitting }) => {
             console.log({ values });
-            const formData = new URLSearchParams();
             const month = values.card.exp_date.substring(0, 2);
             const year = values.card.exp_date.substring(3, 5);
-            formData.append('card[number]', values.card.number as string);
-            formData.append('card[cvc]', values.card.cvc as string);
-            formData.append('card[exp_month]', month as string);
-            formData.append('card[exp_year]', year as string);
+            // const formData = new URLSearchParams();
+            // formData.append('card[number]', values.card.number as string);
+            // formData.append('card[cvc]', values.card.cvc as string);
+            // formData.append('card[exp_month]', month as string);
+            // formData.append('card[exp_year]', year as string);
+            const formData = {
+              card: {
+                number: values.card.number,
+                cvc: values.card.cvc,
+                exp_month: month,
+                exp_year: year,
+              },
+            };
             const params = {
               formData,
               stripeCustomerId: currentUser?.stripeCustomerId,
@@ -164,7 +173,6 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                   ) : listCard.length > 0 ? (
                     <Box sx={{ p: '0 12px 12px 12px', borderRadius: '4px', background: '#f7f9fa' }}>
                       <Stack direction="row" alignItems="center">
-                        <h3 style={{ margin: '8px 0' }}>Choose Your Credit/Debit Card</h3>
                         <Radio
                           checked={type === 'button'}
                           onChange={() => {
@@ -174,6 +182,17 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                             setPaymentMethod('');
                           }}
                         />
+                        <h3
+                          onClick={() => {
+                            setShow(false);
+                            setIsActive('');
+                            setType('button');
+                            setPaymentMethod('');
+                          }}
+                          style={{ margin: '8px 0' }}
+                        >
+                          Choose Your Credit/Debit Card
+                        </h3>
                       </Stack>
 
                       {!show && (
@@ -212,7 +231,13 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                                 justifyContent="space-between"
                                 alignItems="center"
                               >
-                                <b>{card.brand ? paymentMethodConstant[card?.brand] : ''}</b>
+                                <Stack direction="row" alignItems="center" spacing={1}>
+                                  <CardImage
+                                    src={card.brand ? cardImagePayment[card?.brand] : cardDefault}
+                                    alt="card"
+                                  />
+                                  <b>{card.brand ? paymentMethodConstant[card?.brand] : ''}</b>
+                                </Stack>
                                 <b>**** {card?.last4}</b>
                               </Stack>
                             </button>
@@ -225,7 +250,6 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                   )}
                   <Box sx={{ p: '0 12px 12px 12px', borderRadius: '4px', background: '#f7f9fa' }}>
                     <Stack direction="row">
-                      <h3 style={{ margin: '8px 0' }}>Add your payment method</h3>
                       <Radio
                         checked={type === 'submit'}
                         onChange={() => {
@@ -235,6 +259,17 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                           setPaymentMethod('');
                         }}
                       />
+                      <h3
+                        onClick={() => {
+                          setShow(true);
+                          setIsActive('');
+                          setType('submit');
+                          setPaymentMethod('');
+                        }}
+                        style={{ margin: '8px 0' }}
+                      >
+                        Add your payment method
+                      </h3>
                     </Stack>
 
                     {show ? (
