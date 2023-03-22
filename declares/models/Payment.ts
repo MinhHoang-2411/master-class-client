@@ -27,7 +27,11 @@ export interface ResponseGetListCard {
 }
 
 export interface ResponseCreateCard {
-  id?: string;
+  data: {
+    token: string;
+  };
+  message: string;
+  success: boolean;
 }
 
 export interface ResponseAddCardToCustomer {

@@ -136,6 +136,7 @@ const authSlice = createSlice({
     },
     closeModalSendEmail(state) {
       state.modalSendEmail.isOpen = false;
+      localStorage.removeItem('openModalPayment');
     },
 
     openModalVerifyCode(state) {
@@ -144,6 +145,7 @@ const authSlice = createSlice({
 
     closeModalVerifyCode(state) {
       state.modalVerifyCode.isOpen = false;
+      localStorage.removeItem('openModalPayment');
     },
 
     openModalResetPassword(state) {
@@ -151,6 +153,7 @@ const authSlice = createSlice({
     },
     closeModalResetPassword(state) {
       state.modalResetPassword.isOpen = false;
+      localStorage.removeItem('openModalPayment');
     },
 
     openSignInModal(state) {
@@ -159,6 +162,7 @@ const authSlice = createSlice({
     },
     closeSignInModal(state) {
       state.modalSignIn.isOpen = false;
+      localStorage.removeItem('openModalPayment');
     },
     openSignUpModal(state) {
       state.modalSignUp.isOpen = true;
@@ -166,13 +170,15 @@ const authSlice = createSlice({
     },
     closeSignUpModal(state) {
       state.modalSignUp.isOpen = false;
+      localStorage.removeItem('openModalPayment');
     },
-    
+
     openChangePassModal(state) {
       state.modalChangePassword.isOpen = true;
     },
     closeChangePassModal(state) {
       state.modalChangePassword.isOpen = false;
+      localStorage.removeItem('openModalPayment');
     },
 
     backToLogInModal(state) {
