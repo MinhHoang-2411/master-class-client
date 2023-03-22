@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import ChangePassword from '@/contents/auth/ChangePasswordModal';
 import ResetPassword from '@/contents/auth/ForgotPassword/ResetPassword';
 import SendEmail from '@/contents/auth/ForgotPassword/SendEmail';
@@ -11,9 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import StickyFooter from './StickyFooter';
-import PaymentDetail from '@/contents/home/PaymentModal/PaymentDetail';
-import AddCardModal from '@/contents/home/PaymentModal/AddCardModal';
-import { useEffect } from 'react';
+import AddCardAndPayModal from '@/contents/home/PaymentModal/AddCardAndPayModal';
 
 // const Footer = dynamic(() => import('./Footer'));
 const Navbar = dynamic(() => import('./Navbar'), {
@@ -31,8 +30,7 @@ export default function MyLayout({ children }: any) {
 
   const modalChangePassword = useAppSelector((state) => state.auth.modalChangePassword);
   const modalChoosePayment = useAppSelector((state) => state.payment.modalChoosePayment);
-  const modalPaymentDetail = useAppSelector((state) => state.payment.modalPaymentDetail);
-  const modalAddCard = useAppSelector((state) => state.payment.modalAddCard);
+  const modalAddCardAndPay = useAppSelector((state) => state.payment.modalAddCardAndPay);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -82,17 +80,10 @@ export default function MyLayout({ children }: any) {
         }}
       />
 
-      <PaymentDetail
-        isOpen={modalPaymentDetail.isOpen}
+      <AddCardAndPayModal
+        isOpen={modalAddCardAndPay.isOpen}
         closeModal={() => {
-          dispatch(paymentActions.closeModalPaymentDetail());
-        }}
-      />
-
-      <AddCardModal
-        isOpen={modalAddCard.isOpen}
-        closeModal={() => {
-          dispatch(paymentActions.closeModalAddCard());
+          dispatch(paymentActions.closeModalAddCardAndPay());
         }}
       />
 

@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface IPaymentState {
   loadingGetListProduct: boolean;
+  loadingGetListCard: boolean;
+
   listProduct:
     | {
         _id: string;
@@ -24,13 +26,20 @@ interface IPaymentState {
     productId?: string;
     _id?: string;
   };
+  listCard:
+    | {
+        _id?: string;
+        isDefault?: boolean;
+        cardId?: string;
+        brand?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners' | 'jcb' | 'unionpay' | '';
+        last4?: string;
+        stripeCustomerId?: string;
+      }[]
+    | [];
   modalChoosePayment: {
     isOpen: boolean;
   };
-  modalPaymentDetail: {
-    isOpen: boolean;
-  };
-  modalAddCard: {
+  modalAddCardAndPay: {
     isOpen: boolean;
     isLoadingAddCard: boolean;
   };
@@ -38,16 +47,16 @@ interface IPaymentState {
 
 const initialState: IPaymentState = {
   loadingGetListProduct: false,
+  loadingGetListCard: false,
 
   listProduct: [],
   detailProduct: {},
+  listCard: [],
   modalChoosePayment: {
     isOpen: false,
   },
-  modalPaymentDetail: {
-    isOpen: false,
-  },
-  modalAddCard: {
+
+  modalAddCardAndPay: {
     isOpen: false,
     isLoadingAddCard: false,
   },
@@ -65,32 +74,34 @@ const paymentSlice = createSlice({
       state.modalChoosePayment.isOpen = false;
     },
 
-    //Add card Modal
-    openModalAddCard: (state) => {
-      state.modalAddCard.isOpen = true;
+    //Add card and pay Modal
+    openModalAddCardAndPay: (state) => {
+      state.modalAddCardAndPay.isOpen = true;
     },
-    closeModalAddCard: (state) => {
-      state.modalAddCard.isOpen = false;
+    closeModalAddCardAndPay: (state) => {
+      state.modalAddCardAndPay.isOpen = false;
     },
 
     addCardToCustomer: (state, action) => {
-      state.modalAddCard.isLoadingAddCard = true;
-    },
-    addCardToCustomerSuccess: (state, action) => {
-      state.modalAddCard.isLoadingAddCard = false;
-      state.modalAddCard.isOpen = false;
+      state.modalAddCardAndPay.isLoadingAddCard = true;
     },
     addCardToCustomerFail: (state, action) => {
-      state.modalAddCard.isLoadingAddCard = false;
+      state.modalAddCardAndPay.isLoadingAddCard = false;
       console.log('Add card fail');
     },
 
-    //Payment detail Modal
-    openModalPaymentDetail: (state) => {
-      state.modalPaymentDetail.isOpen = true;
+    //
+    createSubscription: (state, action) => {
+      state.modalAddCardAndPay.isLoadingAddCard = true;
     },
-    closeModalPaymentDetail: (state) => {
-      state.modalPaymentDetail.isOpen = false;
+    createSubscriptionSuccess: (state, action) => {
+      state.modalAddCardAndPay.isLoadingAddCard = false;
+      state.modalAddCardAndPay.isOpen = false;
+      state.modalChoosePayment.isOpen = false;
+    },
+    createSubscriptionFail: (state) => {
+      state.modalAddCardAndPay.isLoadingAddCard = false;
+      console.log('create subscription fail');
     },
 
     //get list product
@@ -109,6 +120,19 @@ const paymentSlice = createSlice({
     //detail product
     getDetailProduct: (state, action) => {
       state.detailProduct = action.payload;
+    },
+
+    //get list card
+    getListCard: (state, action) => {
+      state.loadingGetListCard = true;
+    },
+    getListCardSuccess: (state, action) => {
+      state.loadingGetListCard = false;
+      state.listCard = action.payload;
+    },
+    getListCardFail: (state, action) => {
+      state.loadingGetListCard = false;
+      console.log('get list card fail');
     },
   },
 });

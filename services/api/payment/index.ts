@@ -20,6 +20,15 @@ const paymentApi = {
     const url = '/payments/customers/cards';
     return axiosClient.post(url, params);
   },
+  createSubscription(params: any) {
+    const url = '/payments/subscriptions';
+    return axiosClient.post(url, params);
+  },
+
+  getListCard() {
+    const url = '/payments/customers/cards';
+    return axiosClient.get(url);
+  },
 };
 
 export default paymentApi;
