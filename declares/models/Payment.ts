@@ -13,6 +13,19 @@ export interface ResponseGetListProduct {
   }[];
 }
 
+export interface ResponseGetListCard {
+  success: boolean;
+  message: string;
+  data: {
+    _id: string;
+    isDefault: boolean;
+    cardId: string;
+    brand: string;
+    last4: string;
+    stripeCustomerId: string;
+  }[];
+}
+
 export interface ResponseCreateCard {
   id?: string;
 }
@@ -21,4 +34,10 @@ export interface ResponseAddCardToCustomer {
   data?: {
     cardId: string;
   };
+}
+
+export interface ResponseCreateSubscription {
+  success: boolean;
+  message: string;
+  data: boolean;
 }

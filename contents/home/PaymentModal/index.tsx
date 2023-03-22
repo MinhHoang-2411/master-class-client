@@ -39,6 +39,7 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
   const { locale } = useRouter();
   useEffect(() => {
     dispatch(paymentActions.getListProduct());
+    dispatch(paymentActions.getListCard({}));
 
     if (typeof window !== 'undefined') {
       const isOpen = localStorage.getItem('openModalPayment');
@@ -56,6 +57,7 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
           <IconButton
             onClick={() => {
               localStorage.removeItem('openModalPayment');
+              console.log({ listProduct });
               dispatch(paymentActions.closeModalChoosePayment());
             }}
           >
@@ -77,7 +79,7 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
                 className={styles.wrapper}
                 onClick={() => {
                   dispatch(paymentActions.getDetailProduct(product));
-                  dispatch(paymentActions.openModalAddCard());
+                  dispatch(paymentActions.openModalAddCardAndPay());
                 }}
               >
                 <h2 style={{ margin: '12px 0' }}>{product?.name}</h2>
