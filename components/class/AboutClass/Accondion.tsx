@@ -1,5 +1,7 @@
+import { classActions } from '@/store/class/classSlice';
+import { useAppDispatch } from '@/store/hooks';
 import { ExpandMore } from '@mui/icons-material';
-import { Accordion, AccordionDetails, AccordionSummary, Box } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
@@ -58,6 +60,12 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
 }) => {
   const { t } = useTranslation('common');
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const RedirectLessonDetail = () => {
+    dispatch(classActions.setIndexSelectedLesson(index));
+    router.push(`${router.asPath}/lessons`);
+  };
 
   return (
     <Box className={styles.accordionLesson}>
@@ -76,9 +84,10 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
           <CustomAccordionDetails>{description}</CustomAccordionDetails>
 
           <CustomAccordionDetails>
-            <Link href={`${router.asPath}/lessons`} style={{ textDecoration: 'underline' }}>{`${t(
-              'read-more'
-            )}...`}</Link>
+            <Button
+              sx={{ textDecoration: 'underline', color: '#fff', textTransform: 'capitalize', p: 0 }}
+              onClick={RedirectLessonDetail}
+            >{`${t('read-more')}...`}</Button>
           </CustomAccordionDetails>
         </Box>
       </CustomAccordion>
