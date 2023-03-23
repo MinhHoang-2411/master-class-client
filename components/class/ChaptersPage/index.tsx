@@ -42,8 +42,6 @@ const ChaptersPageComponent = ({
   const [lightVideo, setLightVideo] = useState<any>(false);
   const router = useRouter();
 
-  console.log('router', router);
-
   useEffect(() => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
     setLightVideo(selectedLesson?.thumbnail);
