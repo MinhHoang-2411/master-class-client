@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import styles from '../../styles/classes.module.scss';
+import styles from '../../../styles/classes.module.scss';
 
 interface Props {
   classes: any;

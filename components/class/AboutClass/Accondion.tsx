@@ -1,8 +1,10 @@
 import { ExpandMore } from '@mui/icons-material';
-import { Accordion, AccordionDetails, AccordionSummary, Box, duration } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import * as React from 'react';
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import * as React from 'react';
 import styles from './../../../styles/classes.module.scss';
 
 const CustomAccordion = styled(Accordion)({
@@ -55,6 +57,8 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
   duration,
 }) => {
   const { t } = useTranslation('common');
+  const router = useRouter();
+
   return (
     <Box className={styles.accordionLesson}>
       <CustomAccordion>
@@ -72,7 +76,9 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
           <CustomAccordionDetails>{description}</CustomAccordionDetails>
 
           <CustomAccordionDetails>
-            <Box sx={{ textDecoration: 'underline' }}>{`${t('read-more')}...`}</Box>
+            <Link href={`${router.asPath}/lessons`} style={{ textDecoration: 'underline' }}>{`${t(
+              'read-more'
+            )}...`}</Link>
           </CustomAccordionDetails>
         </Box>
       </CustomAccordion>
