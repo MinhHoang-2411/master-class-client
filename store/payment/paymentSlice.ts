@@ -31,7 +31,15 @@ interface IPaymentState {
         _id?: string;
         isDefault?: boolean;
         cardId?: string;
-        brand?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners' | 'jcb' | 'unionpay' | '';
+        brand?:
+          | 'Visa'
+          | 'MasterCard'
+          | 'American Express'
+          | 'Discover'
+          | 'Diners Club'
+          | 'JCB'
+          | 'UnionPay'
+          | '';
         last4?: string;
         stripeCustomerId?: string;
       }[]
@@ -40,6 +48,10 @@ interface IPaymentState {
     isOpen: boolean;
   };
   modalAddCardAndPay: {
+    isOpen: boolean;
+    isLoadingAddCard: boolean;
+  };
+  modalAddCard: {
     isOpen: boolean;
     isLoadingAddCard: boolean;
   };
@@ -57,6 +69,11 @@ const initialState: IPaymentState = {
   },
 
   modalAddCardAndPay: {
+    isOpen: false,
+    isLoadingAddCard: false,
+  },
+
+  modalAddCard: {
     isOpen: false,
     isLoadingAddCard: false,
   },
@@ -82,10 +99,10 @@ const paymentSlice = createSlice({
       state.modalAddCardAndPay.isOpen = false;
     },
 
-    addCardToCustomer: (state, action) => {
+    addCardAndPayToCustomer: (state, action) => {
       state.modalAddCardAndPay.isLoadingAddCard = true;
     },
-    addCardToCustomerFail: (state, action) => {
+    addCardAndPayToCustomerFail: (state, action) => {
       state.modalAddCardAndPay.isLoadingAddCard = false;
       console.log('Add card fail');
     },
@@ -102,6 +119,25 @@ const paymentSlice = createSlice({
     createSubscriptionFail: (state) => {
       state.modalAddCardAndPay.isLoadingAddCard = false;
       console.log('create subscription fail');
+    },
+
+    //Add Card Modal
+    openModalAddCard: (state) => {
+      state.modalAddCard.isOpen = true;
+    },
+    closeModalAddCard: (state) => {
+      state.modalAddCard.isOpen = false;
+    },
+    addCardToCustomer: (state, action) => {
+      state.modalAddCard.isLoadingAddCard = true;
+    },
+    addCardToCustomerSuccess: (state) => {
+      state.modalAddCard.isLoadingAddCard = false;
+      state.modalAddCard.isOpen = false;
+    },
+    addCardToCustomerFail: (state, action) => {
+      state.modalAddCard.isLoadingAddCard = false;
+      console.log('Add card fail');
     },
 
     //get list product
@@ -129,6 +165,7 @@ const paymentSlice = createSlice({
     getListCardSuccess: (state, action) => {
       state.loadingGetListCard = false;
       state.listCard = action.payload;
+      localStorage.setItem('listCard', action.payload);
     },
     getListCardFail: (state, action) => {
       state.loadingGetListCard = false;
