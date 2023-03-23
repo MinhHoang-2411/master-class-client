@@ -2,6 +2,7 @@ import Typography from '@/components/share/Typography';
 import { displayCenter } from '@/declares/modal';
 import { Box } from '@mui/material';
 import { useTranslation } from 'next-i18next';
+import LoginApple from './LoginApple';
 import LoginFacebook from './LoginFacebook';
 import LoginGoogle from './LoginGoogle';
 import styles from './styles.module.scss';
@@ -32,9 +33,12 @@ const LoginWithSocial = () => {
           <Box sx={{ mr: 2 }}>
             <LoginGoogle />
           </Box>
-          <Box className="">
+          <Box sx={{ mr: 2 }}>
             <LoginFacebook />
           </Box>
+          {/* <Box sx={{ mt: 0.5 }}>
+            <LoginApple />
+          </Box> */}
         </Box>
       </Box>
     </>

@@ -2511,6 +2511,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+react-apple-login@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/react-apple-login/-/react-apple-login-1.1.6.tgz#bea08cae70efebc966bf867cda50d9a2f8ca1a79"
+  integrity sha512-ySV6ax0aB+ksA7lKzhr4MvsgjwSH068VtdHJXS+7rL380IJnNQNl14SszR31k3UqB8q8C1H1oyjJFGq4MyO6tw==
+
 react-code-input@^3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/react-code-input/-/react-code-input-3.10.1.tgz#959e1504a911c69ada098d9432d00cc59d5732f3"

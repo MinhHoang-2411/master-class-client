@@ -1,0 +1,137 @@
+.page_content {
+  min-height: 100vh;
+  color: #262626;
+  background-color: #fff;
+  padding: 80px 0;
+
+  .sectionChapter {
+    margin: 0 16px;
+    padding-top: 40px;
+
+    h1 {
+      font-size: 42px;
+      margin: 8px 0;
+    }
+
+    .authorDes {
+      display: flex;
+      align-items: center;
+      padding-bottom: 24px;
+      .authorName {
+        display: flex;
+        flex-direction: column;
+        margin-left: 16px;
+        .lessonTime {
+          font-size: 14px;
+        }
+      }
+    }
+    .title {
+      margin: 28px 0 24px;
+    }
+  }
+
+  .bodyChapter {
+    margin: 36px 0;
+    .lessonVideo {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      .lessonOverlay {
+        &::after {
+          content: '';
+          background-color: red;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          cursor: pointer;
+        }
+      }
+    }
+    .lessonPlan {
+      color: #fff;
+      background-color: #262626;
+      height: 400px;
+      overflow-y: auto;
+      h2 {
+        width: 100%;
+        font-size: 16px;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 0;
+        padding: 18px 0 12px;
+      }
+      .navLesson {
+        padding: 0;
+
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #888;
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background-color: #555;
+        }
+      }
+    }
+  }
+  .exploreAuthor {
+    display: flex;
+    align-items: center;
+    .exploreAuthorRight {
+      margin-left: 32px;
+      display: flex;
+      flex-direction: column;
+      h4 {
+        font-size: 14px;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin: 0;
+      }
+      h2 {
+        font-size: 24px;
+        text-transform: uppercase;
+        margin: 8px 0 12px;
+      }
+      p {
+        margin: 0;
+      }
+      .buttonExplore {
+        margin-top: 24px;
+        button {
+          padding: 0.6rem 1.4rem;
+          font-size: 16px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          line-height: 1.8rem;
+          letter-spacing: 0.01em;
+          text-transform: capitalize;
+          border-radius: 0.4rem;
+          vertical-align: middle;
+          white-space: nowrap;
+          background-color: #fff;
+          border: 0;
+          transition: all ease-in-out 0.3s;
+          cursor: pointer;
+          border: 1px solid #e5e5e5;
+          &:hover {
+            background-color: #f1f1f1;
+          }
+        }
+      }
+    }
+  }
+}
