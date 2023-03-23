@@ -13,6 +13,7 @@ import { Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import StickyFooter from './StickyFooter';
 import AddCardAndPayModal from '@/contents/home/PaymentModal/AddCardAndPayModal';
+import AddCardModal from '@/contents/home/PaymentModal/AddCardModal';
 
 // const Footer = dynamic(() => import('./Footer'));
 const Navbar = dynamic(() => import('./Navbar'), {
@@ -31,12 +32,14 @@ export default function MyLayout({ children }: any) {
   const modalChangePassword = useAppSelector((state) => state.auth.modalChangePassword);
   const modalChoosePayment = useAppSelector((state) => state.payment.modalChoosePayment);
   const modalAddCardAndPay = useAppSelector((state) => state.payment.modalAddCardAndPay);
+  const modalAddCard = useAppSelector((state) => state.payment.modalAddCard);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
       if (currentUser) {
         dispatch(authActions.loginSuccess(currentUser?.user));
+        dispatch(paymentActions.getListCard({}));
       }
     }
   }, []);
@@ -84,6 +87,13 @@ export default function MyLayout({ children }: any) {
         isOpen={modalAddCardAndPay.isOpen}
         closeModal={() => {
           dispatch(paymentActions.closeModalAddCardAndPay());
+        }}
+      />
+
+      <AddCardModal
+        isOpen={modalAddCard.isOpen}
+        closeModal={() => {
+          dispatch(paymentActions.closeModalAddCard());
         }}
       />
 

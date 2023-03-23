@@ -160,8 +160,9 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
               stripeCustomerId: currentUser?.stripeCustomerId,
               priceId: product?.priceId,
               setSubmitting,
+              currency: product?.currency,
             };
-            dispatch(paymentActions.addCardToCustomer(params));
+            dispatch(paymentActions.addCardAndPayToCustomer(params));
           }}
         >
           {({ isSubmitting, handleChange, values, handleSubmit, resetForm }) => (
@@ -394,6 +395,7 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                               priceId: product?.priceId,
                               paymentMethod,
                               stripeCustomerId: currentUser?.stripeCustomerId,
+                              currency: product?.currency,
                             })
                           );
                         }

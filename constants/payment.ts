@@ -7,21 +7,21 @@ import cardJcb from '@/public/images/card-jcb.png';
 import cardUnionPay from '@/public/images/card-unionpay.png';
 
 export const paymentMethod = {
-  visa: 'Visa',
-  mastercard: 'Mastercard',
-  amex: 'AMEX',
-  discover: 'Discover',
-  diners: 'Diners Club',
-  jcb: 'JCB',
-  unionpay: 'UnionPay',
+  Visa: 'Visa',
+  MasterCard: 'Mastercard',
+  'American Express': 'AMEX',
+  Discover: 'Discover',
+  'Diners Club': 'Diners Club',
+  JCB: 'JCB',
+  UnionPay: 'UnionPay',
 };
 
 export const cardImagePayment = {
-  visa: cardVisa,
-  mastercard: cardMastercard,
-  amex: cardAmex,
-  discover: cardDiscover,
-  diners: cardDiners,
-  jcb: cardJcb,
-  unionpay: cardUnionPay,
+  Visa: cardVisa,
+  MasterCard: cardMastercard,
+  'American Express': cardAmex,
+  Discover: cardDiscover,
+  'Diners Club': cardDiners,
+  JCB: cardJcb,
+  UnionPay: cardUnionPay,
 };

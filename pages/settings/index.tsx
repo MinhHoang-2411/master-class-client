@@ -1,5 +1,6 @@
 import Layout from '@/components/layouts';
 import SettingComponent from '@/components/settings';
+
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styles from '../../styles/categories.module.scss';

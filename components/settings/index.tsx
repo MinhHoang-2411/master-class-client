@@ -1,8 +1,8 @@
 import { authActions } from '@/store/auth/authSlice';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getAuth } from '@/utils/auth';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Card, Divider, Grid, MenuItem, Popover, Stack } from '@mui/material';
+import { Box, Button, Card, Divider, Grid, MenuItem, Popover, Stack } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -13,6 +13,12 @@ import FlagEn from '../../public/icons/flag-en.png';
 import FlagVi from '../../public/icons/flag-vi.png';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CardImage from '../payment/CardImage';
+import { cardImagePayment } from '@/constants/payment';
+import cardDefault from '@/public/images/card-default.svg';
+import { paymentMethod as paymentMethodConstant } from '@/constants/payment';
+import { paymentActions } from '@/store/payment/paymentSlice';
 
 const LANGS = [
   {
@@ -28,12 +34,16 @@ const LANGS = [
 ];
 
 interface Props {}
+
 const SettingComponent = ({}: Props) => {
   const { t } = useTranslation('common');
   const { locale } = useRouter();
   const dispatch = useAppDispatch();
   const user = getAuth()?.user;
   const router = useRouter();
+
+  //payment
+  const listCard = useAppSelector((state) => state.payment.listCard);
 
   const [language, setLanguage] = useState(locale);
 
@@ -56,8 +66,9 @@ const SettingComponent = ({}: Props) => {
   };
 
   return (
-    <>
-      <Grid container spacing={3}>
+    <Grid container spacing={2}>
+      {/* Account */}
+      <Grid item container spacing={3}>
         <Grid item xs={12} lg={12}>
           <Stack spacing={3}>
             <Card sx={{ py: 2, px: 3.5 }}>
@@ -99,7 +110,71 @@ const SettingComponent = ({}: Props) => {
           </Stack>
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
+      {/* End Account  */}
+
+      {/* Payment  */}
+      <Grid item container spacing={3}>
+        <Grid item xs={12} lg={12}>
+          <Stack spacing={3}>
+            <Card sx={{ py: 2, px: 3.5 }}>
+              <Stack spacing={3}>
+                <Typography variant="h6" component={'h2'}>
+                  Payment
+                </Typography>
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                  <Typography variant="subtitle1" component={'h3'}>
+                    Payment Methods
+                  </Typography>
+                  <Button
+                    size="large"
+                    sx={{ color: 'rgba(0, 0, 0, 0.54)', textTransform: 'capitalize' }}
+                    endIcon={<AddCircleOutlineIcon />}
+                    onClick={() => {
+                      dispatch(paymentActions.openModalAddCard());
+                    }}
+                  >
+                    <b style={{ display: 'block', transform: 'translateX(5px)' }}>Add</b>
+                  </Button>
+                </Stack>
+                {listCard?.length > 0 ? (
+                  <Stack spacing={1}>
+                    {listCard?.map((card) => (
+                      <Box
+                        style={{
+                          padding: '16px',
+                          background: '#fff',
+                          borderRadius: '4px',
+                          color: 'black',
+                          width: '300px',
+                          border: '1px solid #ccc',
+                        }}
+                        key={card?._id}
+                      >
+                        <Stack direction="row" justifyContent="space-between" alignItems="center">
+                          <Stack direction="row" alignItems="center">
+                            <CardImage
+                              src={card.brand ? cardImagePayment[card?.brand] : cardDefault}
+                              alt="card"
+                            />
+                            <b>{card.brand ? paymentMethodConstant[card?.brand] : ''}</b>
+                          </Stack>
+                          <b>**** {card?.last4}</b>
+                        </Stack>
+                      </Box>
+                    ))}
+                  </Stack>
+                ) : (
+                  <p>No card stored</p>
+                )}
+              </Stack>
+            </Card>
+          </Stack>
+        </Grid>
+      </Grid>
+      {/* End Payment  */}
+
+      {/* Language  */}
+      <Grid item container spacing={3}>
         <Grid item xs={12} lg={12}>
           <Stack spacing={3}>
             <Card sx={{ py: 2, px: 3.5 }}>
@@ -175,7 +250,8 @@ const SettingComponent = ({}: Props) => {
           </Stack>
         </Grid>
       </Grid>
-    </>
+      {/* End Language  */}
+    </Grid>
   );
 };
 
