@@ -106,7 +106,7 @@ const ChaptersPageComponent = ({
             <Divider sx={{ border: '.5px solid #D4D5D9' }} />
 
             <div className={styles?.title}>
-              <span>{selectedLesson?.title}</span>
+              <span>{selectedLesson?.description}</span>
             </div>
           </div>
         </Box>
@@ -172,7 +172,7 @@ const ChaptersPageComponent = ({
         <Box>
           <Box sx={{ pb: 2, mt: 5 }}>
             <h2>{t('About the Instructor')}</h2>
-            <p>{classes?.title}</p>
+            <p>{classes?.overview?.description}</p>
           </Box>
           <Divider sx={{ border: '.5px solid #D4D5D9' }} />
           <Box sx={{ mt: 5 }}>
