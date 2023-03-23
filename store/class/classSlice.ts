@@ -9,6 +9,8 @@ interface ClassStateModel {
   loading: boolean;
   loadingSearch: boolean;
   reloadList: boolean;
+  indexSelectedLesson: number;
+  loadingSelectedLesson: boolean;
 }
 
 const initialState: ClassStateModel = {
@@ -18,6 +20,8 @@ const initialState: ClassStateModel = {
   loading: false,
   loadingSearch: false,
   reloadList: false,
+  indexSelectedLesson: 0,
+  loadingSelectedLesson: false,
 };
 
 const classSlice = createSlice({
@@ -45,6 +49,17 @@ const classSlice = createSlice({
     },
     fetchDataSearchFalse(state, action) {
       state.loadingSearch = false;
+    },
+
+    setIndexSelectedLesson(state, action) {
+      state.loadingSelectedLesson = true;
+    },
+    setIndexSelectedLessonSuccess(state, action) {
+      state.indexSelectedLesson = action.payload;
+      state.loadingSelectedLesson = false;
+    },
+    setIndexSelectedLessonFalse(state, action) {
+      state.loadingSelectedLesson = false;
     },
   },
 });

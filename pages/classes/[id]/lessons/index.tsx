@@ -11,7 +11,8 @@ interface Props {
 
 const ChaptersPage = ({ categories }: Props) => {
   const router = useRouter();
-  const [idxSelectedLesson, setIdxSelectLesson] = useState(0);
+  const indexSelectedLesson = useAppSelector((state) => state.class.indexSelectedLesson);
+  const [idxSelectedLesson, setIdxSelectLesson] = useState(indexSelectedLesson);
   const [selectedLesson, setSelectedLesson] = useState([]);
   const [classes, setClasses] = useState<any>([]);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);

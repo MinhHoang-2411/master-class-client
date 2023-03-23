@@ -48,10 +48,24 @@ function* handleFetchDataSearch(action: PayloadAction<ParamsGetListClass>) {
   }
 }
 
+function* handleSelectedLessons(action: PayloadAction<ParamsGetListClass>) {
+  try {
+    const params = action.payload;
+    yield put(classActions.setIndexSelectedLessonSuccess(params));
+  } catch (error: ErrorModel | any) {
+    yield put(
+      classActions.setIndexSelectedLessonFalse(
+        error?.response?.data?.message || 'An error occurred, please try again'
+      )
+    );
+  }
+}
+
 function* classFlow() {
   yield all([
     takeEvery(classActions.fetchData.type, handleFetchData),
     takeEvery(classActions.fetchDataSearch.type, handleFetchDataSearch),
+    takeEvery(classActions.setIndexSelectedLesson.type, handleSelectedLessons),
   ]);
 }
 
