@@ -28,6 +28,11 @@ const classAPI = {
     const url = '/categories';
     return axiosClient.get(url, { params });
   },
+
+  getDetailLesson(paramId: any) {
+    const url = `/lessons/${paramId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default classAPI;

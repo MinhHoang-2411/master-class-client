@@ -7,6 +7,7 @@ import classReducer from './class/classSlice';
 import homePageReducer from './home-page/homePageSlice';
 import { paymentReducer } from './payment/paymentSlice';
 import rootSaga from './rootSaga';
+import watchingReducer from './watching/watchingSlice';
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -15,6 +16,7 @@ const reducers = combineReducers({
   categories: categoriesReducer,
   class: classReducer,
   payment: paymentReducer,
+  watching: watchingReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

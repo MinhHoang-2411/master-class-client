@@ -1,10 +1,10 @@
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { paymentActions } from '@/store/payment/paymentSlice';
 import { isMappable } from '@/utils/helper';
 import {
   Avatar,
   Box,
-  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -13,28 +13,30 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
-import styles from '../../../styles/chapters-page.module.scss';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import styles from '../../../styles/lessons-page.module.scss';
 
 const PlayVideoLesson = dynamic(() => import('./PlayVideoLesson'), { ssr: false });
 
 interface Iprops {
   classes: any;
-  selectedLesson: any;
   categories: any;
-  idxSelectedLesson: number;
-  onChangeLesson: any;
+  lesson: any;
+  indexSelectedLesson: number;
+  handleChangeLesson: any;
+  isPayment: boolean;
 }
 
-const ChaptersPageComponent = ({
+const LessonDetailPageComponent = ({
   classes,
   categories,
-  selectedLesson,
-  idxSelectedLesson,
-  onChangeLesson,
+  lesson,
+  indexSelectedLesson,
+  handleChangeLesson,
+  isPayment,
 }: Iprops) => {
   const { t } = useTranslation();
   const [listCategory, setListCategory] = useState<any>([]);
@@ -44,8 +46,9 @@ const ChaptersPageComponent = ({
 
   useEffect(() => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
-    setLightVideo(selectedLesson?.thumbnail);
-  }, [selectedLesson]);
+    setLightVideo(lesson?.thumbnail);
+    setOverlayVideo(!isPayment);
+  }, [lesson, classes]);
 
   const TimeConvert = (time: number) => {
     const duration = Math.floor(time);
@@ -62,15 +65,34 @@ const ChaptersPageComponent = ({
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
 
-  const [overlayVideo, setOverlayVideo] = useState(false);
+  const [overlayVideo, setOverlayVideo] = useState(!isPayment);
 
   const handleClickPreviewVideo = () => {
     if (isLoggedIn) {
-      setOverlayVideo(false);
+      if (isPayment) {
+        setOverlayVideo(false);
+      } else {
+        dispatch(paymentActions.openModalChoosePayment());
+      }
     } else {
       dispatch(authActions.openSignInModal());
     }
   };
+
+  // useEffect(() => {
+  //   const handleUnload = (event: any) => {
+  //     localStorage.setItem('lessonTime', '200');
+  //     event.preventDefault();
+  //     return (event.returnValue = 'Are you sure you want to leave?');
+  //   };
+
+  //   window.addEventListener('beforeunload', handleUnload);
+
+  //   return () => {
+  //     // cleanUpFunc
+  //     window.removeEventListener('beforeunload', handleUnload);
+  //   };
+  // }, []);
 
   return (
     <main className={styles.page_content}>
@@ -87,7 +109,7 @@ const ChaptersPageComponent = ({
                   ))
                 : ''}
             </Typography>
-            <h1>{selectedLesson?.title}</h1>
+            <h1>{classes?.lessons?.[indexSelectedLesson]?.title}</h1>
 
             <div className={styles.authorDes}>
               <Avatar alt="avatar" src={classes.thumbnail} sx={{ width: 60, height: 60 }} />
@@ -99,14 +121,14 @@ const ChaptersPageComponent = ({
                   {classes?.authorName}
                 </span>
                 <span className={styles.lessonTime}>{`${t('Lesson time')} ${TimeConvert(
-                  selectedLesson?.duration
+                  classes?.lessons?.[indexSelectedLesson]?.duration
                 )}`}</span>
               </div>
             </div>
             <Divider sx={{ border: '.5px solid #D4D5D9' }} />
 
             <div className={styles?.title}>
-              <span>{selectedLesson?.description}</span>
+              <span>{classes?.lessons?.[indexSelectedLesson]?.description}</span>
             </div>
           </div>
         </Box>
@@ -118,13 +140,24 @@ const ChaptersPageComponent = ({
           columnSpacing={2}
         >
           <Grid item lg={8} md={8} xs={12} className={styles.lessonVideo}>
-            <div
-              onClick={handleClickPreviewVideo}
-              className={`${overlayVideo ? styles.lessonOverlay : ''}`}
-            ></div>
+            {overlayVideo ? (
+              <div onClick={handleClickPreviewVideo} className={styles.lessonOverlay}>
+                <div className={styles.contentOverlay}>
+                  <h2>{t('Subscribe to TheRaisedHands to watch lessons')}</h2>
+                  <span>
+                    {t('Starting at $24.99/month (billed annually) for all classes and sessions')}
+                  </span>
+                  <button>{t('Subscribe')}</button>
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
             <PlayVideoLesson
-              lightVideo={lightVideo}
-              url={selectedLesson?.videoUrl}
+              lightVideo={
+                isPayment ? lightVideo : classes?.lessons?.[indexSelectedLesson]?.thumbnail
+              }
+              url={isPayment ? lesson?.videoUrl : classes.videoPreview?.url}
               playingVideo={playingVideo}
               setLightVideo={setLightVideo}
               setPlayingVideo={setPlayingVideo}
@@ -145,8 +178,9 @@ const ChaptersPageComponent = ({
                     classes.lessons.map((lesson: any, index: number) => (
                       <>
                         <ListItemButton
-                          selected={idxSelectedLesson === index}
-                          onClick={() => onChangeLesson(index)}
+                          selected={indexSelectedLesson === index}
+                          onClick={() => handleChangeLesson(lesson?._id, index)}
+                          key={lesson?._id}
                           sx={{
                             '&.Mui-selected': {
                               backgroundColor: 'rgb(48, 49, 54)',
@@ -198,4 +232,4 @@ const ChaptersPageComponent = ({
   );
 };
 
-export default ChaptersPageComponent;
+export default LessonDetailPageComponent;

@@ -26,7 +26,7 @@ const AboutClass = ({ classes, categories }: Props) => {
 
   useEffect(() => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
-    setLightVideo(classes?.videoPreview?.thumbnail)
+    setLightVideo(classes?.videoPreview?.thumbnail);
   }, [classes]);
 
   const TimeConvert = () => {
@@ -111,6 +111,7 @@ const AboutClass = ({ classes, categories }: Props) => {
                       duration={lesson?.duration}
                       index={index}
                       key={lesson?.index}
+                      lessonId={lesson?._id}
                     />
                   ))
                 ) : (

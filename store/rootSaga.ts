@@ -4,7 +4,15 @@ import { categoriesSaga } from './categories/categoriesSaga';
 import { classSaga } from './class/classSaga';
 import { homePageSaga } from './home-page/homePageSaga';
 import { paymentSaga } from './payment/paymentSaga';
+import { watchingSaga } from './watching/watchingSaga';
 
 export default function* rootSaga() {
-  yield all([authSaga(), homePageSaga(), categoriesSaga(), classSaga(), paymentSaga()]);
+  yield all([
+    authSaga(),
+    homePageSaga(),
+    categoriesSaga(),
+    classSaga(),
+    paymentSaga(),
+    watchingSaga(),
+  ]);
 }
