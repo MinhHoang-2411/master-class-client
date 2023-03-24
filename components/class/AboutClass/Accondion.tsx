@@ -37,6 +37,7 @@ const CustomAccordionDetails = styled(AccordionDetails)({
 });
 
 interface CustomAccordionProps {
+  lessonId: string;
   title: string;
   index: number;
   description: string;
@@ -53,6 +54,7 @@ const displayDuration = (duration: number) => {
 };
 
 const AccordionComponent: React.FC<CustomAccordionProps> = ({
+  lessonId,
   title,
   description,
   index,
@@ -64,7 +66,7 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
 
   const RedirectLessonDetail = () => {
     dispatch(classActions.setIndexSelectedLesson(index));
-    router.push(`${router.asPath}/lessons`);
+    router.push(`${router.asPath}/lessons/${lessonId}`);
   };
 
   return (

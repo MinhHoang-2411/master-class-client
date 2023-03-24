@@ -19,18 +19,13 @@ const Classes = ({ classes, categories }: Props) => {
   const [lesson, setLesson] = useState(classes);
   const [isFavourite, setIsFavourite] = useState<any>(null);
   const router = useRouter();
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const fetchData = async () => {
     try {
       let response: any;
       const payload = {
         webName: router.query.id,
       };
-      if (isLoggedIn) {
-        response = await classAPI.getDetailByWebName(payload);
-      } else {
-        response = await classAPI.getDetailByWebNameV1(payload);
-      }
+      response = await classAPI.getDetailByWebNameV1(payload);
       if (response?.data) {
         setLesson(response?.data);
         setIsFavourite(response?.data?.isFavourite);

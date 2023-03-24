@@ -40,7 +40,7 @@
   "app-language": "Ngôn ngữ ứng dụng",
   "change-default-language": "Thay đổi ngôn ngữ mặc định",
   "edit": "Chỉnh sửa",
-  "enter-email-for-this-amazing-monthly-gift": "Nhập Email để nhận Quà tặng hàng tháng tuyệt vời này",
+  "enter-email-for-this-amazing-monthly-gift": "Nhập Email để nhận quà tặng hàng tháng",
   "your-email-address": "Địa chỉ email của bạn",
 
   "by-logging-in": "Bằng cách đăng nhập, bạn đồng ý với Chính sách bảo mật và Điều khoản dịch vụ của chúng tôi",
@@ -109,5 +109,6 @@
   "Lesson time": "Thời lượng",
   "hours": "giờ",
   "minutes": "phút",
-  "seconds": "giây"
+  "seconds": "giây",
+  "Subscribe to TheRaisedHands to watch lessons": "Đăng ký TheRaisedHands để xem các bài học"
 }
