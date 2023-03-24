@@ -2,13 +2,24 @@ import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getAuth } from '@/utils/auth';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Button, Card, Divider, Grid, MenuItem, Popover, Stack } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  Chip,
+  Divider,
+  Grid,
+  MenuItem,
+  Modal,
+  Popover,
+  Stack,
+} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import Typography from '../share/Typography';
 import LanguageIcon from '@mui/icons-material/Language';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FlagEn from '../../public/icons/flag-en.png';
 import FlagVi from '../../public/icons/flag-vi.png';
 import Image from 'next/image';
@@ -19,6 +30,9 @@ import { cardImagePayment } from '@/constants/payment';
 import cardDefault from '@/public/images/card-default.svg';
 import { paymentMethod as paymentMethodConstant } from '@/constants/payment';
 import { paymentActions } from '@/store/payment/paymentSlice';
+import PrimaryButton from '../share/PrimaryButton';
+import { convertTimeStamp } from '@/utils/convert/date';
+import { styleModal } from '@/declares/modal';
 
 const LANGS = [
   {
@@ -44,6 +58,20 @@ const SettingComponent = ({}: Props) => {
 
   //payment
   const listCard = useAppSelector((state) => state.payment.listCard);
+
+  //subscription
+  const listSubscriptionRaw = useAppSelector((state) => state.payment.listSubscription);
+  const listSubscription = listSubscriptionRaw.filter((subs) => subs.status === 'active');
+  const [isOpenModalConfirmSubscription, setIsOpenModalConfirmSubscription] = useState(false);
+  const [isOpenModalConfirmCard, setIsOpenModalConfirmCard] = useState(false);
+  const [stripeSubscriptionId, setStripeSubscriptionId] = useState('');
+  const [cardId, setCardId] = useState('');
+  const handleCloseConfirmSubscriptionModal = () => {
+    setIsOpenModalConfirmSubscription(false);
+  };
+  const handleCloseConfirmCardModal = () => {
+    setIsOpenModalConfirmCard(false);
+  };
 
   const [language, setLanguage] = useState(locale);
 
@@ -139,39 +167,198 @@ const SettingComponent = ({}: Props) => {
                 {listCard?.length > 0 ? (
                   <Stack spacing={1}>
                     {listCard?.map((card) => (
-                      <Box
-                        style={{
-                          padding: '16px',
-                          background: '#fff',
-                          borderRadius: '4px',
-                          color: 'black',
-                          width: '300px',
-                          border: '1px solid #ccc',
-                        }}
-                        key={card?._id}
-                      >
-                        <Stack direction="row" justifyContent="space-between" alignItems="center">
-                          <Stack direction="row" alignItems="center">
-                            <CardImage
-                              src={card.brand ? cardImagePayment[card?.brand] : cardDefault}
-                              alt="card"
-                            />
-                            <b>{card.brand ? paymentMethodConstant[card?.brand] : ''}</b>
+                      <Stack key={card?._id} direction="row" spacing={2} alignItems="center">
+                        <Box
+                          sx={{
+                            padding: '16px',
+                            background: '#fff',
+                            borderRadius: '4px',
+                            color: 'black',
+                            width: '300px',
+                            border: '1px solid #ccc',
+                          }}
+                        >
+                          <Stack direction="row" justifyContent="space-between" alignItems="center">
+                            <Stack direction="row" alignItems="center">
+                              <CardImage
+                                src={card.brand ? cardImagePayment[card?.brand] : cardDefault}
+                                alt="card"
+                              />
+                              <b>{card.brand ? paymentMethodConstant[card?.brand] : ''}</b>
+                            </Stack>
+                            <b>**** {card?.last4}</b>
                           </Stack>
-                          <b>**** {card?.last4}</b>
-                        </Stack>
-                      </Box>
+                        </Box>
+                        <Button
+                          size="small"
+                          variant="contained"
+                          sx={{ height: '40px', textTransform: 'capitalize' }}
+                          onClick={() => {
+                            setIsOpenModalConfirmCard(true);
+                            setCardId(card._id as string);
+                            console.log(card._id);
+                          }}
+                        >
+                          <b>Delete</b>
+                        </Button>
+                      </Stack>
                     ))}
                   </Stack>
                 ) : (
-                  <p>No card stored</p>
+                  <Typography variant="subtitle2">No card stored</Typography>
                 )}
               </Stack>
             </Card>
           </Stack>
         </Grid>
+
+        {/* Delete Card Modal  */}
+        <Modal open={isOpenModalConfirmCard} onClose={handleCloseConfirmCardModal}>
+          <Box sx={{ ...styleModal, width: '500px' }}>
+            <Stack alignItems="center" spacing={2}>
+              <Typography sx={{ textTransform: 'none' }} variant="h6" component="h3">
+                Are you sure to delete this card?
+              </Typography>
+
+              <Stack direction="row" spacing={1} justifyContent="center">
+                <Button variant="outlined" onClick={handleCloseConfirmCardModal}>
+                  Close
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(
+                      paymentActions.deleteCard({
+                        id: cardId,
+                        closeDeleteCardModal: handleCloseConfirmCardModal,
+                      })
+                    );
+                  }}
+                >
+                  Confirm
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
+        </Modal>
       </Grid>
       {/* End Payment  */}
+
+      {/* Subscriptions */}
+      <Grid item container spacing={3}>
+        <>
+          <Grid item xs={12} lg={12}>
+            <Stack spacing={3}>
+              <Card sx={{ py: 2, px: 3.5 }}>
+                <Stack spacing={3}>
+                  <Typography variant="h6" component={'h2'}>
+                    Subscriptions
+                  </Typography>
+                  {listSubscription.length > 0 ? (
+                    listSubscription.map((subs) => (
+                      <Stack
+                        key={subs._id}
+                        sx={{ width: '500px', border: '1px solid #ccc', borderRadius: 1, p: 2 }}
+                      >
+                        <Stack direction="row" justifyContent="space-between">
+                          <Stack direction="row" spacing={1} alignItems="center">
+                            <Typography variant="h6">{subs.productpayments.name}</Typography>
+
+                            <Typography variant="h6">{`$${subs.productpayments.amount
+                              .toString()
+                              .substring(
+                                0,
+                                subs.productpayments.amount.toString().length - 2
+                              )}.${subs.productpayments.amount.toString().slice(-2)}`}</Typography>
+
+                            <Chip
+                              size="small"
+                              sx={{ color: '#fff', bgcolor: '#017558' }}
+                              label="Active"
+                            />
+                            {/* amount */}
+                          </Stack>
+                          {subs.cancelAtPeriodEnd ? (
+                            <></>
+                          ) : (
+                            <Button
+                              onClick={() => {
+                                setIsOpenModalConfirmSubscription(true);
+                                setStripeSubscriptionId(subs.subscriptionId);
+                              }}
+                              size="small"
+                              variant="contained"
+                              sx={{ textTransform: 'capitalize' }}
+                            >
+                              <b>Cancel</b>
+                            </Button>
+                          )}
+                        </Stack>
+                        <Stack>
+                          <span>Start: {convertTimeStamp(subs.currentPeriodStart)}</span>
+                          {subs.cancelAtPeriodEnd ? (
+                            <span>End: {convertTimeStamp(subs.currentPeriodEnd)}</span>
+                          ) : (
+                            <span style={{ color: 'rgba(0, 0, 0, 0.54)', fontSize: '14px' }}>
+                              Billing daily - Next invoice on{' '}
+                              {convertTimeStamp(subs.currentPeriodEnd)}{' '}
+                            </span>
+                          )}
+                        </Stack>
+                      </Stack>
+                    ))
+                  ) : (
+                    <Stack direction="row" spacing={2}>
+                      <Typography variant="subtitle2">No Subscription stored</Typography>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        sx={{ textTransform: 'capitalize' }}
+                        onClick={() => {
+                          dispatch(paymentActions.openModalChoosePayment());
+                        }}
+                      >
+                        <b>create</b>
+                      </Button>
+                    </Stack>
+                  )}
+                </Stack>
+              </Card>
+            </Stack>
+          </Grid>
+          <Modal
+            open={isOpenModalConfirmSubscription}
+            onClose={handleCloseConfirmSubscriptionModal}
+          >
+            <Box sx={{ ...styleModal, width: '500px' }}>
+              <Stack alignItems="center" spacing={2}>
+                <Typography sx={{ textTransform: 'none' }} variant="h6" component="h3">
+                  Are you sure to cancled this subscription?
+                </Typography>
+                <Stack direction="row" spacing={1} justifyContent="center">
+                  <Button variant="outlined" onClick={handleCloseConfirmSubscriptionModal}>
+                    Close
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      dispatch(
+                        paymentActions.deleteSubscription({
+                          stripeSubscriptionId,
+                          closeModal: handleCloseConfirmSubscriptionModal,
+                        })
+                      );
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                </Stack>
+              </Stack>
+            </Box>
+          </Modal>
+        </>
+      </Grid>
+      {/* End Subscriptions */}
 
       {/* Language  */}
       <Grid item container spacing={3}>

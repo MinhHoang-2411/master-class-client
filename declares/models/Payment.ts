@@ -26,6 +26,32 @@ export interface ResponseGetListCard {
   }[];
 }
 
+export interface ResponseGetListSubscription {
+  success: boolean;
+  message: string;
+  data: [
+    {
+      _id: string;
+      cancelAtPeriodEnd: boolean;
+      cancelAt?: any;
+      canceledAt?: any;
+      subscriptionId: string;
+      status: string;
+      currentPeriodEnd: number;
+      currentPeriodStart: number;
+      stripeCustomerId: string;
+      productpayments: {
+        name: string;
+        interval: string;
+        amount: number;
+        currency: string;
+        intervalCount: number;
+        productId: string;
+      };
+    }
+  ];
+}
+
 export interface ResponseCreateCard {
   data: {
     token: string;

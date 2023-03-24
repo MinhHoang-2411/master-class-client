@@ -4,10 +4,11 @@ import {
   ResponseCreateCard,
   ResponseCreateSubscription,
   ResponseGetListCard,
+  ResponseGetListSubscription,
 } from './../../declares/models/Payment';
 import { ResponseGetListProduct } from '@/declares/models/Payment';
 import paymentApi from '@/services/api/payment';
-import { all, call, fork, put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { all, call, fork, put, takeLatest, takeEvery, delay } from 'redux-saga/effects';
 import { paymentActions } from './paymentSlice';
 
 function* handleGetListProduct() {
@@ -27,6 +28,16 @@ function* handleGetListCard() {
     yield put(paymentActions.getListCardSuccess(response?.data));
   } catch (error) {
     yield put(paymentActions.getListCardFail('An error occurred, please try again'));
+  }
+}
+
+function* handleGetListSubscription() {
+  try {
+    const response: ResponseGetListSubscription = yield call(paymentApi.getListSubscription);
+
+    yield put(paymentActions.getListSubscriptionSuccess(response?.data));
+  } catch (error) {
+    yield put(paymentActions.getListSubscriptionFail('An error occurred, please try again'));
   }
 }
 
@@ -146,6 +157,8 @@ function* handleCreateSubscription(action: {
     );
     yield put(paymentActions.createSubscriptionSuccess({}));
     yield put(paymentActions.getListCard({}));
+    // yield delay(2000);
+    yield put(paymentActions.getListSubscription());
   } catch (error: any) {
     yield put(paymentActions.addCardAndPayToCustomerFail('An error occurred, please try again'));
     yield put(
@@ -164,12 +177,63 @@ function* handleCreateSubscription(action: {
   }
 }
 
+function* handleDeleteSubscription(action: {
+  payload: {
+    stripeSubscriptionId: string;
+    closeModal?: () => void;
+  };
+}) {
+  try {
+    yield call(paymentApi.deleteSubscription, action.payload);
+    yield put(paymentActions.deleteSubscriptionSuccess());
+    yield put(
+      alertActions.showAlert({
+        text: 'Cancel Subscription successfully',
+        type: 'success',
+      })
+    );
+    yield put(paymentActions.getListSubscription());
+    if (action.payload.closeModal) {
+      action.payload.closeModal();
+    }
+  } catch (error) {
+    yield put(paymentActions.deleteSubscriptionFail('An error occurred, please try again'));
+  }
+}
+
+function* handleDeleteCard(action: {
+  payload: {
+    id: string;
+    closeDeleteCardModal?: () => void;
+  };
+}) {
+  try {
+    yield call(paymentApi.deleteCard, action.payload.id);
+    yield put(paymentActions.deleteCardSuccess());
+    yield put(paymentActions.getListCard({}));
+    yield put(
+      alertActions.showAlert({
+        text: 'Delete card successfully',
+        type: 'success',
+      })
+    );
+    if (action.payload.closeDeleteCardModal) {
+      action.payload.closeDeleteCardModal();
+    }
+  } catch (error) {
+    yield put(paymentActions.deleteCardFail());
+  }
+}
+
 function* paymentFlow() {
   yield all([takeLatest(paymentActions.getListProduct, handleGetListProduct)]);
   yield all([takeLatest(paymentActions.getListCard, handleGetListCard)]);
+  yield all([takeLatest(paymentActions.getListSubscription, handleGetListSubscription)]);
   yield all([takeLatest(paymentActions.addCardAndPayToCustomer, handleAddCardAndPayToCustomer)]);
   yield all([takeLatest(paymentActions.addCardToCustomer, handleAddCardToCustomer)]);
   yield all([takeLatest(paymentActions.createSubscription, handleCreateSubscription)]);
+  yield all([takeLatest(paymentActions.deleteSubscription, handleDeleteSubscription)]);
+  yield all([takeLatest(paymentActions.deleteCard, handleDeleteCard)]);
 }
 
 export function* paymentSaga() {

@@ -119,6 +119,7 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
     if (listCard.length > 0) {
       setType('button');
       setShow(false);
+      setPaymentMethod(listCard.find((card) => card?.isDefault)?.cardId as string);
     }
   }, [listCard]);
 
@@ -204,23 +205,21 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                               type="reset"
                               onClick={(e) => {
                                 resetForm();
-                                if (isActive === index) {
+                                if (paymentMethod === card?.cardId) {
                                   setPaymentMethod('');
-                                  setIsActive('');
                                   // setShow(true);
                                   // setType('submit');
                                 } else {
                                   setPaymentMethod(card?.cardId as string);
-                                  setIsActive(index);
                                   setShow(false);
                                   setType('button');
                                 }
                               }}
                               style={{
                                 padding: '16px',
-                                background: isActive === index ? '#e32652' : '#fff',
+                                background: paymentMethod === card?.cardId ? '#e32652' : '#fff',
                                 borderRadius: '4px',
-                                color: isActive === index ? '#fff' : 'black',
+                                color: paymentMethod === card?.cardId ? '#fff' : 'black',
                                 width: '300px',
                                 cursor: 'pointer',
                                 border: '1px solid #ccc',
