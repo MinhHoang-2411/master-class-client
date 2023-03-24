@@ -31,6 +31,18 @@ const paymentApi = {
     const url = '/payments/customers/cards';
     return axiosClient.get(url);
   },
+  getListSubscription() {
+    const url = '/payments/subscriptions';
+    return axiosClient.get(url);
+  },
+  deleteSubscription(params: any) {
+    const url = '/payments/subscriptions/cancel';
+    return axiosClient.post(url, params);
+  },
+  deleteCard(params: any) {
+    const url = `/payments/customers/cards/${params}`;
+    return axiosClient.delete(url);
+  },
 };
 
 export default paymentApi;

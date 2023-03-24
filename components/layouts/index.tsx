@@ -40,6 +40,7 @@ export default function MyLayout({ children }: any) {
       if (currentUser) {
         dispatch(authActions.loginSuccess(currentUser?.user));
         dispatch(paymentActions.getListCard({}));
+        dispatch(paymentActions.getListSubscription());
       }
     }
   }, []);

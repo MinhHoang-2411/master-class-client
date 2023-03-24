@@ -3,6 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 interface IPaymentState {
   loadingGetListProduct: boolean;
   loadingGetListCard: boolean;
+  loadingGetListSubscription: boolean;
+  loadingDeleteSubscription: boolean;
+  loadingDeleteCard: boolean;
 
   listProduct:
     | {
@@ -16,6 +19,7 @@ interface IPaymentState {
         interval: string;
       }[]
     | [];
+
   detailProduct: {
     amount?: number;
     currency?: string;
@@ -26,6 +30,7 @@ interface IPaymentState {
     productId?: string;
     _id?: string;
   };
+
   listCard:
     | {
         _id?: string;
@@ -44,6 +49,28 @@ interface IPaymentState {
         stripeCustomerId?: string;
       }[]
     | [];
+
+  listSubscription:
+    | {
+        _id: string;
+        cancelAtPeriodEnd: false;
+        cancelAt?: any;
+        canceledAt?: any;
+        subscriptionId: string;
+        status: string;
+        currentPeriodEnd: number;
+        currentPeriodStart: number;
+        stripeCustomerId: string;
+        productpayments: {
+          name: string;
+          interval: string;
+          amount: number;
+          currency: string;
+          intervalCount: number;
+          productId: string;
+        };
+      }[]
+    | [];
   modalChoosePayment: {
     isOpen: boolean;
   };
@@ -60,10 +87,14 @@ interface IPaymentState {
 const initialState: IPaymentState = {
   loadingGetListProduct: false,
   loadingGetListCard: false,
+  loadingGetListSubscription: false,
+  loadingDeleteSubscription: false,
+  loadingDeleteCard: false,
 
   listProduct: [],
   detailProduct: {},
   listCard: [],
+  listSubscription: [],
   modalChoosePayment: {
     isOpen: false,
   },
@@ -170,6 +201,43 @@ const paymentSlice = createSlice({
     getListCardFail: (state, action) => {
       state.loadingGetListCard = false;
       console.log('get list card fail');
+    },
+
+    //get list subscription
+    getListSubscription: (state) => {
+      state.loadingGetListSubscription = true;
+    },
+    getListSubscriptionSuccess: (state, action) => {
+      state.loadingGetListCard = false;
+      state.listSubscription = action.payload;
+    },
+    getListSubscriptionFail: (state, action) => {
+      state.loadingGetListSubscription = false;
+      console.log('get list subscription fail');
+    },
+
+    //delete subscription
+    deleteSubscription: (state, action) => {
+      state.loadingDeleteSubscription = true;
+    },
+    deleteSubscriptionSuccess: (state) => {
+      state.loadingDeleteSubscription = false;
+    },
+    deleteSubscriptionFail: (state, action) => {
+      state.loadingDeleteSubscription = false;
+      console.log('Delete subscription fail');
+    },
+
+    //delete card
+    deleteCard: (state, action) => {
+      state.loadingDeleteCard = true;
+    },
+    deleteCardSuccess: (state) => {
+      state.loadingDeleteCard = false;
+    },
+    deleteCardFail: (state) => {
+      state.loadingDeleteCard = false;
+      console.log('Delete card fail');
     },
   },
 });
