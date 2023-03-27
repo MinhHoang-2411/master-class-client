@@ -10,8 +10,7 @@ function* handleMyWatching(action: PayloadAction<ParamsGetListClass>) {
   try {
     const params = action.payload;
     const response: ResponseGetWatching = yield call(watchingApi.createOrUpdateMyWatching, params);
-
-    yield put(watchingActions.handleCreateAndUpdateMyWatchingSuccess(params));
+    yield put(watchingActions.handleCreateAndUpdateMyWatchingSuccess(response.data));
   } catch (error: ErrorModel | any) {
     yield put(
       watchingActions.handleCreateAndUpdateMyWatchingFalse(

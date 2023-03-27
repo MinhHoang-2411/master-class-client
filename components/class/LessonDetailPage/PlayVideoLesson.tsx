@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactPlayer from 'react-player';
 
 interface Props {
@@ -8,6 +7,11 @@ interface Props {
   setLightVideo: any;
   setPlayingVideo: any;
   height?: any;
+  onSavedValueWacthing?: any;
+  lesson?: any;
+  playedRef?: any;
+  onPauseVideo?: any;
+  setPlayedEnded?: any;
 }
 
 const PlayVideoLesson = ({
@@ -17,10 +21,17 @@ const PlayVideoLesson = ({
   setLightVideo,
   setPlayingVideo,
   height,
+  onSavedValueWacthing,
+  lesson,
+  playedRef,
+  onPauseVideo,
+  setPlayedEnded
 }: Props) => {
+
   return (
     <>
       <ReactPlayer
+        ref={playedRef}
         light={lightVideo}
         url={url}
         controls={true}
@@ -31,12 +42,17 @@ const PlayVideoLesson = ({
           setLightVideo(false);
           setPlayingVideo(true);
         }}
-        onPause={() => {
-          setPlayingVideo(false);
-        }}
+        onPause={onPauseVideo}
         onPlay={() => {
           setPlayingVideo(true);
         }}
+        onProgress={(progress) =>
+          onSavedValueWacthing(progress.playedSeconds, lesson?._id, lesson?.historylessons?._id)
+        }
+        onStart={() => {
+          playedRef?.current?.seekTo(lesson?.historylessons?.history?.secondLastView || 0);
+        }}
+        onEnded={() => setPlayedEnded(true)}
       />
     </>
   );

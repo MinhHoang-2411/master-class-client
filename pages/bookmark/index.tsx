@@ -16,15 +16,26 @@ interface BookmarkPageModel {
 
 const BookmarkPage = ({}: BookmarkPageModel) => {
   const [courses, setCourses] = useState([]);
+  const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation('common');
   const FetchingAllBookmark = async () => {
     try {
       setLoading(true);
-      const token = getAuth()?.api_token;
-      const response: any = await bookmarkApi.getAllFavourite(token);
-      if (response?.data) {
-        setCourses(response?.data);
+      const paramsClasses = {
+        modelType: 'CLASSES',
+      };
+      const paramsLessons = {
+        modelType: 'LESSONS',
+      };
+      const responseClasses: any = await bookmarkApi.getAllFavourite(paramsClasses);
+      const responseLesson: any = await bookmarkApi.getAllFavourite(paramsLessons);
+      if (responseClasses?.data) {
+        setCourses(responseClasses?.data);
+        setLoading(false);
+      }
+      if (responseLesson?.data) {
+        setLessons(responseLesson?.data);
         setLoading(false);
       }
     } catch (error) {
@@ -54,14 +65,24 @@ const BookmarkPage = ({}: BookmarkPageModel) => {
             className={`${styles.row} ${styles.Courses_CoursesSectionContent} ${styles.mc_mx_0}`}
           >
             {!loading ? (
-              courses.map((data: any) => (
-                <>
-                  <BookmarkComponent
-                    courses={data.courses}
-                    onDeleteBookmarkClass={onDeleteBookmarkClass}
-                  />
-                </>
-              ))
+              <>
+                {courses.map((data: any) => (
+                  <>
+                    <BookmarkComponent
+                      courses={data.courses}
+                      onDeleteBookmarkClass={onDeleteBookmarkClass}
+                    />
+                  </>
+                ))}
+                {lessons.map((data: any) => (
+                  <>
+                    <BookmarkComponent
+                      courses={data.lessons}
+                      onDeleteBookmarkClass={onDeleteBookmarkClass}
+                    />
+                  </>
+                ))}
+              </>
             ) : (
               <>
                 <span style={{ fontSize: '24px' }}>Loading...</span>

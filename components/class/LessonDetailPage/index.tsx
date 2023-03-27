@@ -1,6 +1,7 @@
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { paymentActions } from '@/store/payment/paymentSlice';
+import { watchingActions } from '@/store/watching/watchingSlice';
 import { isMappable } from '@/utils/helper';
 import {
   Avatar,
@@ -16,7 +17,7 @@ import {
 import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '../../../styles/lessons-page.module.scss';
 
 const PlayVideoLesson = dynamic(() => import('./PlayVideoLesson'), { ssr: false });
@@ -43,6 +44,10 @@ const LessonDetailPageComponent = ({
   const [playingVideo, setPlayingVideo] = useState(false);
   const [lightVideo, setLightVideo] = useState<any>(false);
   const router = useRouter();
+  const playedRef = useRef<any>(null);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useAppDispatch();
+  const [overlayVideo, setOverlayVideo] = useState(!isPayment);
 
   useEffect(() => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
@@ -62,11 +67,6 @@ const LessonDetailPageComponent = ({
     }`;
   };
 
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const dispatch = useAppDispatch();
-
-  const [overlayVideo, setOverlayVideo] = useState(!isPayment);
-
   const handleClickPreviewVideo = () => {
     if (isLoggedIn) {
       if (isPayment) {
@@ -79,20 +79,64 @@ const LessonDetailPageComponent = ({
     }
   };
 
-  // useEffect(() => {
-  //   const handleUnload = (event: any) => {
-  //     localStorage.setItem('lessonTime', '200');
-  //     event.preventDefault();
-  //     return (event.returnValue = 'Are you sure you want to leave?');
-  //   };
+  useEffect(() => {
+    const valueWatching: any = localStorage.getItem('myWatching');
+    const params: any = JSON.parse(valueWatching);
+    if (params.secondLastView > 0) {
+      dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
+    }
 
-  //   window.addEventListener('beforeunload', handleUnload);
+    const handleBackButton = (event: any) => {
+      const params = JSON.parse(event.currentTarget.localStorage.myWatching);
+      if (params.secondLastView > 0) {
+        dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
+      }
+    };
 
-  //   return () => {
-  //     // cleanUpFunc
-  //     window.removeEventListener('beforeunload', handleUnload);
-  //   };
-  // }, []);
+    window.addEventListener('popstate', handleBackButton);
+
+    return () => {
+      window.removeEventListener('popstate', handleBackButton);
+    };
+  }, []);
+
+  const onSavedValueWacthing = useCallback(
+    (playedSeconds: number, lessonId: string, hisId: string) => {
+      const params = {
+        lessonId: lessonId,
+        secondLastView: playedSeconds,
+        isFinished: false,
+        historyLessonId: hisId,
+      };
+      localStorage.setItem('myWatching', JSON.stringify(params));
+    },
+    []
+  );
+
+  const onChangeVideoLesson = (lessonId: string, index: number) => {
+    handleChangeLesson(lessonId, index);
+    const myWatching: any = localStorage.getItem('myWatching');
+    const _value = JSON.parse(myWatching);
+    if (playingVideo) {
+      dispatch(watchingActions.handleCreateAndUpdateMyWatching(_value));
+    }
+    setPlayingVideo(false);
+  };
+
+  const [playedEnded, setPlayedEnded] = useState(false);
+
+  const onPauseVideo = () => {
+    const myWatching: any = localStorage.getItem('myWatching');
+    const _value = JSON.parse(myWatching);
+    const params = {
+      lessonId: lesson?._id,
+      secondLastView: _value?.secondLastView,
+      isFinished: playedEnded,
+      historyLessonId: lesson?.historylessons?._id,
+    };
+    dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
+    setPlayingVideo(false);
+  };
 
   return (
     <main className={styles.page_content}>
@@ -105,7 +149,10 @@ const LessonDetailPageComponent = ({
             >
               {isMappable(listCategory)
                 ? listCategory.map((cate: any, index: number) => (
-                    <>{`${cate.name}${index + 1 !== listCategory.length ? ', ' : ''}`}</>
+                    <div
+                      key={cate?._id}
+                      className={`${styles.headerCategory} ${index > 0 ? styles.mrL : ''}`}
+                    >{`${cate?.name}${index + 1 !== listCategory.length ? ',' : ''}`}</div>
                   ))
                 : ''}
             </Typography>
@@ -141,13 +188,13 @@ const LessonDetailPageComponent = ({
         >
           <Grid item lg={8} md={8} xs={12} className={styles.lessonVideo}>
             {overlayVideo ? (
-              <div onClick={handleClickPreviewVideo} className={styles.lessonOverlay}>
+              <div className={styles.lessonOverlay}>
                 <div className={styles.contentOverlay}>
                   <h2>{t('Subscribe to TheRaisedHands to watch lessons')}</h2>
                   <span>
                     {t('Starting at $24.99/month (billed annually) for all classes and sessions')}
                   </span>
-                  <button>{t('Subscribe')}</button>
+                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')}</button>
                 </div>
               </div>
             ) : (
@@ -162,6 +209,11 @@ const LessonDetailPageComponent = ({
               setLightVideo={setLightVideo}
               setPlayingVideo={setPlayingVideo}
               height={`400px`}
+              onSavedValueWacthing={onSavedValueWacthing}
+              lesson={lesson}
+              playedRef={playedRef}
+              onPauseVideo={onPauseVideo}
+              setPlayedEnded={setPlayedEnded}
             />
           </Grid>
 
@@ -176,23 +228,21 @@ const LessonDetailPageComponent = ({
                 >
                   {isMappable(classes.lessons) ? (
                     classes.lessons.map((lesson: any, index: number) => (
-                      <>
-                        <ListItemButton
-                          selected={indexSelectedLesson === index}
-                          onClick={() => handleChangeLesson(lesson?._id, index)}
-                          key={lesson?._id}
-                          sx={{
-                            '&.Mui-selected': {
-                              backgroundColor: 'rgb(48, 49, 54)',
-                            },
-                            ':hover': {
-                              backgroundColor: 'rgb(48, 49, 54)',
-                            },
-                          }}
-                        >
-                          <ListItemText primary={`${index + 1}. ${lesson?.title}`} />
-                        </ListItemButton>
-                      </>
+                      <ListItemButton
+                        selected={indexSelectedLesson === index}
+                        onClick={() => onChangeVideoLesson(lesson?._id, index)}
+                        key={lesson?._id}
+                        sx={{
+                          '&.Mui-selected': {
+                            backgroundColor: 'rgb(48, 49, 54)',
+                          },
+                          ':hover': {
+                            backgroundColor: 'rgb(48, 49, 54)',
+                          },
+                        }}
+                      >
+                        <ListItemText primary={`${index + 1}. ${lesson?.title}`} />
+                      </ListItemButton>
                     ))
                   ) : (
                     <></>
