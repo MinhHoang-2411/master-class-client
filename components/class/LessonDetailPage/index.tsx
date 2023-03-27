@@ -41,7 +41,6 @@ const LessonDetailPageComponent = ({
   handleChangeLesson,
   isPayment,
 }: Iprops) => {
-  //test
   const loadingCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
 
   const { t } = useTranslation();
@@ -198,17 +197,7 @@ const LessonDetailPageComponent = ({
           columnSpacing={2}
         >
           <Grid item lg={8} md={8} xs={12} className={styles.lessonVideo}>
-            {!currentUser ? (
-              <div className={styles.lessonOverlay}>
-                <div className={styles.contentOverlay}>
-                  <h2>{t('Subscribe to TheRaisedHands to watch lessons')}</h2>
-                  <span>
-                    {t('Starting at $24.99/month (billed annually) for all classes and sessions')}
-                  </span>
-                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')} 1</button>
-                </div>
-              </div>
-            ) : (loadingCheckPayment ? (
+            {(loadingCheckPayment ? (
               <div className={styles.lessonOverlay}>
                 <div className={styles.contentOverlay}>
                   <h2>Loading...</h2>
@@ -223,7 +212,7 @@ const LessonDetailPageComponent = ({
                   <span>
                     {t('Starting at $24.99/month (billed annually) for all classes and sessions')}
                   </span>
-                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')} 2</button>
+                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')}</button>
                 </div>
               </div>
             ))}

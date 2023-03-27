@@ -2,7 +2,7 @@ import LessonDetailPageComponent from '@/components/class/LessonDetailPage';
 import classAPI from '@/services/api/class';
 import { classActions } from '@/store/class/classSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getAuth } from '@/utils/auth';
+import { paymentActions } from '@/store/payment/paymentSlice';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -42,6 +42,8 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
       if (currentUser) {
         fetchLessonDetail();
+      } else {
+        dispatch(paymentActions.isNotPayment())
       }
     }
   }, [router.query.lessonsId, isPaymentState]);
@@ -59,7 +61,7 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
       classes={resClasses}
       indexSelectedLesson={indexSelectedLesson}
       handleChangeLesson={handleChangeLesson}
-      isPayment={isPayment}
+      isPayment={isPaymentState}
     />
   );
 };
