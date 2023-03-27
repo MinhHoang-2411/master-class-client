@@ -2,6 +2,7 @@ import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { paymentActions } from '@/store/payment/paymentSlice';
 import { watchingActions } from '@/store/watching/watchingSlice';
+import { getAuth } from '@/utils/auth';
 import { isMappable } from '@/utils/helper';
 import {
   Avatar,
@@ -39,6 +40,9 @@ const LessonDetailPageComponent = ({
   handleChangeLesson,
   isPayment,
 }: Iprops) => {
+  //test
+  const loadingCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
+
   const { t } = useTranslation();
   const [listCategory, setListCategory] = useState<any>([]);
   const [playingVideo, setPlayingVideo] = useState(false);
@@ -48,6 +52,7 @@ const LessonDetailPageComponent = ({
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
   const [overlayVideo, setOverlayVideo] = useState(!isPayment);
+  const currentUser = getAuth()?.user;
 
   useEffect(() => {
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
@@ -192,7 +197,7 @@ const LessonDetailPageComponent = ({
           columnSpacing={2}
         >
           <Grid item lg={8} md={8} xs={12} className={styles.lessonVideo}>
-            {overlayVideo ? (
+            {!currentUser ? (
               <div className={styles.lessonOverlay}>
                 <div className={styles.contentOverlay}>
                   <h2>{t('Subscribe to TheRaisedHands to watch lessons')}</h2>
@@ -202,8 +207,24 @@ const LessonDetailPageComponent = ({
                   <button onClick={handleClickPreviewVideo}>{t('Subscribe')}</button>
                 </div>
               </div>
-            ) : (
+            ) : loadingCheckPayment ? (
+              <div className={styles.lessonOverlay}>
+                <div className={styles.contentOverlay}>
+                  <h2>Loading...</h2>
+                </div>
+              </div>
+            ) : isPayment ? (
               <></>
+            ) : (
+              <div className={styles.lessonOverlay}>
+                <div className={styles.contentOverlay}>
+                  <h2>{t('Subscribe to TheRaisedHands to watch lessons')}</h2>
+                  <span>
+                    {t('Starting at $24.99/month (billed annually) for all classes and sessions')}
+                  </span>
+                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')}</button>
+                </div>
+              </div>
             )}
             <PlayVideoLesson
               lightVideo={

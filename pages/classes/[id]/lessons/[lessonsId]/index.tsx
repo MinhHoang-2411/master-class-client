@@ -13,11 +13,13 @@ interface Props {
 }
 
 const ChaptersPage = ({ categories, resClasses }: Props) => {
-
   const indexSelectedLesson = useAppSelector((state) => state.class.indexSelectedLesson);
+  //test
+  const isPaymentState = useAppSelector((state) => state.payment.isPayment);
+
   const dispatch = useAppDispatch();
   const router = useRouter();
-  
+
   const [lesson, setLesson] = useState([]);
   const [isPayment, setIsPayment] = useState(false);
 
@@ -42,7 +44,7 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
         fetchLessonDetail();
       }
     }
-  }, [router.query.lessonsId]);
+  }, [router.query.lessonsId, isPaymentState]);
 
   const handleChangeLesson = (lessonId: string, index: number) => {
     dispatch(classActions.setIndexSelectedLesson(index));
@@ -70,7 +72,7 @@ export async function getServerSideProps(context: any) {
       limit: 100,
     });
     const resClasses: any = await classAPI.getDetailByWebNameV1({ webName: context.query.id });
-    
+
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
