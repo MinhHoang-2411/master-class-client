@@ -36,7 +36,12 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
   };
 
   useEffect(() => {
-    fetchLessonDetail();
+    if (typeof window !== 'undefined') {
+      const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
+      if (currentUser) {
+        fetchLessonDetail();
+      }
+    }
   }, [router.query.lessonsId]);
 
   const handleChangeLesson = (lessonId: string, index: number) => {
