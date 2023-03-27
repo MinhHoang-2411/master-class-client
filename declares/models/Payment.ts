@@ -63,6 +63,7 @@ export interface ResponseCreateCard {
 export interface ResponseAddCardToCustomer {
   data?: {
     cardId: string;
+    _id: string;
   };
 }
 
