@@ -9,32 +9,17 @@ import { useEffect, useState } from 'react';
 
 interface Props {
   categories: any;
+  resClasses: any;
 }
 
-const ChaptersPage = ({ categories }: Props) => {
+const ChaptersPage = ({ categories, resClasses }: Props) => {
+
   const indexSelectedLesson = useAppSelector((state) => state.class.indexSelectedLesson);
   const dispatch = useAppDispatch();
   const router = useRouter();
-
+  
   const [lesson, setLesson] = useState([]);
-  const [classes, setClasses] = useState([]);
   const [isPayment, setIsPayment] = useState(false);
-
-  const payload = {
-    webName: router.query.id,
-  };
-
-  const fetchDataCourse = async () => {
-    try {
-      let responseClasses: any;
-      responseClasses = await classAPI.getDetailByWebNameV1(payload);
-      if (responseClasses?.data) {
-        setClasses(responseClasses?.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const fetchLessonDetail = async () => {
     try {
@@ -51,7 +36,6 @@ const ChaptersPage = ({ categories }: Props) => {
   };
 
   useEffect(() => {
-    fetchDataCourse();
     fetchLessonDetail();
   }, [router.query.lessonsId]);
 
@@ -65,7 +49,7 @@ const ChaptersPage = ({ categories }: Props) => {
     <LessonDetailPageComponent
       categories={categories}
       lesson={lesson}
-      classes={classes}
+      classes={resClasses}
       indexSelectedLesson={indexSelectedLesson}
       handleChangeLesson={handleChangeLesson}
       isPayment={isPayment}
@@ -76,16 +60,17 @@ const ChaptersPage = ({ categories }: Props) => {
 export async function getServerSideProps(context: any) {
   const { locale } = context;
   try {
-    const payloadCategory = {
+    const categories: any = await classAPI.getListCategory({
       page: 1,
       limit: 100,
-    };
-    const categories: any = await classAPI.getListCategory(payloadCategory);
-
+    });
+    const resClasses: any = await classAPI.getDetailByWebNameV1({ webName: context.query.id });
+    
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
         categories: categories?.data,
+        resClasses: resClasses?.data,
       },
     };
   } catch (error) {

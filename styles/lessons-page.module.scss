@@ -29,6 +29,12 @@
     .title {
       margin: 28px 0 24px;
     }
+    .headerCategory {
+      display: inline-block;
+    }
+    .headerCategory.mrL {
+      margin-left: 3px;
+    }
   }
 
   .bodyChapter {

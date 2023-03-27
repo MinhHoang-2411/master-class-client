@@ -151,7 +151,9 @@ const AboutClass = ({ classes, categories }: Props) => {
               <Typography sx={{ fontWeight: 'bold', fontSize: '14px', pl: 1 }} component="p">
                 {isMappable(listCategory)
                   ? listCategory.map((cate: any, index: number) => (
-                      <>{`${cate.name}${index + 1 !== listCategory.length ? ', ' : ''}`}</>
+                      <div key={cate?._id} className={`${styles.headerCategory} ${index > 0 ? styles.mrL : ''}`}>
+                        {`${cate?.name}${index + 1 !== listCategory.length ? ', ' : ''}`}
+                      </div>
                     ))
                   : ''}
               </Typography>
