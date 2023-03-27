@@ -61,6 +61,7 @@ const SettingComponent = ({}: Props) => {
 
   //subscription
   const listSubscriptionRaw = useAppSelector((state) => state.payment.listSubscription);
+  const { loadingDeleteCard, loadingDeleteSubscription } = useAppSelector((state) => state.payment);
   const listSubscription = listSubscriptionRaw.filter((subs) => subs.status === 'active');
   const [isOpenModalConfirmSubscription, setIsOpenModalConfirmSubscription] = useState(false);
   const [isOpenModalConfirmCard, setIsOpenModalConfirmCard] = useState(false);
@@ -225,6 +226,7 @@ const SettingComponent = ({}: Props) => {
                   Close
                 </Button>
                 <Button
+                  disabled={loadingDeleteCard}
                   variant="contained"
                   onClick={() => {
                     dispatch(
@@ -235,7 +237,7 @@ const SettingComponent = ({}: Props) => {
                     );
                   }}
                 >
-                  Confirm
+                  {loadingDeleteCard ? 'Deleting...' : 'Confirm'}
                 </Button>
               </Stack>
             </Stack>
@@ -333,13 +335,14 @@ const SettingComponent = ({}: Props) => {
             <Box sx={{ ...styleModal, width: '500px' }}>
               <Stack alignItems="center" spacing={2}>
                 <Typography sx={{ textTransform: 'none' }} variant="h6" component="h3">
-                  Are you sure to cancled this subscription?
+                  Are you sure to cancel this subscription?
                 </Typography>
                 <Stack direction="row" spacing={1} justifyContent="center">
                   <Button variant="outlined" onClick={handleCloseConfirmSubscriptionModal}>
                     Close
                   </Button>
                   <Button
+                    disabled={loadingDeleteSubscription}
                     variant="contained"
                     onClick={() => {
                       dispatch(
@@ -350,7 +353,7 @@ const SettingComponent = ({}: Props) => {
                       );
                     }}
                   >
-                    Confirm
+                    {loadingDeleteSubscription ? 'Canceling...' : 'Confirm'}
                   </Button>
                 </Stack>
               </Stack>

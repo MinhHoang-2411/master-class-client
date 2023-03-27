@@ -71,6 +71,7 @@ function* handleAddCardAndPayToCustomer(action: {
       stripeCustomerId: action.payload.stripeCustomerId,
       setSubmitting: action.payload.setSubmitting,
       currency: action.payload.currency,
+      cardId: responseAddCard.data?._id,
     };
     yield put(paymentActions.createSubscription(subscriptionParams));
   } catch (error: any) {
@@ -142,6 +143,7 @@ function* handleCreateSubscription(action: {
     stripeCustomerId: string;
     currency: string;
     setSubmitting?: (isSubmitting: boolean) => void;
+    cardId?: string;
   };
 }) {
   try {
@@ -157,10 +159,10 @@ function* handleCreateSubscription(action: {
     );
     yield put(paymentActions.createSubscriptionSuccess({}));
     yield put(paymentActions.getListCard({}));
-    // yield delay(2000);
     yield put(paymentActions.getListSubscription());
   } catch (error: any) {
     yield put(paymentActions.addCardAndPayToCustomerFail('An error occurred, please try again'));
+    yield call(paymentApi.deleteCard, action.payload.cardId);
     yield put(
       alertActions.showAlert({
         text:

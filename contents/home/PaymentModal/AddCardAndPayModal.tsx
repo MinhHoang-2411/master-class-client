@@ -120,6 +120,10 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
       setType('button');
       setShow(false);
       setPaymentMethod(listCard.find((card) => card?.isDefault)?.cardId as string);
+    } else {
+      setType('submit');
+      setShow(true);
+      setPaymentMethod('');
     }
   }, [listCard]);
 
