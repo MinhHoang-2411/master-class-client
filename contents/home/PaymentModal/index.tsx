@@ -39,7 +39,6 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
   const { locale } = useRouter();
   useEffect(() => {
     dispatch(paymentActions.getListProduct());
-    dispatch(paymentActions.getListCard({}));
 
     if (typeof window !== 'undefined') {
       const isOpen = localStorage.getItem('openModalPayment');

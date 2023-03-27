@@ -35,6 +35,13 @@ function* handleGetListSubscription() {
   try {
     const response: ResponseGetListSubscription = yield call(paymentApi.getListSubscription);
 
+    //test area
+    if (response?.data.find((sub) => sub.status === 'active')) {
+      yield put(paymentActions.isPayment());
+    } else {
+      yield put(paymentActions.isNotPayment());
+    }
+
     yield put(paymentActions.getListSubscriptionSuccess(response?.data));
   } catch (error) {
     yield put(paymentActions.getListSubscriptionFail('An error occurred, please try again'));

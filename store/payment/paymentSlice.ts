@@ -6,6 +6,7 @@ interface IPaymentState {
   loadingGetListSubscription: boolean;
   loadingDeleteSubscription: boolean;
   loadingDeleteCard: boolean;
+  isPayment: boolean;
 
   listProduct:
     | {
@@ -90,6 +91,7 @@ const initialState: IPaymentState = {
   loadingGetListSubscription: false,
   loadingDeleteSubscription: false,
   loadingDeleteCard: false,
+  isPayment: false,
 
   listProduct: [],
   detailProduct: {},
@@ -238,6 +240,14 @@ const paymentSlice = createSlice({
     deleteCardFail: (state) => {
       state.loadingDeleteCard = false;
       console.log('Delete card fail');
+    },
+
+    //check payment
+    isPayment: (state) => {
+      state.isPayment = true;
+    },
+    isNotPayment: (state) => {
+      state.isPayment = false;
     },
   },
 });
