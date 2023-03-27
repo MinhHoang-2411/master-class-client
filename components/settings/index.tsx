@@ -58,6 +58,7 @@ const SettingComponent = ({}: Props) => {
 
   //payment
   const listCard = useAppSelector((state) => state.payment.listCard);
+  const isPayment = useAppSelector((state) => state.payment.isPayment);
 
   //subscription
   const listSubscriptionRaw = useAppSelector((state) => state.payment.listSubscription);
@@ -93,6 +94,10 @@ const SettingComponent = ({}: Props) => {
     localStorage.setItem('appLocale', lang);
     setLanguage(lang);
   };
+
+  useEffect(() => {
+    //remove layout disable watch video...
+  }, [isPayment]);
 
   return (
     <Grid container spacing={2}>
