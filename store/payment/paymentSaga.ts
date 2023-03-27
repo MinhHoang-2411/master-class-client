@@ -169,7 +169,9 @@ function* handleCreateSubscription(action: {
     yield put(paymentActions.getListSubscription());
   } catch (error: any) {
     yield put(paymentActions.addCardAndPayToCustomerFail('An error occurred, please try again'));
-    yield call(paymentApi.deleteCard, action.payload.cardId);
+    if (action.payload.cardId) {
+      yield call(paymentApi.deleteCard, action.payload.cardId);
+    }
     yield put(
       alertActions.showAlert({
         text:
