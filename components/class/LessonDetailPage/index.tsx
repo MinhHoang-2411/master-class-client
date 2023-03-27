@@ -1,3 +1,4 @@
+import PrimaryButton from '@/components/share/PrimaryButton';
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { paymentActions } from '@/store/payment/paymentSlice';
@@ -204,10 +205,10 @@ const LessonDetailPageComponent = ({
                   <span>
                     {t('Starting at $24.99/month (billed annually) for all classes and sessions')}
                   </span>
-                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')}</button>
+                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')} 1</button>
                 </div>
               </div>
-            ) : loadingCheckPayment ? (
+            ) : (loadingCheckPayment ? (
               <div className={styles.lessonOverlay}>
                 <div className={styles.contentOverlay}>
                   <h2>Loading...</h2>
@@ -222,10 +223,10 @@ const LessonDetailPageComponent = ({
                   <span>
                     {t('Starting at $24.99/month (billed annually) for all classes and sessions')}
                   </span>
-                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')}</button>
+                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')} 2</button>
                 </div>
               </div>
-            )}
+            ))}
             <PlayVideoLesson
               lightVideo={
                 isPayment ? lightVideo : classes?.lessons?.[indexSelectedLesson]?.thumbnail
