@@ -80,15 +80,20 @@ const LessonDetailPageComponent = ({
   };
 
   useEffect(() => {
-    const valueWatching: any = localStorage.getItem('myWatching');
-    const params: any = JSON.parse(valueWatching);
-    if (params.secondLastView > 0) {
-      dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
+    if (typeof window !== 'undefined') {
+      const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
+      if (currentUser) {
+        const valueWatching: any = localStorage.getItem('myWatching');
+        const params: any = JSON.parse(valueWatching);
+        if (params?.secondLastView > 0) {
+          dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
+        }
+      }
     }
 
     const handleBackButton = (event: any) => {
       const params = JSON.parse(event.currentTarget.localStorage.myWatching);
-      if (params.secondLastView > 0) {
+      if (params?.secondLastView > 0) {
         dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
       }
     };
@@ -152,7 +157,7 @@ const LessonDetailPageComponent = ({
                     <div
                       key={cate?._id}
                       className={`${styles.headerCategory} ${index > 0 ? styles.mrL : ''}`}
-                    >{`${cate?.name}${index + 1 !== listCategory.length ? ',' : ''}`}</div>
+                    >{`${cate?.name}${index + 1 !== listCategory?.length ? ',' : ''}`}</div>
                   ))
                 : ''}
             </Typography>
@@ -204,7 +209,7 @@ const LessonDetailPageComponent = ({
               lightVideo={
                 isPayment ? lightVideo : classes?.lessons?.[indexSelectedLesson]?.thumbnail
               }
-              url={isPayment ? lesson?.videoUrl : classes.videoPreview?.url}
+              url={isPayment ? lesson?.videoUrl : classes?.videoPreview?.url}
               playingVideo={playingVideo}
               setLightVideo={setLightVideo}
               setPlayingVideo={setPlayingVideo}
@@ -227,7 +232,7 @@ const LessonDetailPageComponent = ({
                   className={styles.navLesson}
                 >
                   {isMappable(classes.lessons) ? (
-                    classes.lessons.map((lesson: any, index: number) => (
+                    classes?.lessons?.map((lesson: any, index: number) => (
                       <ListItemButton
                         selected={indexSelectedLesson === index}
                         onClick={() => onChangeVideoLesson(lesson?._id, index)}
