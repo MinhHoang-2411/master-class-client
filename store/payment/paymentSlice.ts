@@ -7,6 +7,7 @@ interface IPaymentState {
   loadingDeleteSubscription: boolean;
   loadingDeleteCard: boolean;
   isPayment: boolean;
+  loadingCheckPayment: boolean;
 
   listProduct:
     | {
@@ -92,6 +93,7 @@ const initialState: IPaymentState = {
   loadingDeleteSubscription: false,
   loadingDeleteCard: false,
   isPayment: false,
+  loadingCheckPayment: true,
 
   listProduct: [],
   detailProduct: {},
@@ -245,9 +247,11 @@ const paymentSlice = createSlice({
     //check payment
     isPayment: (state) => {
       state.isPayment = true;
+      state.loadingCheckPayment = false;
     },
     isNotPayment: (state) => {
       state.isPayment = false;
+      state.loadingCheckPayment = false;
     },
   },
 });
