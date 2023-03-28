@@ -49,7 +49,7 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
       return prepareString;
     };
     const webName = NormalizeWebName(lesson?.authorName?.trim() + ' ' + lesson?.name?.trim());
-    router.push(`/classes/${webName}/lessons/${lesson?._id}`);
+    router.push(`/classes/${webName}/lessons/${lesson?.lessons?._id}`);
   };
 
   return (
