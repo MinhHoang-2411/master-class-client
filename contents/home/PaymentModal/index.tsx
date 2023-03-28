@@ -37,13 +37,15 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
   const listProduct = useAppSelector((state) => state.payment.listProduct);
   const dispatch = useAppDispatch();
   const { locale } = useRouter();
+  const isPayment = useAppSelector((state) => state.payment.isPayment);
+  const loadingCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
   useEffect(() => {
     dispatch(paymentActions.getListProduct());
 
     if (typeof window !== 'undefined') {
       const isOpen = localStorage.getItem('openModalPayment');
       const isLogin = localStorage.getItem('ACCESS_TOKEN');
-      if (!!isOpen && isLogin) {
+      if (!!isOpen && isLogin && !isPayment && !loadingCheckPayment) {
         dispatch(paymentActions.openModalChoosePayment());
         localStorage.removeItem('openModalPayment');
       }
