@@ -202,7 +202,6 @@ const SettingComponent = ({}: Props) => {
                           onClick={() => {
                             setIsOpenModalConfirmCard(true);
                             setCardId(card._id as string);
-                            console.log(card._id);
                           }}
                         >
                           <b>Delete</b>

@@ -57,7 +57,6 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
           <IconButton
             onClick={() => {
               localStorage.removeItem('openModalPayment');
-              console.log({ listProduct });
               dispatch(paymentActions.closeModalChoosePayment());
             }}
           >

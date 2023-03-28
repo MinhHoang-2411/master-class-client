@@ -18,9 +18,24 @@ const WatchedPage = ({}: BookmarkPageModel) => {
   const dispatch = useAppDispatch();
   const myWatching = useAppSelector((state) => state.watching.myWatching);
 
+
+  const [params, setParams] = useState({
+    page: 1,
+    limit: 10,
+  });
+
   useEffect(() => {
-    dispatch(watchingActions.getMyWatching({}));
+    dispatch(watchingActions.getMyWatching(params));
   }, []);
+
+  const onShowAll = () => {
+    const _params = {
+      ...params,
+      page: params.page + 1,
+    };
+    setParams(_params);
+    dispatch(watchingActions.onFetchMore(_params));
+  };
 
   return (
     <>
@@ -30,7 +45,11 @@ const WatchedPage = ({}: BookmarkPageModel) => {
           <div
             className={`${styles.row} ${styles.Courses_CoursesSectionContent} ${styles.mc_mx_0}`}
           >
-            {isMappable(myWatching) ? <WatchedComponent myWatching={myWatching} /> : <>{t('There are no videos')}</>}
+            {isMappable(myWatching) ? (
+              <WatchedComponent myWatching={myWatching} onShowAll={onShowAll} params={params} />
+            ) : (
+              <>{t('There are no videos')}</>
+            )}
           </div>
         </section>
       </main>

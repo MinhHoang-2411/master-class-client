@@ -123,7 +123,6 @@ const AddCardModal = ({ isOpen, closeModal }: Props) => {
           initialValues={initialValues}
           validationSchema={AddCardSchema}
           onSubmit={(values, { setSubmitting }) => {
-            console.log({ values });
             const month = values.card.exp_date.substring(0, 2);
             const year = values.card.exp_date.substring(3, 5);
             // const formData = new URLSearchParams();
