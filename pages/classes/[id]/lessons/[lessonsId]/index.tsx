@@ -53,6 +53,8 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
         if (!isCheckPayment && !isPaymentState && isOpenSubscribe) {
           dispatch(paymentActions.openModalChoosePayment());
           localStorage.removeItem('SubscribePopup');
+        } else if (!isCheckPayment && isPaymentState && isOpenSubscribe) {
+          localStorage.removeItem('SubscribePopup');
         }
       }
     }
