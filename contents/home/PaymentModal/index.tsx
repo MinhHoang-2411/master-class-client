@@ -48,9 +48,11 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
       if (!!isOpen && isLogin && !isPayment && !loadingCheckPayment) {
         dispatch(paymentActions.openModalChoosePayment());
         localStorage.removeItem('openModalPayment');
+      } else if (!!isOpen && isLogin && isPayment && !loadingCheckPayment) {
+        localStorage.removeItem('openModalPayment');
       }
     }
-  }, [locale]);
+  }, [locale, isPayment]);
 
   return (
     <Modal open={isOpen} onClose={closeModal}>
