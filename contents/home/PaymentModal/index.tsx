@@ -44,15 +44,17 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
 
     if (typeof window !== 'undefined') {
       const isOpen = localStorage.getItem('openModalPayment');
-      const isLogin = localStorage.getItem('ACCESS_TOKEN');
-      if (!!isOpen && isLogin && !isPayment && !loadingCheckPayment) {
-        dispatch(paymentActions.openModalChoosePayment());
-        localStorage.removeItem('openModalPayment');
-      } else if (!!isOpen && isLogin && isPayment && !loadingCheckPayment) {
-        localStorage.removeItem('openModalPayment');
+      const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
+      if (currentUser) {
+        if (!!isOpen && !isPayment && !loadingCheckPayment) {
+          dispatch(paymentActions.openModalChoosePayment());
+          localStorage.removeItem('openModalPayment');
+        } else if (!!isOpen && isPayment && !loadingCheckPayment) {
+          localStorage.removeItem('openModalPayment');
+        }
       }
     }
-  }, [locale, isPayment]);
+  }, [locale, isPayment, loadingCheckPayment]);
 
   return (
     <Modal open={isOpen} onClose={closeModal}>
