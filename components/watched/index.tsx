@@ -54,7 +54,7 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
 
   return (
     <>
-      <Grid container spacing={2.5} sx={{ mt: 0.5 }}>
+      <Grid container spacing={4} sx={{ mt: 0.5 }}>
         {myWatching?.map((lesson: any) => (
           <Grid item key={lesson?._id} xs={12} sm={6} md={4}>
             <Card sx={{ backgroundColor: '#1e1e2d', color: '#fff' }}>
@@ -101,7 +101,12 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
               </Box>
 
               <Box sx={{ position: 'relative' }}>
-                <CardMedia component="video" height="100%" src={lesson.lessons.videoUrl} />
+                <CardMedia
+                  component="video"
+                  height="100%"
+                  src={lesson.lessons.videoUrl}
+                  sx={{ maxHeight: '200px', objectFit: 'cover' }}
+                />
 
                 <Box
                   sx={{
@@ -124,7 +129,7 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
                       {t('Resume')}
                     </PrimaryButton>
                   </Box>
-                  <Box sx={{ ...styleAbsolute }}>
+                  {/* <Box sx={{ ...styleAbsolute }}>
                     <LinearProgress
                       variant="determinate"
                       value={12}
@@ -135,7 +140,7 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
                         height: '2px',
                       }}
                     />
-                  </Box>
+                  </Box> */}
                 </Box>
               </Box>
             </Card>
