@@ -100,6 +100,7 @@ const LessonDetailPageComponent = ({
         dispatch(paymentActions.openModalChoosePayment());
       }
     } else {
+      localStorage.setItem('SubscribePopup', 'true')
       dispatch(authActions.openSignInModal());
     }
   };

@@ -48,11 +48,13 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
+      const isOpenSubscribe = JSON.parse(localStorage.getItem('SubscribePopup') as string);
       if (currentUser) { 
-        if (!isCheckPayment && !isPaymentState) {
+        if (!isCheckPayment && !isPaymentState && isOpenSubscribe) {
           dispatch(paymentActions.openModalChoosePayment());
         }
-      }
+      } 
+      localStorage.removeItem('SubscribePopup')
     }
   }, [isPaymentState, isCheckPayment]);
 
