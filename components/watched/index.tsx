@@ -31,6 +31,20 @@ const styleAbsolute = {
   right: 0,
 };
 
+const styleBtnSignUp = {
+  backgroundColor: '#e32652',
+  padding: '8px 16px',
+  cursor: 'pointer',
+  borderRadius: '6px',
+  fontSize: '14px',
+  textTransform: 'capitalize',
+  letterSpacing: '.5px',
+  '&:hover': {
+    backgroundColor: '#d61a46',
+  },
+  color: '#fff',
+};
+
 const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
   const { t } = useTranslation('common');
   const router = useRouter();
@@ -89,8 +103,9 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
                         variant="determinate"
                         value={ProcessTotalLesson(lesson?.totalWatching, lesson?.totalLesson)}
                         sx={{
+                          backgroundColor: "#707070",
                           '& .MuiLinearProgress-barColorPrimary': {
-                            backgroundColor: '#e5e5e5',
+                            backgroundColor: '#fff',
                           },
                           borderRadius: '2px',
                         }}
@@ -100,12 +115,25 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
                 </Box>
               </Box>
 
-              <Box sx={{ position: 'relative' }}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(48, 49, 54, .2)',
+                  },
+                }}
+              >
                 <CardMedia
                   component="video"
-                  height="100%"
+                  height="230px"
                   src={lesson.lessons.videoUrl}
-                  sx={{ maxHeight: '200px', objectFit: 'cover' }}
+                  sx={{ maxHeight: '230px', objectFit: 'cover' }}
                 />
 
                 <Box
@@ -124,10 +152,14 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
                     </Typography>
                   </Box>
                   <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                    <PrimaryButton onClick={() => onRedirectLesson(lesson)}>
+                    <Button sx={{ ...styleBtnSignUp }}>
+                      <PlayArrowIcon sx={{ marginRight: .8, height: '20px' }} />
+                      {t('Resume')}
+                    </Button>
+                    {/* <PrimaryButton onClick={() => onRedirectLesson(lesson)}>
                       <PlayArrowIcon sx={{ marginRight: 1 }} />
                       {t('Resume')}
-                    </PrimaryButton>
+                    </PrimaryButton> */}
                   </Box>
                   {/* <Box sx={{ ...styleAbsolute }}>
                     <LinearProgress

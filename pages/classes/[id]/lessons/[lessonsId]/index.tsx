@@ -13,16 +13,14 @@ interface Props {
 }
 
 const ChaptersPage = ({ categories, resClasses }: Props) => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  
   const indexSelectedLesson = useAppSelector((state) => state.class.indexSelectedLesson);
-  //test
   const isPaymentState = useAppSelector((state) => state.payment.isPayment);
   const isCheckPayment = useAppSelector(state => state.payment.loadingCheckPayment);
 
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-
   const [lesson, setLesson] = useState([]);
-  const [isPayment, setIsPayment] = useState(false);
 
   const fetchLessonDetail = async () => {
     try {
@@ -30,10 +28,8 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
       responseLesson = await classAPI.getDetailLesson(router?.query?.lessonsId);
       if (responseLesson?.data) {
         setLesson(responseLesson?.data);
-        setIsPayment(true);
       }
     } catch (error) {
-      setIsPayment(false);
       console.log(error);
     }
   };

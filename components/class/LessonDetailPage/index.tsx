@@ -41,24 +41,18 @@ const LessonDetailPageComponent = ({
   handleChangeLesson,
   isPayment,
 }: Iprops) => {
-  const loadingCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
-
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const loadingCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+
   const [listCategory, setListCategory] = useState<any>([]);
   const [playingVideo, setPlayingVideo] = useState(false);
   const [lightVideo, setLightVideo] = useState<any>(false);
-  const router = useRouter();
   const playedRef = useRef<any>(null);
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const dispatch = useAppDispatch();
-  const [overlayVideo, setOverlayVideo] = useState(!isPayment);
-  const currentUser = getAuth()?.user;
-
-  useEffect(() => {
-    setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
-    setLightVideo(lesson?.thumbnail);
-    setOverlayVideo(!isPayment);
-  }, [lesson, classes]);
+  const [playedEnded, setPlayedEnded] = useState(false);
 
   const TimeConvert = (time: number) => {
     const duration = Math.floor(time);
@@ -72,18 +66,6 @@ const LessonDetailPageComponent = ({
     }`;
   };
 
-  const handleClickPreviewVideo = () => {
-    if (isLoggedIn) {
-      if (isPayment) {
-        setOverlayVideo(false);
-      } else {
-        dispatch(paymentActions.openModalChoosePayment());
-      }
-    } else {
-      dispatch(authActions.openSignInModal());
-    }
-  };
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
@@ -95,27 +77,39 @@ const LessonDetailPageComponent = ({
         }
       }
     }
-
     const handleBackButton = (event: any) => {
       const params = JSON.parse(event.currentTarget.localStorage.myWatching);
       if (params?.secondLastView > 0) {
         dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
       }
     };
-
     window.addEventListener('popstate', handleBackButton);
-
     return () => {
       window.removeEventListener('popstate', handleBackButton);
     };
   }, []);
+
+  useEffect(() => {
+    setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
+    setLightVideo(lesson?.thumbnail);
+  }, [lesson, classes]);
+
+  const handleClickPreviewVideo = () => {
+    if (isLoggedIn) {
+      if (!isPayment) {
+        dispatch(paymentActions.openModalChoosePayment());
+      }
+    } else {
+      dispatch(authActions.openSignInModal());
+    }
+  };
 
   const onSavedValueWacthing = useCallback(
     (playedSeconds: number, lessonId: string, hisId: string) => {
       const params = {
         lessonId: lessonId,
         secondLastView: playedSeconds,
-        isFinished: false,
+        isFinished: playedEnded,
         historyLessonId: hisId,
       };
       localStorage.setItem('myWatching', JSON.stringify(params));
@@ -132,8 +126,6 @@ const LessonDetailPageComponent = ({
     }
     setPlayingVideo(false);
   };
-
-  const [playedEnded, setPlayedEnded] = useState(false);
 
   const onPauseVideo = () => {
     const myWatching: any = localStorage.getItem('myWatching');
