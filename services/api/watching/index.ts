@@ -13,6 +13,10 @@ const watchingApi = {
     const url = 'watchings/create-or-update';
     return axiosClient.post(url, params);
   },
+  getMyWatching(params: any) {
+    const url = 'watchings';
+    return axiosClient.get(url, params);
+  },
 };
 
 export default watchingApi;

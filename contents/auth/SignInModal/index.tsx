@@ -42,7 +42,11 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
   const onSubmit = async (values: ILogin, action: any) => {
     action.setSubmitting(true);
     try {
-      dispatch(authActions.login(values));
+      const _values = {
+        ...values,
+        email: values?.email?.toLowerCase()
+      }
+      dispatch(authActions.login(_values));
       action.setSubmitting(false);
     } catch (error) {
       setAuth(undefined);

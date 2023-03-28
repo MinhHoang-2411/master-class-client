@@ -197,7 +197,7 @@ const LessonDetailPageComponent = ({
           columnSpacing={2}
         >
           <Grid item lg={8} md={8} xs={12} className={styles.lessonVideo}>
-            {(loadingCheckPayment ? (
+            {loadingCheckPayment ? (
               <div className={styles.lessonOverlay}>
                 <div className={styles.contentOverlay}>
                   <h2>Loading...</h2>
@@ -215,7 +215,7 @@ const LessonDetailPageComponent = ({
                   <button onClick={handleClickPreviewVideo}>{t('Subscribe')}</button>
                 </div>
               </div>
-            ))}
+            )}
             <PlayVideoLesson
               lightVideo={
                 isPayment ? lightVideo : classes?.lessons?.[indexSelectedLesson]?.thumbnail

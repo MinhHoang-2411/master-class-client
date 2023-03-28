@@ -16,6 +16,7 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
   const indexSelectedLesson = useAppSelector((state) => state.class.indexSelectedLesson);
   //test
   const isPaymentState = useAppSelector((state) => state.payment.isPayment);
+  const isCheckPayment = useAppSelector(state => state.payment.loadingCheckPayment);
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -43,10 +44,21 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
       if (currentUser) {
         fetchLessonDetail();
       } else {
-        dispatch(paymentActions.isNotPayment())
+        dispatch(paymentActions.isNotPayment());
       }
     }
   }, [router.query.lessonsId, isPaymentState]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
+      if (currentUser) { 
+        if (!isCheckPayment && !isPaymentState) {
+          dispatch(paymentActions.openModalChoosePayment());
+        }
+      }
+    }
+  }, [isPaymentState, isCheckPayment]);
 
   const handleChangeLesson = (lessonId: string, index: number) => {
     dispatch(classActions.setIndexSelectedLesson(index));

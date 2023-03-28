@@ -27,7 +27,7 @@ const SendEmail = ({ isOpen, CloseModal }: IModal) => {
   const onSubmit = (values: any, action: any) => {
     action.setSubmitting(true);
     try {
-      dispatch(authActions.forgotPass(values.email));
+      dispatch(authActions.forgotPass(values?.email?.toLowerCase()));
       action.setSubmitting(false);
     } catch (e) {
       action.setSubmitting(false);

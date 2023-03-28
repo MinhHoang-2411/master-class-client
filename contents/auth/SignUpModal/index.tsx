@@ -43,7 +43,11 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
   const onSubmit = async (values: ISignUp, action: any) => {
     action.setSubmitting(true);
     try {
-      dispatch(authActions.register(values));
+      const _values = {
+        ...values,
+        email: values?.email?.toLowerCase()
+      }
+      dispatch(authActions.register(_values));
       action.setSubmitting(false);
     } catch (error) {
       action.setSubmitting(false);
