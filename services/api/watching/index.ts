@@ -15,7 +15,7 @@ const watchingApi = {
   },
   getMyWatching(params: any) {
     const url = 'watchings';
-    return axiosClient.get(url, params);
+    return axiosClient.get(url, { params });
   },
 };
 

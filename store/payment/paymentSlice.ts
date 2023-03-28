@@ -139,7 +139,6 @@ const paymentSlice = createSlice({
     },
     addCardAndPayToCustomerFail: (state, action) => {
       state.modalAddCardAndPay.isLoadingAddCard = false;
-      console.log('Add card fail');
     },
 
     //
@@ -153,7 +152,6 @@ const paymentSlice = createSlice({
     },
     createSubscriptionFail: (state) => {
       state.modalAddCardAndPay.isLoadingAddCard = false;
-      console.log('create subscription fail');
     },
 
     //Add Card Modal
@@ -172,7 +170,6 @@ const paymentSlice = createSlice({
     },
     addCardToCustomerFail: (state, action) => {
       state.modalAddCard.isLoadingAddCard = false;
-      console.log('Add card fail');
     },
 
     //get list product
@@ -204,7 +201,6 @@ const paymentSlice = createSlice({
     },
     getListCardFail: (state, action) => {
       state.loadingGetListCard = false;
-      console.log('get list card fail');
     },
 
     //get list subscription
@@ -217,7 +213,6 @@ const paymentSlice = createSlice({
     },
     getListSubscriptionFail: (state, action) => {
       state.loadingGetListSubscription = false;
-      console.log('get list subscription fail');
     },
 
     //delete subscription
@@ -229,7 +224,6 @@ const paymentSlice = createSlice({
     },
     deleteSubscriptionFail: (state, action) => {
       state.loadingDeleteSubscription = false;
-      console.log('Delete subscription fail');
     },
 
     //delete card
@@ -241,7 +235,6 @@ const paymentSlice = createSlice({
     },
     deleteCardFail: (state) => {
       state.loadingDeleteCard = false;
-      console.log('Delete card fail');
     },
 
     //check payment

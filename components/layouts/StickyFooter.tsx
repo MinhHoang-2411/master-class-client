@@ -16,7 +16,6 @@ const StickyFooter = () => {
     const windowHeight = window.innerHeight;
     const fullHeight = document.body.offsetHeight;
     const currentPosition = window.scrollY + windowHeight;
-    // console.log({ windowHeight, fullHeight, currentPosition });
     if (currentPosition >= fullHeight - 200) {
       setShowComponent(false);
     } else if (window.scrollY > 0) {

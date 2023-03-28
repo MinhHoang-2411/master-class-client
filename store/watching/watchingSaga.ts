@@ -22,12 +22,9 @@ function* handleCreAndUpdMyWatching(action: PayloadAction<ParamsGetListClass>) {
 
 function* getMyWatching(action: PayloadAction<ParamsGetListClass>) {
   try {
-    const params = {
-      page: 1,
-      limit: 30,
-    };
+    const params = action.payload;
     const response: ResponseGetWatching = yield call(watchingApi.getMyWatching, params);
-    yield put(watchingActions.getMyWatchingSuccess(response.data));
+    yield put(watchingActions.getMyWatchingSuccess(response));
   } catch (error: ErrorModel | any) {
     yield put(
       watchingActions.getMyWatchingFalse(
@@ -36,10 +33,22 @@ function* getMyWatching(action: PayloadAction<ParamsGetListClass>) {
     );
   }
 }
+function* onFetchMore(action: PayloadAction<ParamsGetListClass>) {
+  try {
+    const params = action.payload;
+    const response: ResponseGetWatching = yield call(watchingApi.getMyWatching, params);
+    yield put(watchingActions.onFetchMoreSuccess(response.data));
+  } catch (error: ErrorModel | any) {
+    console.log(error);
+    yield put(watchingActions.onFetchMoreFalse(''));
+  }
+}
 
 function* watchingFlow() {
-  yield all([takeEvery(watchingActions.handleCreateAndUpdateMyWatching.type, handleCreAndUpdMyWatching),
+  yield all([
+    takeEvery(watchingActions.handleCreateAndUpdateMyWatching.type, handleCreAndUpdMyWatching),
     takeEvery(watchingActions.getMyWatching.type, getMyWatching),
+    takeEvery(watchingActions.onFetchMore.type, onFetchMore),
   ]);
 }
 

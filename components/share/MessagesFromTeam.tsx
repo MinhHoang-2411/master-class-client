@@ -19,7 +19,6 @@ interface MessagesFromTeamModel {
 const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
   const { t } = useTranslation('common');
   const messagesTeam = layoutPage?.messagesTeam;
-  console.log({ messagesTeam });
 
   const [lightVideoFounder, setLightVideoFounder] = useState(messagesTeam?.[0]?.thumbnail);
   const [playingVideoFounder, setPlayingVideoFounder] = useState(false);
