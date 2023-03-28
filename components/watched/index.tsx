@@ -152,14 +152,10 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
                     </Typography>
                   </Box>
                   <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button sx={{ ...styleBtnSignUp }}>
+                    <Button sx={{ ...styleBtnSignUp }} onClick={() => onRedirectLesson(lesson)}>
                       <PlayArrowIcon sx={{ marginRight: .8, height: '20px' }} />
                       {t('Resume')}
                     </Button>
-                    {/* <PrimaryButton onClick={() => onRedirectLesson(lesson)}>
-                      <PlayArrowIcon sx={{ marginRight: 1 }} />
-                      {t('Resume')}
-                    </PrimaryButton> */}
                   </Box>
                   {/* <Box sx={{ ...styleAbsolute }}>
                     <LinearProgress
