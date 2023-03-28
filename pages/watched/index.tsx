@@ -21,7 +21,7 @@ const WatchedPage = ({}: BookmarkPageModel) => {
 
   const [params, setParams] = useState({
     page: 1,
-    limit: 10,
+    limit: 9,
   });
 
   useEffect(() => {
