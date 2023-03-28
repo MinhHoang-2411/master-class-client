@@ -34,6 +34,9 @@ export default function MyLayout({ children }: any) {
   const modalAddCardAndPay = useAppSelector((state) => state.payment.modalAddCardAndPay);
   const modalAddCard = useAppSelector((state) => state.payment.modalAddCard);
 
+  const isPayment = useAppSelector((state) => state.payment.isPayment);
+  const loadingCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
@@ -98,7 +101,7 @@ export default function MyLayout({ children }: any) {
         }}
       />
 
-      <StickyFooter />
+      {isPayment && !loadingCheckPayment ? <></> : <StickyFooter />}
     </Box>
   );
 }

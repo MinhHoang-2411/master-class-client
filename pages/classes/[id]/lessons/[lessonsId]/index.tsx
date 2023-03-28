@@ -15,10 +15,10 @@ interface Props {
 const ChaptersPage = ({ categories, resClasses }: Props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  
+
   const indexSelectedLesson = useAppSelector((state) => state.class.indexSelectedLesson);
   const isPaymentState = useAppSelector((state) => state.payment.isPayment);
-  const isCheckPayment = useAppSelector(state => state.payment.loadingCheckPayment);
+  const isCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
 
   const [lesson, setLesson] = useState([]);
 
@@ -49,14 +49,27 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
       const isOpenSubscribe = JSON.parse(localStorage.getItem('SubscribePopup') as string);
-      if (currentUser) { 
+      if (currentUser) {
         if (!isCheckPayment && !isPaymentState && isOpenSubscribe) {
           dispatch(paymentActions.openModalChoosePayment());
+          localStorage.removeItem('SubscribePopup');
         }
-      } 
-      localStorage.removeItem('SubscribePopup')
+      }
     }
   }, [isPaymentState, isCheckPayment]);
+
+  //test
+  // useEffect(() => {
+  //   const clearLocalStorage = () => {
+  //     localStorage.removeItem('SubscribePopup');
+  //     localStorage.removeItem('openModalPayment');
+  //   };
+  //   window.addEventListener('beforeunload', clearLocalStorage);
+
+  //   return () => {
+  //     window.removeEventListener('beforeunload', clearLocalStorage);
+  //   };
+  // }, []);
 
   const handleChangeLesson = (lessonId: string, index: number) => {
     dispatch(classActions.setIndexSelectedLesson(index));
