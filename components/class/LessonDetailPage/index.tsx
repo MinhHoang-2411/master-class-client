@@ -81,12 +81,11 @@ const LessonDetailPageComponent = ({
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
       if (currentUser) {
-        // const valueWatching: any = localStorage.getItem('myWatching');
-        // const params: any = JSON.parse(valueWatching);
-        // console.log('params', params)
-        // if (params?.secondLastView > 0) {
-        //   dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
-        // }
+        const valueWatching: any = localStorage.getItem('myWatching');
+        const params: any = JSON.parse(valueWatching);
+        if (params?.secondLastView > 0) {
+          dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
+        }
       }
     }
     const handleBackButton = (event: any) => {
@@ -115,7 +114,6 @@ const LessonDetailPageComponent = ({
         isFinished: playedEnded,
         historyLessonId: hisId,
       };
-      console.log('paramsCallback', params)
       localStorage.setItem('myWatching', JSON.stringify(params));
     },
     []
@@ -140,6 +138,7 @@ const LessonDetailPageComponent = ({
       isFinished: false,
       historyLessonId: lesson?.historylessons?._id,
     };
+    setPlayedEnded(false);
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
     setPlayingVideo(false);
   };
@@ -153,11 +152,10 @@ const LessonDetailPageComponent = ({
       isFinished: true,
       historyLessonId: lesson?.historylessons?._id,
     };
+    setPlayedEnded(true);
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
     setPlayingVideo(false);
   };
-
-
 
   return (
     <main className={styles.page_content}>
