@@ -11,7 +11,9 @@ interface Props {
   lesson?: any;
   playedRef?: any;
   onPauseVideo?: any;
+  onEndedVideo?: any;
   setPlayedEnded?: any;
+  playedEnded?: boolean;
 }
 
 const PlayVideoLesson = ({
@@ -25,9 +27,13 @@ const PlayVideoLesson = ({
   lesson,
   playedRef,
   onPauseVideo,
-  setPlayedEnded
+  onEndedVideo,
+  setPlayedEnded,
+  playedEnded,
 }: Props) => {
-
+  const secondLastView = lesson?.historylessons?.history?.isFinished
+    ? 0
+    : lesson?.historylessons?.history?.secondLastView;
   return (
     <>
       <ReactPlayer
@@ -47,12 +53,17 @@ const PlayVideoLesson = ({
           setPlayingVideo(true);
         }}
         onProgress={(progress) =>
-          onSavedValueWacthing(progress.playedSeconds, lesson?._id, lesson?.historylessons?._id)
+          onSavedValueWacthing(
+            progress.playedSeconds,
+            lesson?._id,
+            playedEnded,
+            lesson?.historylessons?._id
+          )
         }
         onStart={() => {
-          playedRef?.current?.seekTo(lesson?.historylessons?.history?.secondLastView || 0);
+          playedRef?.current?.seekTo(secondLastView || 0);
         }}
-        onEnded={() => setPlayedEnded(true)}
+        onEnded={() => onEndedVideo(true)}
       />
     </>
   );

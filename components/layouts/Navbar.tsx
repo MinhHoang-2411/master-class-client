@@ -19,6 +19,8 @@ import Logo from '../../public/logo.png';
 import ModalCategories from '../categories/modalCategories';
 import ModalSearch from '../categories/modalSearch';
 import Button from '../share/Button';
+import Typography from '../share/Typography';
+import useWindowSize from '../../hooks/useWindowSize';
 
 const Profile = dynamic(() => import('@/contents/profile/Profile'));
 
@@ -39,6 +41,9 @@ const Navbar = (props: Props) => {
   const [showMenu, setShowMenu] = useState(false);
   const ref = useRef();
   const refSearch = useRef();
+
+  const { width } = useWindowSize();
+
   const handleClickOutside = () => {
     setShowCategory(false);
   };
@@ -51,7 +56,7 @@ const Navbar = (props: Props) => {
   useEffect(() => {
     dispatch(categoriesActions.fetchData({}));
   }, []);
-  
+
   return (
     <>
       <AppBar sx={{ position: 'fixed', top: 0 }}>
@@ -81,16 +86,43 @@ const Navbar = (props: Props) => {
               sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
               onClick={() => router.push('/')}
             >
-              <Image
-                src={Logo}
-                alt="logo"
-                height={80}
-                width={80}
-                style={{
-                  objectFit: 'cover',
+              {width > 500 ? (
+                <Image
+                  src={Logo}
+                  alt="logo"
+                  height={80}
+                  width={80}
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                />
+              ) : (
+                <Image
+                  src={Logo}
+                  alt="logo"
+                  height={65}
+                  width={65}
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                />
+              )}
+
+              <Typography
+                component={'h2'}
+                variant="h4"
+                sx={{
+                  fontSize: {
+                    lg: '18px',
+                    md: '18px',
+                    sm: '15px',
+                    xs: '15px',
+                  },
+                  color: '#fff',
                 }}
-              />
-              <h2 style={{ fontSize: '16px' }}>TheRaisedHands</h2>
+              >
+                TheRaisedHands
+              </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Box sx={{ position: 'relative' }} ref={ref}>
@@ -163,7 +195,6 @@ const Navbar = (props: Props) => {
             </Box>
 
             <div className="">
-              {/* <LanguagePopover handleChangeLanguage={handleChangeLanguage} /> */}
               {currentUser ? (
                 <>
                   <Profile />

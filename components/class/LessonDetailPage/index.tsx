@@ -66,15 +66,27 @@ const LessonDetailPageComponent = ({
     }`;
   };
 
+  const handleClickPreviewVideo = () => {
+    if (isLoggedIn) {
+      if (!isPayment) {
+        dispatch(paymentActions.openModalChoosePayment());
+      }
+    } else {
+      localStorage.setItem('SubscribePopup', 'true')
+      dispatch(authActions.openSignInModal());
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
       if (currentUser) {
-        const valueWatching: any = localStorage.getItem('myWatching');
-        const params: any = JSON.parse(valueWatching);
-        if (params?.secondLastView > 0) {
-          dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
-        }
+        // const valueWatching: any = localStorage.getItem('myWatching');
+        // const params: any = JSON.parse(valueWatching);
+        // console.log('params', params)
+        // if (params?.secondLastView > 0) {
+        //   dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
+        // }
       }
     }
     const handleBackButton = (event: any) => {
@@ -94,25 +106,16 @@ const LessonDetailPageComponent = ({
     setLightVideo(lesson?.thumbnail);
   }, [lesson, classes]);
 
-  const handleClickPreviewVideo = () => {
-    if (isLoggedIn) {
-      if (!isPayment) {
-        dispatch(paymentActions.openModalChoosePayment());
-      }
-    } else {
-      localStorage.setItem('SubscribePopup', 'true')
-      dispatch(authActions.openSignInModal());
-    }
-  };
 
   const onSavedValueWacthing = useCallback(
-    (playedSeconds: number, lessonId: string, hisId: string) => {
+    (playedSeconds: number, lessonId: string, playedEnded: boolean, hisId: string) => {
       const params = {
         lessonId: lessonId,
         secondLastView: playedSeconds,
         isFinished: playedEnded,
         historyLessonId: hisId,
       };
+      console.log('paramsCallback', params)
       localStorage.setItem('myWatching', JSON.stringify(params));
     },
     []
@@ -140,6 +143,26 @@ const LessonDetailPageComponent = ({
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
     setPlayingVideo(false);
   };
+
+  const onEndedVideo = (playedEnded: boolean) => {
+    const myWatching: any = localStorage.getItem('myWatching');
+    const _value = JSON.parse(myWatching);
+    const params = {
+      lessonId: lesson?._id,
+      secondLastView: _value?.secondLastView,
+      isFinished: playedEnded,
+      historyLessonId: lesson?.historylessons?._id,
+    };
+    dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
+    setPlayingVideo(false);
+  };
+
+
+
+
+  // console.log('playedEnded', playedEnded)
+  // console.log('isFinished', lesson?.historylessons?.history?.isFinished)
+
 
   return (
     <main className={styles.page_content}>
@@ -222,7 +245,9 @@ const LessonDetailPageComponent = ({
               lesson={lesson}
               playedRef={playedRef}
               onPauseVideo={onPauseVideo}
+              onEndedVideo={onEndedVideo}
               setPlayedEnded={setPlayedEnded}
+              playedEnded={playedEnded}
             />
           </Grid>
 
