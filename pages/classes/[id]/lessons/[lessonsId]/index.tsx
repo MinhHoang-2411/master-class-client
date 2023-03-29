@@ -17,6 +17,7 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
   const router = useRouter();
 
   const indexSelectedLesson = useAppSelector((state) => state.class.indexSelectedLesson);
+
   const isPaymentState = useAppSelector((state) => state.payment.isPayment);
   const isCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
 

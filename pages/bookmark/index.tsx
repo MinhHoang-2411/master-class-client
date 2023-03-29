@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { isMappable } from '@/utils/helper';
 
 interface BookmarkPageModel {
   courses: any;
@@ -16,7 +17,6 @@ interface BookmarkPageModel {
 
 const BookmarkPage = ({}: BookmarkPageModel) => {
   const [courses, setCourses] = useState([]);
-  const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation('common');
   const FetchingAllBookmark = async () => {
@@ -25,17 +25,10 @@ const BookmarkPage = ({}: BookmarkPageModel) => {
       const paramsClasses = {
         modelType: 'CLASSES',
       };
-      const paramsLessons = {
-        modelType: 'LESSONS',
-      };
+
       const responseClasses: any = await bookmarkApi.getAllFavourite(paramsClasses);
-      const responseLesson: any = await bookmarkApi.getAllFavourite(paramsLessons);
       if (responseClasses?.data) {
         setCourses(responseClasses?.data);
-        setLoading(false);
-      }
-      if (responseLesson?.data) {
-        setLessons(responseLesson?.data);
         setLoading(false);
       }
     } catch (error) {
@@ -66,22 +59,18 @@ const BookmarkPage = ({}: BookmarkPageModel) => {
           >
             {!loading ? (
               <>
-                {courses.map((data: any) => (
-                  <>
-                    <BookmarkComponent
-                      courses={data.courses}
-                      onDeleteBookmarkClass={onDeleteBookmarkClass}
-                    />
-                  </>
-                ))}
-                {lessons.map((data: any) => (
-                  <>
-                    <BookmarkComponent
-                      courses={data.lessons}
-                      onDeleteBookmarkClass={onDeleteBookmarkClass}
-                    />
-                  </>
-                ))}
+                {isMappable(courses) ? (
+                  courses.map((data: any) => (
+                    <>
+                      <BookmarkComponent
+                        courses={data.courses}
+                        onDeleteBookmarkClass={onDeleteBookmarkClass}
+                      />
+                    </>
+                  ))
+                ) : (
+                  <>My favourites is empty</>
+                )}
               </>
             ) : (
               <>

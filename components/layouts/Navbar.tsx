@@ -86,43 +86,35 @@ const Navbar = (props: Props) => {
               sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
               onClick={() => router.push('/')}
             >
-              {width > 500 ? (
-                <Image
-                  src={Logo}
-                  alt="logo"
-                  height={80}
-                  width={80}
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                />
-              ) : (
-                <Image
-                  src={Logo}
-                  alt="logo"
-                  height={65}
-                  width={65}
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                />
-              )}
-
-              <Typography
-                component={'h2'}
-                variant="h4"
-                sx={{
-                  fontSize: {
-                    lg: '18px',
-                    md: '18px',
-                    sm: '15px',
-                    xs: '15px',
-                  },
-                  color: '#fff',
+              <Image
+                src={Logo}
+                alt="logo"
+                height={80}
+                width={80}
+                style={{
+                  objectFit: 'cover',
                 }}
-              >
-                TheRaisedHands
-              </Typography>
+              />
+
+              {width > 500 ? (
+                <Typography
+                  component={'h2'}
+                  variant="h4"
+                  sx={{
+                    fontSize: {
+                      lg: '18px',
+                      md: '18px',
+                      sm: '15px',
+                      xs: '15px',
+                    },
+                    color: '#fff',
+                  }}
+                >
+                  TheRaisedHands
+                </Typography>
+              ) : (
+                <></>
+              )}
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Box sx={{ position: 'relative' }} ref={ref}>
@@ -194,8 +186,8 @@ const Navbar = (props: Props) => {
               </Box>
             </Box>
 
-            <div className="">
-              {currentUser ? (
+            {width > 500 ? (
+              currentUser ? (
                 <>
                   <Profile />
                 </>
@@ -222,8 +214,10 @@ const Navbar = (props: Props) => {
                     </Button>
                   </Box>
                 </>
-              )}
-            </div>
+              )
+            ) : (
+              <></>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
