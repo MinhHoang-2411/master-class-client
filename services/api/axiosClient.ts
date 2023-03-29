@@ -1,4 +1,5 @@
-import { getAccessToken, getAuth, getLanguage } from '@/utils/auth';
+import { NumberFormatBase } from 'react-number-format';
+import { getAccessToken, getAuth, getLanguage, logout } from '@/utils/auth';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const URL_API = process.env.NEXT_PUBLIC_API_URL;
@@ -45,6 +46,24 @@ axiosClient.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    // return Promise.reject(error);
+    if (error?.response) {
+      handleErrorApi(error?.response?.status);
+    }
     return Promise.reject(error);
   }
 );
+
+const handleErrorApi = (status: number) => {
+  switch (status) {
+    case 401:
+      logout();
+      break;
+    case 403:
+      logout();
+
+      break;
+
+    case 500:
+  }
+};
