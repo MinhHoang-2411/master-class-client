@@ -63,7 +63,7 @@ const PlayVideoLesson = ({
         onStart={() => {
           playedRef?.current?.seekTo(secondLastView || 0);
         }}
-        onEnded={() => onEndedVideo(true)}
+        onEnded={onEndedVideo}
       />
     </>
   );

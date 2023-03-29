@@ -137,31 +137,26 @@ const LessonDetailPageComponent = ({
     const params = {
       lessonId: lesson?._id,
       secondLastView: _value?.secondLastView,
-      isFinished: playedEnded,
+      isFinished: false,
       historyLessonId: lesson?.historylessons?._id,
     };
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
     setPlayingVideo(false);
   };
 
-  const onEndedVideo = (playedEnded: boolean) => {
+  const onEndedVideo = () => {
     const myWatching: any = localStorage.getItem('myWatching');
     const _value = JSON.parse(myWatching);
     const params = {
       lessonId: lesson?._id,
       secondLastView: _value?.secondLastView,
-      isFinished: playedEnded,
+      isFinished: true,
       historyLessonId: lesson?.historylessons?._id,
     };
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
     setPlayingVideo(false);
   };
 
-
-
-
-  // console.log('playedEnded', playedEnded)
-  // console.log('isFinished', lesson?.historylessons?.history?.isFinished)
 
 
   return (
