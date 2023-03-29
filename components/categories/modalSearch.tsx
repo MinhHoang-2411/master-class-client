@@ -3,11 +3,13 @@ import { CategoryModel } from '@/declares/models/Categories';
 import { authActions } from '@/store/auth/authSlice';
 import { classActions } from '@/store/class/classSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { getAuth } from '@/utils/auth';
 import { cleanText } from '@/utils/convert/string';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, Button, CircularProgress, Divider, Typography } from '@mui/material';
 import _, { isArray } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import styles from '../../styles/dropdown.module.scss';
@@ -25,6 +27,14 @@ interface ParamsModel {
   categories: null | string;
   name_category?: string;
 }
+
+const styleDisplayCenter = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  ml: 1,
+  gap: 1,
+};
 
 const ModalSearch: React.FC<SearchModel> = (props) => {
   const dispatch = useAppDispatch();
@@ -177,6 +187,17 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
       );
     });
   }, [listClass]);
+
+  const currentUser = getAuth()?.user;
+
+  const DisplayNameUser = currentUser?.firstName
+    ? `${currentUser?.firstName} ${currentUser?.lastName}`
+    : currentUser?.name;
+  const DisplayEmail = currentUser?.socialAccount
+    ? currentUser?.socialAccount?.email
+    : currentUser?.email;
+
+  const router = useRouter();
 
   return (
     <>
@@ -345,52 +366,111 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
               {showMenu && (
                 <div id="nav-categories-dropdown" className={styles.dropdown_content}>
                   <div className={styles.dropdown_body}>
-                    <button className={styles.dropdown_item} role="option">
-                      <p className={styles.dropdown_text_menu}>
-                        <a className="d-block" href="#">
-                          View Plans
-                        </a>
-                      </p>
-                    </button>
-                    <button className={styles.dropdown_item} role="option">
-                      <p className={styles.dropdown_text_menu}>
-                        <a className="d-block" href="#">
-                          At Work
-                        </a>
-                      </p>
-                    </button>
-                    <button className={styles.dropdown_item} role="option">
-                      <p className={styles.dropdown_text_menu}>
-                        <a className="d-block" href="#">
-                          Gifts
-                        </a>
-                      </p>
-                    </button>
-                    <button className={styles.dropdown_item} role="option">
-                      <p className={styles.dropdown_text_menu}>
-                        <a className="d-block" href="#">
-                          Support
-                        </a>
-                      </p>
-                    </button>
-                    <button className={styles.dropdown_item} role="option">
-                      <p className={styles.dropdown_text_menu}>
-                        <a className="d-block" href="#">
-                          Log in
-                        </a>
-                      </p>
-                    </button>
-                  </div>
-                  <div className={styles.dropdown_footer}>
-                    <div
-                      style={{ padding: '12px 16px' }}
-                      onClick={() => dispatch(authActions.openSignUpModal())}
+                    {currentUser ? (
+                      <>
+                        <Box sx={{ px: 2, mb: 4 }}>
+                          <Typography
+                            variant="subtitle2"
+                            noWrap
+                            sx={{ fontWeight: 'bold', maxWidth: '200px' }}
+                          >
+                            {DisplayNameUser}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{ color: 'primary.secondary', maxWidth: '200px' }}
+                            noWrap
+                          >
+                            {DisplayEmail}
+                          </Typography>
+                        </Box>
+                        <Divider sx={{ border: '.5px solid #2B2B40' }} />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+
+                    <Box
+                      sx={
+                        currentUser
+                          ? {
+                              mt: 2,
+                              ...styleDisplayCenter,
+                            }
+                          : {
+                              ...styleDisplayCenter,
+                            }
+                      }
                     >
-                      <a className={styles.button_menu} href="#">
-                        Sign Up
-                      </a>
-                    </div>
+                      <Button
+                        onClick={() => {
+                          router.push(`/`);
+                          setShowSearch(false);
+                        }}
+                        sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+                      >
+                        {t('home')}
+                      </Button>
+
+                      <Button
+                        onClick={() => {
+                          router.push(`/bookmark`);
+                          setShowSearch(false);
+                        }}
+                        sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+                      >
+                        {t('bookmark')}
+                      </Button>
+
+                      <Button
+                        onClick={() => {
+                          router.push(`/watched`);
+                          setShowSearch(false);
+                        }}
+                        sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+                      >
+                        {t('Watched')}
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          router.push(`/settings`);
+                          setShowSearch(false);
+                        }}
+                        sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+                      >
+                        {t('settings')}
+                      </Button>
+                      {!currentUser ? (
+                        <Button
+                          onClick={() => dispatch(authActions.openSignInModal())}
+                          sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+                        >
+                          {t('log-in')}
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => dispatch(authActions.logout({}))}
+                          sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+                        >
+                          {t('log-out')}
+                        </Button>
+                      )}
+                    </Box>
                   </div>
+                  {!currentUser ? (
+                    <div className={styles.dropdown_footer}>
+                      <div
+                        style={{ padding: '12px 16px' }}
+                        onClick={() => dispatch(authActions.openSignUpModal())}
+                      >
+                        <a className={styles.button_menu} href="#">
+                          Sign Up
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               )}
             </div>
