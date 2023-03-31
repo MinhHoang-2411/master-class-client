@@ -41,14 +41,14 @@ const ArticlesPopular = () => {
         </Typography>
       </Box>
 
-      {data.map((item: any) => (
+      {data.map((item: any, index: number) => (
         <Box
           key={item._id}
           sx={{
             mt: 2,
             mb: 3,
             pb: 1.5,
-            borderBottom: '1px solid rgb(212, 213,217)',
+            borderBottom: `${index !== 3 ? '1px solid rgb(212, 213,217)' : ''}`,
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
