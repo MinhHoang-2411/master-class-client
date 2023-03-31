@@ -1,122 +1,117 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import { Box, CardMedia, Divider, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import Typography from '../share/Typography';
-import TextField from '../share/TextField';
+import Grid from '@mui/material/Grid';
+import { styled } from '@mui/system';
+import TwitterIcon from '../../public/icons/twitter.png';
+import YoutubeIcon from '../../public/icons/youtube.png';
+import InstagramIcon from '../../public/icons/instagram.png';
+import FacebookIcon from '../../public/icons/facebook.png';
+import AppStoreIcon from '../../public/icons/app-store.png';
+import ChPlayIcon from '../../public/icons/ch-play.png';
+import LogoWhite from '../../public/logo-white.png';
+import Image from 'next/image';
 
-function Copyright() {
-  return (
-    <React.Fragment>
-      {'© '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-    </React.Fragment>
-  );
-}
-
-const iconStyle = {
-  width: 48,
-  height: 48,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: 'warning.main',
-  mr: 1,
-  '&:hover': {
-    bgcolor: 'warning.dark',
-  },
-};
-
-const LANGUAGES = [
-  {
-    code: 'en-US',
-    name: 'English',
-  },
-  {
-    code: 'fr-FR',
-    name: 'Français',
-  },
+const dataExplores = [
+  { _id: 1, title: 'TheRaisedHands Live' },
+  { _id: 2, title: 'Articles' },
+  { _id: 3, title: 'Sitemap' },
+  { _id: 4, title: 'Gifts' },
 ];
 
-export default function Footer() {
+const dataAbouts = [
+  { _id: 1, title: 'Carreers' },
+  { _id: 2, title: 'Newsroom' },
+  { _id: 3, title: 'Security' },
+  { _id: 4, title: 'Privacy' },
+  { _id: 5, title: 'Term' },
+  { _id: 6, title: 'Social Impact' },
+  { _id: 7, title: 'TheRaisedHands at Work' },
+  { _id: 8, title: 'Support' },
+];
+
+const dataSocials = [
+  { _id: 1, title: 'Twitter', icon: TwitterIcon },
+  { _id: 2, title: 'Instagram', icon: InstagramIcon },
+  { _id: 3, title: 'Facebook', icon: FacebookIcon },
+  { _id: 4, title: 'YouTube', icon: YoutubeIcon },
+];
+
+const CustomTypography = styled(Typography)({
+  color: '#fff',
+  fontSize: '14px',
+  padding: '12px 0',
+  letterSpacing: '1px',
+});
+
+const Footer = () => {
   return (
-    <Typography component="footer" sx={{ display: 'flex', bgcolor: 'secondary.light' }}>
-      <Container sx={{ my: 8, display: 'flex' }}>
+    <Box sx={{ borderTop: '1px solid #303136' }}>
+      <Container sx={{ display: 'flex', pb: 5, pt: 10 }}>
         <Grid container spacing={5}>
-          <Grid item xs={6} sm={4} md={3}>
-            <Grid
-              container
-              direction="column"
-              justifyContent="flex-end"
-              spacing={2}
-              sx={{ height: 120 }}
-            >
-              <Grid item sx={{ display: 'flex' }}></Grid>
-              <Grid item>
-                <Copyright />
-              </Grid>
-            </Grid>
+          <Grid item lg={3} md={3} xs={6}>
+            <CustomTypography sx={{ opacity: '.6', fontWeight: 'bold', mb: 1 }}>
+              Explore
+            </CustomTypography>
+            {dataExplores.map((item: any) => (
+              <CustomTypography key={item._id}>{item.title}</CustomTypography>
+            ))}
           </Grid>
-          <Grid item xs={6} sm={4} md={2}>
-            <Typography variant="h6" marked="left" gutterBottom>
-              Legal
-            </Typography>
-            <Box component="ul" sx={{ m: 0, listStyle: 'none', p: 0 }}>
-              <Box component="li" sx={{ py: 0.5 }}>
-                <Link href="/premium-themes/onepirate/terms/">Terms</Link>
+          <Grid item lg={3} md={3} xs={6}>
+            <CustomTypography sx={{ opacity: '.6', fontWeight: 'bold', mb: 1 }}>
+              About
+            </CustomTypography>
+            {dataAbouts.map((item: any) => (
+              <CustomTypography key={item._id}>{item.title}</CustomTypography>
+            ))}
+          </Grid>
+          <Grid item lg={3} md={3} xs={6}>
+            <CustomTypography sx={{ opacity: '.6', fontWeight: 'bold', mb: 1 }}>
+              Social
+            </CustomTypography>
+            {dataSocials.map((item: any) => (
+              <Box key={item._id} sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
+                <Image
+                  src={item.icon}
+                  alt="icon"
+                  height={24}
+                  width={24}
+                  style={{ objectFit: 'contain' }}
+                />
+                <CustomTypography sx={{ ml: 2 }}>{item.title}</CustomTypography>
               </Box>
-              <Box component="li" sx={{ py: 0.5 }}>
-                <Link href="/premium-themes/onepirate/privacy/">Privacy</Link>
+            ))}
+          </Grid>
+          <Grid item lg={3} md={3} xs={6}>
+            <CustomTypography sx={{ opacity: '.6', fontWeight: 'bold', mb: 1 }}>
+              Download
+            </CustomTypography>
+            <Box sx={{ ml: -1 }}>
+              <Box sx={{ width: '152px', height: '52px' }}>
+                <Image
+                  src={AppStoreIcon}
+                  alt="icon"
+                  style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+                />
+              </Box>
+              <Box sx={{ width: '152px', height: '52px', mt: 1 }}>
+                <Image
+                  src={ChPlayIcon}
+                  alt="icon"
+                  style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+                />
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={6} sm={8} md={4}>
-            <Typography variant="h6" marked="left" gutterBottom>
-              Language
-            </Typography>
-            <TextField
-              select
-              size="medium"
-              variant="standard"
-              SelectProps={{
-                native: true,
-              }}
-              sx={{ mt: 1, width: 150 }}
-            >
-              {LANGUAGES.map((language) => (
-                <option value={language.code} key={language.code}>
-                  {language.name}
-                </option>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption">
-              {'Icons made by '}
-              <Link href="https://www.freepik.com" rel="sponsored" title="Freepik">
-                Freepik
-              </Link>
-              {' from '}
-              <Link href="https://www.flaticon.com" rel="sponsored" title="Flaticon">
-                www.flaticon.com
-              </Link>
-              {' is licensed by '}
-              <Link
-                href="https://creativecommons.org/licenses/by/3.0/"
-                title="Creative Commons BY 3.0"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                CC 3.0 BY
-              </Link>
-            </Typography>
-          </Grid>
         </Grid>
       </Container>
-    </Typography>
+      <Container sx={{ pb: 8, pt: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', ml: -3 }}>
+          <Image src={LogoWhite} alt="logo" height={80} width={80} style={{ objectFit: 'cover' }} />
+          <CustomTypography>© 2023 TheRaisedHands</CustomTypography>
+        </Box>
+      </Container>
+    </Box>
   );
-}
+};
+
+export default Footer;
