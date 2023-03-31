@@ -98,6 +98,14 @@ const Profile = ({}: any) => {
           </MenuItem>
           <MenuItem onClick={handleClose}>
             <Button
+              onClick={() => router.push(`/articles`)}
+              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+            >
+              {t('Articles')}
+            </Button>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Button
               onClick={() => router.push(`/watched`)}
               sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
             >
