@@ -1,5 +1,4 @@
 import { Box, Container, Grid, TextField, Typography } from '@mui/material';
-import Image from 'next/image';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import Button from '../share/Button';
