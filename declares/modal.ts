@@ -3,11 +3,13 @@ export const styleModal = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'common.white',
+  width: 800,
+  height: 650,
+  bgcolor: '#090A0B',
   boxShadow: 24,
   p: 4,
-  borderRadius: 2,
+  borderRadius: 8,
+  color: '#fff',
 };
 
 export const displayCenter = {
