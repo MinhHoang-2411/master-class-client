@@ -1,0 +1,16 @@
+.fieldCustom {
+  input[type='text'] {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 10px;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  input[type='text']:hover,
+  input[type='text']:focus {
+    border-color: #5cb85c;
+    background-color: #dff0d8;
+  }
+}

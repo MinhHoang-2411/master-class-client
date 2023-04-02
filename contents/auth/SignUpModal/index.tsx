@@ -18,6 +18,13 @@ import SignUpSchema from './Validate';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@/components/share/Button';
 import { useTranslation } from 'next-i18next';
+import { styled } from '@mui/material/styles';
+import Image from 'next/image';
+import MailIcon from '../../../public/icons/login/mail.png';
+import UserIcon from '../../../public/icons/login/user.png';
+import LockIcon from '../../../public/icons/login/lock.png';
+import EyeCloseIcon from '../../../public/icons/login/eye-close.png';
+import EyeOpenIcon from '../../../public/icons/login/eye-open.png';
 
 interface ISignUp {
   firstName: string;
@@ -45,8 +52,8 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
     try {
       const _values = {
         ...values,
-        email: values?.email?.toLowerCase()
-      }
+        email: values?.email?.toLowerCase(),
+      };
       dispatch(authActions.register(_values));
       action.setSubmitting(false);
     } catch (error) {
@@ -54,18 +61,81 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
     }
   };
 
+  const CustomeTextField = styled(TextField)(({ theme }) => ({
+    '& label.Mui-focused': {
+      color: 'white',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#fff',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#fff',
+      },
+      '&:hover fieldset': {
+        borderColor: '#fff',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#fff',
+      },
+    },
+  }));
+
+  const tabStyle = {
+    border: '1px solid #fff',
+    p: '10px 24px',
+    borderRadius: '20px',
+    backgroundColor: '#fff',
+    color: '#262626',
+    cursor: 'pointer',
+  };
+
   return (
     <Modal open={isOpen} onClose={CloseModal}>
       <Box sx={styleModal}>
-        <Typography variant="h4" component="h2" sx={{ mb: 4, mt: 2, textAlign: 'center' }}>
-          {t('sign-up')}
-        </Typography>
-        <Box sx={{ position: 'absolute', top: '12px', right: '12px' }}>
-          <IconButton onClick={() => dispatch(authActions.closeSignUpModal())}>
-            <CloseIcon fontSize="medium" sx={{ color: '#6c757d' }} />
-          </IconButton>
+        <Box sx={{ position: 'absolute', top: '32px', right: '32px', display: 'flex' }}>
+          <Button
+            sx={{
+              ...tabStyle,
+              mr: 1.5,
+              color: '#6C7275',
+              backgroundColor: '#232627',
+              borderColor: '#6C7275',
+            }}
+            onClick={() => dispatch(authActions.openSignInModal())}
+          >
+            {t('log-in')}
+          </Button>
+          <Button
+            sx={{
+              ...tabStyle,
+              '&:hover': {
+                backgroundColor: '#fff',
+              },
+            }}
+          >
+            {t('Register')}
+          </Button>
         </Box>
-        <Grid sx={{ mb: 2 }}>
+        <Box
+          sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '550px',
+            m: '0 auto',
+            mt: 4,
+          }}
+        >
+          <Typography
+            variant="h4"
+            component="h2"
+            sx={{ mb: 6, textAlign: 'center', color: '#fff' }}
+          >
+            {t('Create An Account')}
+          </Typography>
           <Formik
             initialValues={initialValues}
             validateOnBlur={false}
@@ -78,11 +148,28 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                   <Grid item xs={6}>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
-                        as={TextField}
+                        as={CustomeTextField}
                         id="firstName"
                         name="firstName"
+                        fullWidth
                         label={`${t('first-name')}*`}
                         variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                          style: { color: '#fff' },
+                        }}
+                        sx={{
+                          input: {
+                            color: '#fff',
+                          },
+                        }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Image src={UserIcon} alt="icon" height={24} width={24} />
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                       <ErrorMessage name="firstName" />
                     </FormControl>
@@ -90,11 +177,28 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                   <Grid item xs={6}>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
-                        as={TextField}
+                        as={CustomeTextField}
                         id="lastName"
                         name="lastName"
                         label={`${t('last-name')}*`}
                         variant="outlined"
+                        fullWidth
+                        InputLabelProps={{
+                          shrink: true,
+                          style: { color: '#fff' },
+                        }}
+                        sx={{
+                          input: {
+                            color: '#fff',
+                          },
+                        }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Image src={UserIcon} alt="icon" height={24} width={24} />
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                       <ErrorMessage name="lastName" />
                     </FormControl>
@@ -102,23 +206,55 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                   <Grid item xs={12}>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
-                        as={TextField}
+                        as={CustomeTextField}
                         id="email"
                         name="email"
                         label="Email*"
                         variant="outlined"
+                        fullWidth
+                        InputLabelProps={{
+                          shrink: true,
+                          style: { color: '#fff' },
+                        }}
+                        sx={{
+                          input: {
+                            color: '#fff',
+                          },
+                        }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Image src={MailIcon} alt="icon" height={24} width={24} />
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                       <ErrorMessage name="email" />
                     </FormControl>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
-                        as={TextField}
+                        as={CustomeTextField}
                         id="password"
                         name="password"
+                        fullWidth
                         type={showPassword ? 'text' : 'password'}
                         label={`${t('password')}*`}
                         variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                          style: { color: '#fff' },
+                        }}
+                        sx={{
+                          input: {
+                            color: '#fff',
+                          },
+                        }}
                         InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Image src={LockIcon} alt="icon" height={20} width={20} />
+                            </InputAdornment>
+                          ),
                           endAdornment: (
                             <InputAdornment position="end">
                               <Button
@@ -126,7 +262,11 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                                 color="secondary"
                                 size="small"
                               >
-                                {!showPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showPassword ? (
+                                  <Image src={EyeCloseIcon} alt="icon" height={24} width={24} />
+                                ) : (
+                                  <Image src={EyeOpenIcon} alt="icon" height={24} width={24} />
+                                )}
                               </Button>
                             </InputAdornment>
                           ),
@@ -136,13 +276,28 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                     </FormControl>
                     <FormControl sx={{ mb: 2 }} fullWidth>
                       <Field
-                        as={TextField}
+                        as={CustomeTextField}
                         id="confirmPassword"
                         name="confirmPassword"
+                        fullWidth
                         type={showConfirmPassword ? 'text' : 'password'}
                         label={`${t('confirm-password')}*`}
                         variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                          style: { color: '#fff' },
+                        }}
+                        sx={{
+                          input: {
+                            color: '#fff',
+                          },
+                        }}
                         InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Image src={LockIcon} alt="icon" height={20} width={20} />
+                            </InputAdornment>
+                          ),
                           endAdornment: (
                             <InputAdornment position="end">
                               <Button
@@ -150,7 +305,11 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                                 color="secondary"
                                 size="small"
                               >
-                                {!showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                {!showConfirmPassword ? (
+                                  <Image src={EyeCloseIcon} alt="icon" height={24} width={24} />
+                                ) : (
+                                  <Image src={EyeOpenIcon} alt="icon" height={24} width={24} />
+                                )}
                               </Button>
                             </InputAdornment>
                           ),
@@ -160,53 +319,30 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                     </FormControl>
                   </Grid>
                 </Grid>
-                <Grid>
-                  <Box sx={{ ...displayCenter }}>
-                    <Typography variant="body2" component="span">
-                      {t('already-have-an-account')}
-                    </Typography>
-                    <Button
-                      variant="text"
-                      size="small"
-                      color="inherit"
-                      onClick={() => dispatch(authActions.openSignInModal())}
-                      sx={{ color: '#ff3366' }}
-                    >
-                      {t('log-in')}
-                    </Button>
-                  </Box>
-                </Grid>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    mb: 4,
-                    px: 2,
-                  }}
-                >
-                  <Typography
-                    variant="body2"
-                    component="span"
-                    sx={{ textAlign: 'center' }}
-                    color="primary.light"
-                  >
-                    {t('by-logging-in')}
-                  </Typography>
-                </Box>
-
                 <Button
                   type={isSubmitting ? `button` : `submit`}
                   color="secondary"
                   variant="contained"
                   size="large"
                   fullWidth
+                  sx={{
+                    color: '#262626',
+                    background: 'linear-gradient(94.87deg, #FFB7E4 20.12%, #34DBEB 87.72%)',
+                    textTransform: 'uppercase',
+                    borderRadius: '100px',
+                    mt: 2,
+                    transition: 'all .4s ease-in-out',
+                    '&:hover': {
+                      boxShadow: '0 4px 15px 0 rgba(236, 116, 149, 0.75)',
+                    },
+                  }}
                 >
-                  {isSubmitting ? `${t('sign-up')}...` : `${t('sign-up')}`}
+                  {isSubmitting ? `${t('Continue')}...` : `${t('Continue')}`}
                 </Button>
               </Form>
             )}
           </Formik>
-        </Grid>
+        </Box>
       </Box>
     </Modal>
   );
