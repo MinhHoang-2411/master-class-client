@@ -15,6 +15,8 @@ import StickyFooter from './StickyFooter';
 import AddCardAndPayModal from '@/contents/home/PaymentModal/AddCardAndPayModal';
 import AddCardModal from '@/contents/home/PaymentModal/AddCardModal';
 import { useRouter } from 'next/router';
+import Footer from './Footer';
+
 
 // const Footer = dynamic(() => import('./Footer'));
 const Navbar = dynamic(() => import('./Navbar'), {
@@ -107,6 +109,7 @@ export default function MyLayout({ children }: any) {
       />
 
       {isPayment && !loadingCheckPayment ? <></> : <StickyFooter />}
+      <Footer />
     </Box>
   );
 }

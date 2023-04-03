@@ -7,7 +7,7 @@
   "bookmark": "Bookmark",
   "settings": "Settings",
   "log-out": "Log out",
-  "log-in": "Log in",
+  "log-in": "Login",
 
   "trailer": "Trailer",
   "sample": "Sample",
@@ -117,6 +117,10 @@
   "Articles": "Articles",
   "LATEST": "LATEST",
   "POPULAR ARTICLES": "POPULAR ARTICLES",
+  "See all": "See all",
 
-  "See all": "See all"
+  "Create An Account": "Create An Account",
+  "Continue": "Coutinue",
+  "Register": "Register"
+
 }
