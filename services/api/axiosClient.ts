@@ -1,6 +1,7 @@
 import { NumberFormatBase } from 'react-number-format';
 import { getAccessToken, getAuth, getLanguage, logout } from '@/utils/auth';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import Router from 'next/router';
 
 const URL_API = process.env.NEXT_PUBLIC_API_URL;
 
@@ -65,5 +66,6 @@ const handleErrorApi = (status: number) => {
       break;
 
     case 500:
+      Router.push('/500');
   }
 };
