@@ -1,10 +1,11 @@
-import { Box, Container } from '@mui/material';
+import { Box, Container, Stack } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import SlickCarousel from '../share/SlickCarousel';
 import Typography from '../share/Typography';
 import styles from './PopularCourse/popularCourse.module.scss';
+import { StackedBarChartSharp } from '@mui/icons-material';
 
 interface Props {
   popularCourse?: any;
@@ -15,9 +16,22 @@ const PopularCourse = ({ popularCourse }: Props) => {
   return (
     <Container sx={{ color: '#fff', my: 10 }}>
       <Box>
-        <Typography variant="h4" component={'h2'} color="#fff" sx={{ mb: 3, fontSize: '32px' }}>
-          {t('trending')}
-        </Typography>
+        <Stack direction="row" spacing={1} sx={{ mb: 3 }} alignItems="flex-end">
+          <Typography variant="h4" component={'h2'} color="#fff" sx={{ fontSize: '32px' }}>
+            {t('trending')}
+          </Typography>
+          <Link
+            style={{ cursor: 'pointer', textDecoration: 'none' }}
+            href="/categories/all-classes"
+          >
+            <Typography
+              variant="h6"
+              sx={{ color: '#9ea0a9', fontSize: '20px', textTransform: 'none' }}
+            >
+              {t('See all')}
+            </Typography>
+          </Link>
+        </Stack>
         <div>
           <SlickCarousel courses={popularCourse} />
         </div>

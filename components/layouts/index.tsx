@@ -14,6 +14,7 @@ import dynamic from 'next/dynamic';
 import StickyFooter from './StickyFooter';
 import AddCardAndPayModal from '@/contents/home/PaymentModal/AddCardAndPayModal';
 import AddCardModal from '@/contents/home/PaymentModal/AddCardModal';
+import { useRouter } from 'next/router';
 
 // const Footer = dynamic(() => import('./Footer'));
 const Navbar = dynamic(() => import('./Navbar'), {
@@ -21,6 +22,8 @@ const Navbar = dynamic(() => import('./Navbar'), {
 });
 
 export default function MyLayout({ children }: any) {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
   const modalSignIn = useAppSelector((state) => state.auth.modalSignIn);
   const modalSignUp = useAppSelector((state) => state.auth.modalSignUp);
@@ -48,7 +51,9 @@ export default function MyLayout({ children }: any) {
     }
   }, []);
 
-  return (
+  return router.pathname === '/500' ? (
+    <>{children}</>
+  ) : (
     <Box sx={{ overflowX: 'hidden' }}>
       <Navbar />
       {children}
