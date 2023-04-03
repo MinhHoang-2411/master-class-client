@@ -32,7 +32,7 @@ import { paymentMethod as paymentMethodConstant } from '@/constants/payment';
 import { paymentActions } from '@/store/payment/paymentSlice';
 import PrimaryButton from '../share/PrimaryButton';
 import { convertTimeStamp } from '@/utils/convert/date';
-import { styleModal } from '@/declares/modal';
+import { styleModalSetting } from '@/declares/modal';
 
 const LANGS = [
   {
@@ -219,7 +219,7 @@ const SettingComponent = ({}: Props) => {
 
         {/* Delete Card Modal  */}
         <Modal open={isOpenModalConfirmCard} onClose={handleCloseConfirmCardModal}>
-          <Box sx={{ ...styleModal, width: '500px' }}>
+          <Box sx={{ ...styleModalSetting }}>
             <Stack alignItems="center" spacing={2}>
               <Typography sx={{ textTransform: 'none' }} variant="h6" component="h3">
                 Are you sure to delete this card?
@@ -336,7 +336,7 @@ const SettingComponent = ({}: Props) => {
             open={isOpenModalConfirmSubscription}
             onClose={handleCloseConfirmSubscriptionModal}
           >
-            <Box sx={{ ...styleModal, width: '500px' }}>
+            <Box sx={{ ...styleModalSetting }}>
               <Stack alignItems="center" spacing={2}>
                 <Typography sx={{ textTransform: 'none' }} variant="h6" component="h3">
                   Are you sure to cancel this subscription?
