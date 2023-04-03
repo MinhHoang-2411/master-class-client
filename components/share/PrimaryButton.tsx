@@ -2,21 +2,23 @@ import { Button, SxProps, Theme } from '@mui/material';
 import React from 'react';
 
 const styleBtnSignUp = {
-  backgroundColor: '#e32652',
   padding: '8px 16px',
   cursor: 'pointer',
-  borderRadius: '8px',
   fontSize: '16px',
   fontWeight: 'bold',
   textTransform: 'capitalize',
-  '&:hover': {
-    backgroundColor: '#d61a46',
-  },
   '&:disabled': {
     color: '#fff',
     backgroundColor: '#a0a0a0',
   },
-  color: '#fff',
+  color: '#262626',
+  background: 'linear-gradient(94.87deg, #FFB7E4 20.12%, #34DBEB 87.72%)',
+  borderRadius: '100px',
+  mt: 1,
+  transition: 'all .4s ease-in-out',
+  '&:hover': {
+    boxShadow: '0 4px 15px 0 rgba(236, 116, 149, 0.75)',
+  },
 };
 
 const PrimaryButton = ({
@@ -25,12 +27,14 @@ const PrimaryButton = ({
   style,
   type,
   disabled,
+  fullWidth,
 }: {
   children: React.ReactNode;
   onClick?: () => void;
   style?: any;
   type?: any;
   disabled?: any;
+  fullWidth?: any;
 }) => {
   return (
     <Button
@@ -41,6 +45,7 @@ const PrimaryButton = ({
       disabled={disabled}
       sx={{ ...styleBtnSignUp, ...style }}
       onClick={onClick}
+      fullWidth={fullWidth}
     >
       {children}
     </Button>

@@ -19,12 +19,13 @@ import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { useState } from 'react';
 import * as Yup from 'yup';
-import MailIcon from '../../../public/icons/login/mail.png';
-import LockIcon from '../../../public/icons/login/lock.png';
-import EyeCloseIcon from '../../../public/icons/login/eye-close.png';
-import EyeOpenIcon from '../../../public/icons/login/eye-open.png';
+import MailIcon from '../../../public/icons/login/mail.svg';
+import LockIcon from '../../../public/icons/login/lock.svg';
+import EyeCloseIcon from '../../../public/icons/login/eye-close.svg';
+import EyeOpenIcon from '../../../public/icons/login/eye-open.svg';
 import { styled } from '@mui/material/styles';
 import { InputLabel, OutlinedInput, TextField, useTheme, withStyles } from '@mui/material';
+import bgImage from '../../../public/images/bground.svg';
 
 interface ILogin {
   email: string;
@@ -82,6 +83,10 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
       '&.Mui-focused fieldset': {
         borderColor: '#fff',
       },
+      '&:-webkit-autofill': {
+        transitionDelay: '9999s',
+        transitionProperty: 'background-color, color',
+      },
     },
   }));
 
@@ -96,7 +101,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
 
   return (
     <Modal open={isOpen} onClose={CloseModal}>
-      <Box sx={styleModal}>
+      <Box sx={{ ...styleModal, backgroundImage: `url(${bgImage.src})` }}>
         <Box sx={{ position: 'absolute', top: '32px', right: '32px', display: 'flex' }}>
           <Button
             sx={{
@@ -149,6 +154,9 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
               <Form>
                 <FormControl sx={{ mb: 3, mt: 3 }} fullWidth>
                   <Field
+                    onClick={() => {
+                      console.log({ MailIcon, bgImage });
+                    }}
                     as={CustomeTextField}
                     id="email"
                     name="email"
@@ -166,7 +174,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <Image src={MailIcon} alt="icon" height={24} width={24} />
+                          <Image src={MailIcon} alt="icon" height={20} width={20} />
                         </InputAdornment>
                       ),
                     }}

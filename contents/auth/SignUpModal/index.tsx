@@ -20,11 +20,11 @@ import Button from '@/components/share/Button';
 import { useTranslation } from 'next-i18next';
 import { styled } from '@mui/material/styles';
 import Image from 'next/image';
-import MailIcon from '../../../public/icons/login/mail.png';
-import UserIcon from '../../../public/icons/login/user.png';
-import LockIcon from '../../../public/icons/login/lock.png';
-import EyeCloseIcon from '../../../public/icons/login/eye-close.png';
-import EyeOpenIcon from '../../../public/icons/login/eye-open.png';
+import MailIcon from '../../../public/icons/login/mail.svg';
+import UserIcon from '../../../public/icons/login/user.svg';
+import LockIcon from '../../../public/icons/login/lock.svg';
+import EyeCloseIcon from '../../../public/icons/login/eye-close.svg';
+import EyeOpenIcon from '../../../public/icons/login/eye-open.svg';
 
 interface ISignUp {
   firstName: string;
@@ -166,7 +166,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <Image src={UserIcon} alt="icon" height={24} width={24} />
+                              <Image src={UserIcon} alt="icon" height={20} width={20} />
                             </InputAdornment>
                           ),
                         }}
@@ -195,7 +195,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <Image src={UserIcon} alt="icon" height={24} width={24} />
+                              <Image src={UserIcon} alt="icon" height={20} width={20} />
                             </InputAdornment>
                           ),
                         }}
@@ -224,7 +224,7 @@ const SignUpModal = ({ isOpen, CloseModal }: IModal) => {
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <Image src={MailIcon} alt="icon" height={24} width={24} />
+                              <Image src={MailIcon} alt="icon" height={20} width={20} />
                             </InputAdornment>
                           ),
                         }}

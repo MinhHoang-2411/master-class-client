@@ -22,7 +22,8 @@ const styleDescription = {
 };
 
 const styleBtnSignUp = {
-  backgroundColor: '#e32652',
+  color: '#262626',
+  background: 'linear-gradient(94.87deg, #FFB7E4 20.12%, #34DBEB 87.72%)',
   padding: '10px',
   cursor: 'pointer',
   width: '160px',
@@ -37,7 +38,7 @@ const styleBtnSignUp = {
   marginTop: '8px',
   marginBottom: '8px',
   '&:hover': {
-    backgroundColor: '#d61a46',
+    boxShadow: '0 4px 15px 0 rgba(236, 116, 149, 0.75)',
   },
 };
 
