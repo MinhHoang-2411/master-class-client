@@ -3,8 +3,6 @@ import styles from '../../styles/articles.module.scss';
 import Slider from 'react-slick';
 import { Box, Container } from '@mui/material';
 import Typography from '../share/Typography';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
 
 interface Category {
   _id: string;
