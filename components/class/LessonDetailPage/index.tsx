@@ -8,14 +8,21 @@ import { isMappable } from '@/utils/helper';
 import {
   Avatar,
   Box,
+  Button,
   Container,
   Divider,
   Grid,
   List,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
+  Stack,
   Typography,
 } from '@mui/material';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
+import LockIcon from '@mui/icons-material/Lock';
+
 import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -41,6 +48,8 @@ const LessonDetailPageComponent = ({
   handleChangeLesson,
   isPayment,
 }: Iprops) => {
+  //payment
+
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -72,7 +81,7 @@ const LessonDetailPageComponent = ({
         dispatch(paymentActions.openModalChoosePayment());
       }
     } else {
-      localStorage.setItem('SubscribePopup', 'true')
+      localStorage.setItem('SubscribePopup', 'true');
       dispatch(authActions.openSignInModal());
     }
   };
@@ -104,7 +113,6 @@ const LessonDetailPageComponent = ({
     setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
     setLightVideo(lesson?.thumbnail);
   }, [lesson, classes]);
-
 
   const onSavedValueWacthing = useCallback(
     (playedSeconds: number, lessonId: string, playedEnded: boolean, hisId: string) => {
@@ -160,50 +168,33 @@ const LessonDetailPageComponent = ({
   return (
     <main className={styles.page_content}>
       <Container>
-        <Box className={styles.sectionChapter}>
-          <div className={styles.sectionChapterHeader}>
+        <Grid
+          container
+          spacing={2}
+          sx={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%' }}
+          className={styles.bodyChapter}
+        >
+          <Grid item xs={12}>
             <Typography
-              sx={{ fontWeight: 'bold', fontSize: '14px', pl: 0.2, textTransform: 'uppercase' }}
-              component="p"
+              sx={{ color: '#fff', fontWeight: 600, textTransform: 'none' }}
+              variant="h3"
+              component="h1"
             >
-              {isMappable(listCategory)
-                ? listCategory.map((cate: any, index: number) => (
-                    <div
-                      key={cate?._id}
-                      className={`${styles.headerCategory} ${index > 0 ? styles.mrL : ''}`}
-                    >{`${cate?.name}${index + 1 !== listCategory?.length ? ',' : ''}`}</div>
-                  ))
-                : ''}
+              {classes?.lessons?.[indexSelectedLesson]?.title}
             </Typography>
-            <h1>{classes?.lessons?.[indexSelectedLesson]?.title}</h1>
-
-            <div className={styles.authorDes}>
-              <Avatar alt="avatar" src={classes.thumbnail} sx={{ width: 60, height: 60 }} />
-              <div className={styles.authorName}>
-                <span
-                  style={{ fontWeight: 'bold', cursor: 'pointer', letterSpacing: '.2px' }}
-                  onClick={() => router.push(`/classes/${router.query.id}`)}
-                >
-                  {classes?.authorName}
-                </span>
-                <span className={styles.lessonTime}>{`${t('Lesson time')} ${TimeConvert(
-                  classes?.lessons?.[indexSelectedLesson]?.duration
-                )}`}</span>
-              </div>
-            </div>
-            <Divider sx={{ border: '.5px solid #D4D5D9' }} />
-
-            <div className={styles?.title}>
-              <span>{classes?.lessons?.[indexSelectedLesson]?.description}</span>
-            </div>
-          </div>
-        </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1" sx={{ color: '#ccc' }}>
+              {classes?.lessons?.[indexSelectedLesson]?.description}
+            </Typography>
+          </Grid>
+        </Grid>
 
         <Grid
           container
           sx={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%' }}
           className={styles.bodyChapter}
-          columnSpacing={2}
+          spacing={2}
         >
           <Grid item lg={8} md={8} xs={12} className={styles.lessonVideo}>
             {loadingCheckPayment ? (
@@ -221,7 +212,7 @@ const LessonDetailPageComponent = ({
                   <span>
                     {t('Starting at $24.99/month (billed annually) for all classes and sessions')}
                   </span>
-                  <button onClick={handleClickPreviewVideo}>{t('Subscribe')}</button>
+                  <PrimaryButton onClick={handleClickPreviewVideo}>{t('Subscribe')}</PrimaryButton>
                 </div>
               </div>
             )}
@@ -247,63 +238,147 @@ const LessonDetailPageComponent = ({
           <Grid item lg={4} md={4} xs={12}>
             <Box className={styles.lessonPlan}>
               <h2>{t('LESSON PLAN')}</h2>
-              <Box>
+              <Box sx={{ p: 2 }}>
                 <List
                   component="nav"
                   aria-label="secondary mailbox folder"
                   className={styles.navLesson}
                 >
-                  {isMappable(classes.lessons) ? (
-                    classes?.lessons?.map((lesson: any, index: number) => (
-                      <ListItemButton
-                        selected={indexSelectedLesson === index}
-                        onClick={() => onChangeVideoLesson(lesson?._id, index)}
-                        key={lesson?._id}
-                        sx={{
-                          '&.Mui-selected': {
-                            backgroundColor: 'rgb(48, 49, 54)',
-                          },
-                          ':hover': {
-                            backgroundColor: 'rgb(48, 49, 54)',
-                          },
-                        }}
-                      >
-                        <ListItemText primary={`${index + 1}. ${lesson?.title}`} />
-                      </ListItemButton>
-                    ))
-                  ) : (
-                    <></>
-                  )}
+                  <Stack spacing={1}>
+                    {isMappable(classes.lessons) ? (
+                      classes?.lessons?.map((lesson: any, index: number) => (
+                        <ListItemButton
+                          selected={indexSelectedLesson === index}
+                          onClick={() => {
+                            onChangeVideoLesson(lesson?._id, index);
+                          }}
+                          key={lesson?._id}
+                          sx={{
+                            transition: 'all 0s ease-in',
+                            borderRadius: '8px',
+                            backgroundColor: '#fff',
+                            color: '#444444',
+                            '&.Mui-selected': {
+                              background: '#5c5c5c',
+                              color: '#fff',
+                            },
+                            '&.Mui-selected:hover': {
+                              background: '#5c5c5c',
+                              color: '#fff',
+                            },
+                            ':hover': {
+                              background: '#5c5c5c',
+
+                              color: '#fff',
+                            },
+                          }}
+                        >
+                          <ListItemIcon
+                            sx={{
+                              minWidth: '30px',
+                              width: '30px',
+                              height: '30px',
+                              borderRadius: '100%',
+                              background: isPayment ? 'rgba(203, 132, 97, 1)' : '#ccc',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              mr: 2,
+                            }}
+                            onClick={(e) => {
+                              if (indexSelectedLesson === index && isPayment) {
+                                e.stopPropagation();
+                                setLightVideo(false);
+                                setPlayingVideo(!playingVideo);
+                                console.log({ playingVideo });
+                              }
+                            }}
+                          >
+                            {!isPayment ? (
+                              <LockIcon />
+                            ) : indexSelectedLesson === index ? (
+                              playingVideo && !lightVideo ? (
+                                <PauseIcon sx={{ color: 'white' }} />
+                              ) : (
+                                <PlayArrowIcon sx={{ color: 'white' }} />
+                              )
+                            ) : (
+                              <PlayArrowIcon sx={{ color: 'white' }} />
+                            )}
+                          </ListItemIcon>
+                          <ListItemText primary={`${index + 1}. ${lesson?.title}`} />
+                        </ListItemButton>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </Stack>
                 </List>
               </Box>
             </Box>
           </Grid>
         </Grid>
 
-        <Box>
-          <Box sx={{ pb: 2, mt: 5 }}>
-            <h2>{t('About the Instructor')}</h2>
-            <p>{classes?.overview?.description}</p>
-          </Box>
-          <Divider sx={{ border: '.5px solid #D4D5D9' }} />
-          <Box sx={{ mt: 5 }}>
-            <div className={styles.exploreAuthor}>
-              <div className={styles.exploreAuthorLeft}>
-                <Avatar alt="avatar" src={classes?.thumbnail} sx={{ width: 128, height: 128 }} />
-              </div>
-              <div className={styles.exploreAuthorRight}>
-                <h4>{t('FEATURED THERAISEDHANDS INSTRUCTOR')}</h4>
-                <h2>{classes?.authorName}</h2>
-                <p>{classes?.name}</p>
-                <div className={styles.buttonExplore}>
-                  <button onClick={() => router.push(`/classes/${router.query.id}`)}>
-                    {t('Explore the class')}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </Box>
-        </Box>
+        <Grid
+          container
+          spacing={2}
+          sx={{ display: 'flex', height: '100%', width: '100%' }}
+          className={styles.bodyChapter}
+        >
+          <Grid item xs={8}>
+            <Box sx={{ pb: 2 }}>
+              <Typography variant="h3" sx={{ color: '#fff', fontSize: '32px', fontWeight: '600' }}>
+                {t('About the Instructor')}
+              </Typography>
+              <p style={{ color: '#ccc' }}>{classes?.overview?.description}</p>
+            </Box>
+            <Button
+              sx={{
+                color: '#000000',
+                background: '#fff',
+                borderRadius: '100px',
+                textTransform: 'capitalize',
+                padding: '24px 48px',
+                fontWeight: 600,
+                transition: 'all 0s ease',
+                '&:hover': {
+                  background: 'linear-gradient(94.87deg, #FFB7E4 20.12%, #34DBEB 87.72%)',
+                },
+              }}
+              onClick={() => router.push(`/classes/${router.query.id}`)}
+            >
+              {t('Explore the class')}
+            </Button>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            // sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          >
+            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 1 }}>
+              <Avatar alt="avatar" src={classes.thumbnail} sx={{ width: 60, height: 60 }} />
+              <Stack direction="column">
+                <span
+                  style={{ fontWeight: 'bold', cursor: 'pointer', letterSpacing: '.2px' }}
+                  onClick={() => router.push(`/classes/${router.query.id}`)}
+                >
+                  {classes?.authorName}
+                </span>
+                <span style={{ color: '#ccc', fontSize: '12px' }}>{`${
+                  classes.lessons.length
+                } videos (${TimeConvert(
+                  classes?.lessons?.[indexSelectedLesson]?.duration
+                )})`}</span>
+              </Stack>
+            </Stack>
+            <Typography sx={{ fontWeight: 'bold', fontSize: '12px', pl: 0.2 }} component="p">
+              <span style={{ color: '#ccc', fontSize: '12px' }}>Categories:</span>{' '}
+              {isMappable(listCategory)
+                ? listCategory.map((cate: any, index: number) => cate?.name).join(', ')
+                : ''}
+            </Typography>
+          </Grid>
+        </Grid>
       </Container>
     </main>
   );

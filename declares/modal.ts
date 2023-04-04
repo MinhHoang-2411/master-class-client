@@ -13,6 +13,11 @@ export const styleModal = {
   p: 4,
   borderRadius: 8,
   color: '#fff',
+  outline: '2px solid #ccc',
+  '&:focus': {
+    outline: '2px solid #ccc',
+    boxShadow: 'none',
+  },
 };
 
 export const styleModalSetting = {

@@ -14,7 +14,7 @@ const MessagesFromTeam = dynamic(() => import('@/components/share/MessagesFromTe
 });
 const NewCourse = dynamic(() => import('@/components/homes/NewCourse'), { ssr: false });
 const PopularCourse = dynamic(() => import('@/components/homes/PopularCourse'), { ssr: false });
-const Footer = dynamic(() => import('@/components/layouts/Footer'), { ssr: false });
+
 interface HomePageModel {
   listBanners: string[];
   layoutPage: any;
@@ -38,7 +38,6 @@ function HomePage(props: HomePageModel) {
       <MessagesFromTeam layoutPage={layoutPage} />
       <PopularCourse popularCourse={popularCourse} />
       <NewCourse newCourse={newCourse} />
-      <Footer />
     </>
   );
 }

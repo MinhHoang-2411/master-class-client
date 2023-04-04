@@ -35,7 +35,7 @@ const PlayVideoLesson = ({
     ? 0
     : lesson?.historylessons?.history?.secondLastView;
   return (
-    <>
+    <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
       <ReactPlayer
         ref={playedRef}
         light={lightVideo}
@@ -65,7 +65,7 @@ const PlayVideoLesson = ({
         }}
         onEnded={onEndedVideo}
       />
-    </>
+    </div>
   );
 };
 
