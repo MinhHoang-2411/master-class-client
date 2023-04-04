@@ -40,6 +40,16 @@ interface Iprops {
   isPayment: boolean;
 }
 
+interface Category {
+  exist?: boolean;
+  createdAt?: string;
+  isActive?: boolean;
+  name?: string;
+  priority?: number;
+  updatedAt?: string;
+  _id?: string;
+}
+
 const LessonDetailPageComponent = ({
   classes,
   categories,
@@ -73,6 +83,16 @@ const LessonDetailPageComponent = ({
     }${
       remainingSeconds > 0 ? `${remainingSeconds.toString().padStart(2, '0')} ${t('seconds')}` : ''
     }`;
+  };
+
+  const TimeMinConvert = (time: number) => {
+    const duration = Math.floor(time);
+    const hours = Math.floor(duration / 3600);
+    const minutes = Math.floor((duration - hours * 3600) / 60);
+    const remainingSeconds = duration - hours * 3600 - minutes * 60;
+    return `${hours > 0 ? `${hours.toString().padStart(2, '0')}h ` : ''}${
+      minutes > 0 ? `${minutes.toString().padStart(2, '0')}m ` : ''
+    }${remainingSeconds > 0 ? `${remainingSeconds.toString().padStart(2, '0')}s` : ''}`;
   };
 
   const handleClickPreviewVideo = () => {
@@ -110,7 +130,13 @@ const LessonDetailPageComponent = ({
   }, []);
 
   useEffect(() => {
-    setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
+    const _categories: Category = categories?.map((item: any) =>
+      classes?.categories?.includes(item?._id)
+        ? { ...item, exist: true }
+        : { ...item, exist: false }
+    );
+
+    setListCategory(_categories);
     setLightVideo(lesson?.thumbnail);
   }, [lesson, classes]);
 
@@ -165,6 +191,7 @@ const LessonDetailPageComponent = ({
     setPlayingVideo(false);
   };
 
+  console.log('classes', classes.lessons);
   return (
     <main className={styles.page_content}>
       <Container>
@@ -306,7 +333,19 @@ const LessonDetailPageComponent = ({
                               <PlayArrowIcon sx={{ color: 'white' }} />
                             )}
                           </ListItemIcon>
-                          <ListItemText primary={`${index + 1}. ${lesson?.title}`} />
+                          <Stack>
+                            <ListItemText primary={`${index + 1}. ${lesson?.title}`} />
+                            <ListItemText
+                              primary={TimeMinConvert(lesson.duration)}
+                              primaryTypographyProps={{ fontSize: '12px' }}
+                              sx={{ 
+                                '&.MuiListItemText-root': {
+                                  mt: .1,
+                                  ml: .5
+                                }
+                              }}
+                            />
+                          </Stack>
                         </ListItemButton>
                       ))
                     ) : (
@@ -355,28 +394,67 @@ const LessonDetailPageComponent = ({
             xs={4}
             // sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
           >
-            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 1 }}>
-              <Avatar alt="avatar" src={classes.thumbnail} sx={{ width: 60, height: 60 }} />
+            <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+              <Avatar alt="avatar" src={classes.thumbnail} sx={{ width: 80, height: 80 }} />
               <Stack direction="column">
                 <span
-                  style={{ fontWeight: 'bold', cursor: 'pointer', letterSpacing: '.2px' }}
+                  style={{
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    fontSize: '20px',
+                    letterSpacing: '.2px',
+                  }}
                   onClick={() => router.push(`/classes/${router.query.id}`)}
                 >
                   {classes?.authorName}
                 </span>
-                <span style={{ color: '#ccc', fontSize: '12px' }}>{`${
+                <span style={{ color: '#808080', fontSize: '14px' }}>{`${
                   classes.lessons.length
                 } videos (${TimeConvert(
                   classes?.lessons?.[indexSelectedLesson]?.duration
                 )})`}</span>
               </Stack>
             </Stack>
-            <Typography sx={{ fontWeight: 'bold', fontSize: '12px', pl: 0.2 }} component="p">
-              <span style={{ color: '#ccc', fontSize: '12px' }}>Categories:</span>{' '}
-              {isMappable(listCategory)
-                ? listCategory.map((cate: any, index: number) => cate?.name).join(', ')
-                : ''}
-            </Typography>
+
+            <Divider sx={{ border: '.8px solid #343839' }} />
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', mt: 3 }}>
+              <Box sx={{ mb: '20px' }}>
+                <Typography
+                  sx={{
+                    color: '#fff',
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    textTransform: 'capitalize',
+                  }}
+                  component="p"
+                >
+                  {`${t('categories')}`}
+                </Typography>
+              </Box>
+
+              <Box sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: '12px' }}>
+                {isMappable(listCategory) ? (
+                  listCategory.map((cate: Category, index: number) => (
+                    <Box
+                      key={cate._id}
+                      sx={{
+                        p: '8px 16px',
+                        color: cate.exist ? '#232627' : '#6C7275',
+                        border: '1px solid #343839',
+                        borderRadius: '6px',
+                        background: cate.exist ? '#FFEA7C' : 'transparent',
+                        fontSize: '12px',
+                      }}
+                    >
+                      {cate.name}
+                    </Box>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </Box>
+            </Box>
           </Grid>
         </Grid>
       </Container>
