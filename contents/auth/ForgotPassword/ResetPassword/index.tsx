@@ -1,21 +1,26 @@
 import Button from '@/components/share/Button';
+import CustomeTextField from '@/components/share/CustomTextField';
 import { ErrorMessage } from '@/components/share/ErrorMessage';
+import PrimaryButton from '@/components/share/PrimaryButton';
 import { displayCenter, styleModal } from '@/declares/modal';
 import { IModal, ResetPasswordModel } from '@/declares/models';
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import KeyIcon from '@mui/icons-material/Key';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Box, Modal, TextField } from '@mui/material';
+import { Box, Modal } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
+import { useState } from 'react';
 import * as Yup from 'yup';
+import EyeCloseIcon from '../../../../public/icons/login/eye-close.svg';
+import EyeOpenIcon from '../../../../public/icons/login/eye-open.svg';
+import LockIcon from '../../../../public/icons/login/lock.svg';
 
 const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
   const { t } = useTranslation('common');
@@ -57,116 +62,162 @@ const ResetPassword = ({ isOpen, CloseModal }: IModal) => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
             flexDirection: 'column',
-            mb: 4,
+            height: '100%',
+            justifyContent: 'center',
+            width: '550px',
+            margin: '0 auto',
           }}
         >
           <Box
             sx={{
-              bgcolor: '#f1f1f1',
-              width: 50,
-              height: 50,
-              borderRadius: '50%',
               display: 'flex',
-              alignItems: 'center',
               justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              mb: 4,
             }}
           >
-            <KeyIcon color="secondary" />
+            <Box
+              sx={{
+                bgcolor: '#f1f1f1',
+                width: 50,
+                height: 50,
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <KeyIcon color="primary" />
+            </Box>
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{ textAlign: 'center', mb: 2, mt: 2, color: '#fff' }}
+            >
+              {t('set-new-password')}
+            </Typography>
           </Box>
-          <Typography variant="h5" component="h2" sx={{ textAlign: 'center', mb: 2, mt: 2 }}>
-            {t('set-new-password')}
-          </Typography>
-        </Box>
-        <Grid sx={{ mb: 2 }}>
-          <Formik
-            initialValues={{ password: '', confirmPassword: '' }}
-            validateOnBlur={false}
-            validationSchema={ResetPasswordSchema}
-            onSubmit={onSubmit}
-          >
-            {({ isSubmitting }) => (
-              <Form className={`h-100`}>
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                  <Grid item xs={12}>
-                    <FormControl sx={{ mb: 2 }} fullWidth>
-                      <Field
-                        as={TextField}
-                        id="password"
-                        name="password"
-                        type={showPassword ? 'text' : 'password'}
-                        label={`${t('password')}*`}
-                        variant="outlined"
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Button
-                                onClick={() => setShowPassword(!showPassword)}
-                                color="secondary"
-                              >
-                                {!showPassword ? <Visibility /> : <VisibilityOff />}
-                              </Button>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      <ErrorMessage name="password" />
-                    </FormControl>
-                    <FormControl sx={{ mb: 2 }} fullWidth>
-                      <Field
-                        as={TextField}
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        label={`${t('confirm-password')}*`}
-                        variant="outlined"
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Button
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                color="secondary"
-                              >
-                                {!showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                              </Button>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      <ErrorMessage name="confirmPassword" />
-                    </FormControl>
+          <Grid sx={{ mb: 2 }}>
+            <Formik
+              initialValues={{ password: '', confirmPassword: '' }}
+              validateOnBlur={false}
+              validationSchema={ResetPasswordSchema}
+              onSubmit={onSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form className={`h-100`}>
+                  <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    <Grid item xs={12}>
+                      <FormControl sx={{ mb: 2 }} fullWidth>
+                        <Field
+                          as={CustomeTextField}
+                          id="password"
+                          name="password"
+                          type={showPassword ? 'text' : 'password'}
+                          label={`${t('password')}*`}
+                          variant="outlined"
+                          InputLabelProps={{
+                            shrink: true,
+                            style: { color: '#fff' },
+                          }}
+                          sx={{
+                            input: {
+                              color: '#fff',
+                            },
+                          }}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <Image src={LockIcon} alt="icon" height={20} width={20} />
+                              </InputAdornment>
+                            ),
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <Button
+                                  onClick={() => setShowPassword(!showPassword)}
+                                  color="secondary"
+                                >
+                                  {!showPassword ? (
+                                    <Image src={EyeCloseIcon} alt="icon" height={24} width={24} />
+                                  ) : (
+                                    <Image src={EyeOpenIcon} alt="icon" height={24} width={24} />
+                                  )}
+                                </Button>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                        <ErrorMessage name="password" />
+                      </FormControl>
+                      <FormControl sx={{ mb: 2 }} fullWidth>
+                        <Field
+                          as={CustomeTextField}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          type={showConfirmPassword ? 'text' : 'password'}
+                          label={`${t('confirm-password')}*`}
+                          variant="outlined"
+                          InputLabelProps={{
+                            shrink: true,
+                            style: { color: '#fff' },
+                          }}
+                          sx={{
+                            input: {
+                              color: '#fff',
+                            },
+                          }}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <Image src={LockIcon} alt="icon" height={20} width={20} />
+                              </InputAdornment>
+                            ),
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <Button
+                                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                  color="secondary"
+                                >
+                                  {!showConfirmPassword ? (
+                                    <Image src={EyeCloseIcon} alt="icon" height={24} width={24} />
+                                  ) : (
+                                    <Image src={EyeOpenIcon} alt="icon" height={24} width={24} />
+                                  )}
+                                </Button>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                        <ErrorMessage name="confirmPassword" />
+                      </FormControl>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Button
-                  sx={{ mt: 4 }}
-                  type={isSubmitting ? `button` : `submit`}
-                  color="secondary"
-                  variant="contained"
-                  size="large"
-                  fullWidth
-                >
-                  {isSubmitting ? `${t('reset-password')}...` : `${t('reset-password')}`}
-                </Button>
-                <Box sx={{ ...displayCenter, mt: 3 }}>
-                  <Button
-                    variant="text"
-                    size="small"
-                    color="inherit"
-                    onClick={() => dispatch(authActions.backToLogInModal())}
-                  >
-                    <KeyboardBackspaceIcon
-                      sx={{ mr: 0.8 }}
-                      fontSize="inherit"
-                    ></KeyboardBackspaceIcon>
-                    {t('back-to-log-in')}
-                  </Button>
-                </Box>
-              </Form>
-            )}
-          </Formik>
-        </Grid>
+                  <Box sx={{ mt: 1 }}>
+                    <PrimaryButton type={isSubmitting ? `button` : `submit`} fullWidth>
+                      {isSubmitting ? `${t('reset-password')}...` : `${t('reset-password')}`}
+                    </PrimaryButton>
+                  </Box>
+                  <Box sx={{ ...displayCenter, mt: 3 }}>
+                    <Button
+                      variant="text"
+                      size="small"
+                      color="inherit"
+                      onClick={() => dispatch(authActions.backToLogInModal())}
+                    >
+                      <KeyboardBackspaceIcon
+                        sx={{ mr: 0.8 }}
+                        fontSize="inherit"
+                      ></KeyboardBackspaceIcon>
+                      {t('back-to-log-in')}
+                    </Button>
+                  </Box>
+                </Form>
+              )}
+            </Formik>
+          </Grid>
+        </Box>
       </Box>
     </Modal>
   );

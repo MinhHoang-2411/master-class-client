@@ -1,30 +1,26 @@
-import LoginWithSocial from '@/components/layouts/LoginWithSocial';
 import Button from '@/components/share/Button';
 import { ErrorMessage } from '@/components/share/ErrorMessage';
-import { displayCenter, styleModal } from '@/declares/modal';
+import { styleModal } from '@/declares/modal';
 import { IModal } from '@/declares/models';
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { setAuth } from '@/utils/auth';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import CloseIcon from '@mui/icons-material/Close';
+import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Modal from '@mui/material/Modal';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { Field, Form, Formik } from 'formik';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { useState } from 'react';
 import * as Yup from 'yup';
-import MailIcon from '../../../public/icons/login/mail.svg';
-import LockIcon from '../../../public/icons/login/lock.svg';
 import EyeCloseIcon from '../../../public/icons/login/eye-close.svg';
 import EyeOpenIcon from '../../../public/icons/login/eye-open.svg';
-import { styled } from '@mui/material/styles';
-import { InputLabel, OutlinedInput, TextField, useTheme, withStyles } from '@mui/material';
+import LockIcon from '../../../public/icons/login/lock.svg';
+import MailIcon from '../../../public/icons/login/mail.svg';
 import bgImage from '../../../public/images/bground.svg';
 
 interface ILogin {
@@ -154,9 +150,6 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
               <Form>
                 <FormControl sx={{ mb: 3, mt: 3 }} fullWidth>
                   <Field
-                    onClick={() => {
-                      console.log({ MailIcon, bgImage });
-                    }}
                     as={CustomeTextField}
                     id="email"
                     name="email"

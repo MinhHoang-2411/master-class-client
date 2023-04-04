@@ -44,98 +44,114 @@ const SendEmail = ({ isOpen, CloseModal }: IModal) => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
             flexDirection: 'column',
-            mb: 4,
+            height: '100%',
+            justifyContent: 'center',
+            width: '550px',
+            margin: '0 auto'
           }}
         >
           <Box
             sx={{
-              bgcolor: '#f1f1f1',
-              width: 50,
-              height: 50,
-              borderRadius: '50%',
               display: 'flex',
-              alignItems: 'center',
               justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              mb: 6,
             }}
           >
-            <KeyIcon color="secondary" />
-          </Box>
-          <Typography variant="h5" component="h2" sx={{ textAlign: 'center', mb: 2, mt: 2 }}>
-            {t('forgot-password')}
-          </Typography>
+            <Box
+              sx={{
+                bgcolor: '#f1f1f1',
+                width: 50,
+                height: 50,
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <KeyIcon color="primary" />
+            </Box>
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{ textAlign: 'center', mb: 2, mt: 2, color: '#fff' }}
+            >
+              {t('forgot-password')}
+            </Typography>
 
-          <Typography
-            variant="body1"
-            component="span"
-            color="primary.light"
-            sx={{ textAlign: 'center' }}
-          >
-            {t('no-worries-instrucions')}
-          </Typography>
-        </Box>
-        <Grid sx={{ mb: 2 }}>
-          <Formik
-            initialValues={{ email: '' }}
-            validateOnBlur={false}
-            validationSchema={SendEmailSchema}
-            onSubmit={onSubmit}
-          >
-            {({ isSubmitting }) => (
-              <Form className={`h-100`}>
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                  <Grid item xs={12}>
-                    <FormControl sx={{ mb: 4, mt: 1 }} fullWidth>
-                      <Field
-                        as={CustomeTextField}
-                        id="email"
-                        name="email"
-                        label="Email*"
-                        variant="outlined"
-                        InputLabelProps={{
-                          shrink: true,
-                          style: { color: '#fff' },
-                        }}
-                        sx={{
-                          input: {
-                            color: '#fff',
-                          },
-                        }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Image src={MailIcon} alt="icon" height={20} width={20} />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      <ErrorMessage name="email" />
-                    </FormControl>
+            <Typography
+              variant="body1"
+              component="span"
+              color="primary.light"
+              sx={{ textAlign: 'center' }}
+            >
+              {t('no-worries-instrucions')}
+            </Typography>
+          </Box>
+          <Grid sx={{ mb: 2 }}>
+            <Formik
+              initialValues={{ email: '' }}
+              validateOnBlur={false}
+              validationSchema={SendEmailSchema}
+              onSubmit={onSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form className={`h-100`}>
+                  <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    <Grid item xs={12}>
+                      <FormControl sx={{ mb: 4, mt: 1 }} fullWidth>
+                        <Field
+                          as={CustomeTextField}
+                          id="email"
+                          name="email"
+                          label="Email*"
+                          fullWidth
+                          variant="outlined"
+                          InputLabelProps={{
+                            shrink: true,
+                            style: { color: '#fff' },
+                          }}
+                          sx={{
+                            input: {
+                              color: '#fff',
+                            },
+                          }}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <Image src={MailIcon} alt="icon" height={20} width={20} />
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                        <ErrorMessage name="email" />
+                      </FormControl>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <PrimaryButton type={isSubmitting ? `button` : `submit`} fullWidth>
-                  {isSubmitting ? `${t('send-email')}...` : `${t('send-email')}`}
-                </PrimaryButton>
-                <Box sx={{ ...displayCenter, mt: 3 }}>
-                  <Button
-                    variant="text"
-                    size="small"
-                    color="inherit"
-                    onClick={() => dispatch(authActions.backToLogInModal())}
-                  >
-                    <KeyboardBackspaceIcon
-                      sx={{ mr: 0.8 }}
-                      fontSize="inherit"
-                    ></KeyboardBackspaceIcon>
-                    {t('back-to-log-in')}
-                  </Button>
-                </Box>
-              </Form>
-            )}
-          </Formik>
-        </Grid>
+                  <PrimaryButton type={isSubmitting ? `button` : `submit`} fullWidth>
+                    {isSubmitting ? `${t('send-email')}...` : `${t('send-email')}`}
+                  </PrimaryButton>
+                  <Box sx={{ ...displayCenter, mt: 3 }}>
+                    <Button
+                      variant="text"
+                      size="small"
+                      color="inherit"
+                      onClick={() => dispatch(authActions.backToLogInModal())}
+                    >
+                      <KeyboardBackspaceIcon
+                        sx={{ mr: 0.8 }}
+                        fontSize="inherit"
+                      ></KeyboardBackspaceIcon>
+                      {t('back-to-log-in')}
+                    </Button>
+                  </Box>
+                </Form>
+              )}
+            </Formik>
+          </Grid>
+        </Box>
       </Box>
     </Modal>
   );
