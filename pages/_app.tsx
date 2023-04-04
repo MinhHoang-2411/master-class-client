@@ -10,6 +10,8 @@ import { store } from '../store';
 import theme from '../utils/theme';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 import { appWithTranslation } from 'next-i18next';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
