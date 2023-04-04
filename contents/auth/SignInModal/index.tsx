@@ -97,7 +97,7 @@ const SignInModal = ({ isOpen, CloseModal }: IModal) => {
 
   return (
     <Modal open={isOpen} onClose={CloseModal}>
-      <Box sx={{ ...styleModal, backgroundImage: `url(${bgImage.src})` }}>
+      <Box sx={{ ...styleModal }}>
         <Box sx={{ position: 'absolute', top: '32px', right: '32px', display: 'flex' }}>
           <Button
             sx={{

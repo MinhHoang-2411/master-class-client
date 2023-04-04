@@ -14,6 +14,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { appWithTranslation } from 'next-i18next';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import dynamic from 'next/dynamic';
+const Footer = dynamic(() => import('@/components/layouts/Footer'), { ssr: false });
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -45,6 +47,7 @@ function App({ Component, pageProps }: AppProps) {
             <MyLayout>
               <CssBaseline />
               <Component {...pageProps} />
+              <Footer />
               <ToastContainer />
             </MyLayout>
           </GoogleOAuthProvider>
