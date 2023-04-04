@@ -18,7 +18,7 @@ export const ShowCounter = (props: ShowCounter) => {
         <DateTimeDisplay value={hours} type={'Hours'} isDanger={false} />
         {hours > 0 && <p>:</p>} */}
         <DateTimeDisplay value={minutes} type={'Mins'} isDanger={false} />
-        {minutes > 0 && <p style={{ marginTop: 0 }}>:</p>}
+        {minutes > 0 && <p style={{ marginTop: 0, color: '#fff' }}>:</p>}
         <DateTimeDisplay value={seconds} type={'Seconds'} isDanger={false} />
       </div>
     </div>

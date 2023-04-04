@@ -1,5 +1,6 @@
 import Button from '@/components/share/Button';
 import { ErrorMessage } from '@/components/share/ErrorMessage';
+import PrimaryButton from '@/components/share/PrimaryButton';
 import { TOKEN_FORGOT_PASS } from '@/constants/auth';
 import { displayCenter, styleModal } from '@/declares/modal';
 import { IModal, VerifyCodeModel } from '@/declares/models';
@@ -63,82 +64,95 @@ const VerifyCode = ({ isOpen, CloseModal }: IModal) => {
   return (
     <Modal open={isOpen} onClose={CloseModal}>
       <Box sx={styleModal}>
-        <Box sx={{ ...displayCenter, flexDirection: 'column' }}>
-          <Box
-            sx={{
-              ...displayCenter,
-              bgcolor: '#f1f1f1',
-              width: 50,
-              height: 50,
-              borderRadius: '50%',
-            }}
-          >
-            <EmailIcon color="secondary" />
-          </Box>
-          <Typography variant="h5" component="h2" sx={{ textAlign: 'center', mb: 2, mt: 2 }}>
-            {t('check-your-email')}
-          </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            justifyContent: 'center',
+            width: '550px',
+            margin: '0 auto',
+          }}
+        >
+          <Box sx={{ ...displayCenter, flexDirection: 'column' }}>
+            <Box
+              sx={{
+                ...displayCenter,
+                bgcolor: '#f1f1f1',
+                width: 50,
+                height: 50,
+                borderRadius: '50%',
+              }}
+            >
+              <EmailIcon color="primary" />
+            </Box>
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{ textAlign: 'center', mb: 2, mt: 2, color: '#fff' }}
+            >
+              {t('check-your-email')}
+            </Typography>
 
-          <Typography
-            variant="body1"
-            component="span"
-            color="primary.light"
-            sx={{ textAlign: 'center' }}
-          >
-            {t('enter-the-confirmation-code')}
-          </Typography>
-          <div>
-            <CountdownTimer
-              targetDate={dataTokenForgotPass?.expiresAt}
-              session={TOKEN_FORGOT_PASS}
-            />
-          </div>
+            <Typography
+              variant="body1"
+              component="span"
+              color="primary.light"
+              sx={{ textAlign: 'center' }}
+            >
+              {t('enter-the-confirmation-code')}
+            </Typography>
+            <div>
+              <CountdownTimer
+                targetDate={dataTokenForgotPass?.expiresAt}
+                session={TOKEN_FORGOT_PASS}
+              />
+            </div>
+          </Box>
+          <Grid sx={{ mb: 2 }}>
+            <Formik
+              initialValues={{ arrayCode: '' }}
+              validateOnBlur={false}
+              validationSchema={VerifySchema}
+              onSubmit={onSubmit}
+            >
+              {({ setFieldValue }) => (
+                <Form className={`h-100`}>
+                  <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    <InputCodeComponent
+                      onChange={onChange}
+                      setFieldValue={setFieldValue}
+                      codeOTP={codeOTP}
+                    />
+                  </Grid>
+                  <Box sx={{ mt: 5 }}>
+                    <PrimaryButton
+                      type={isSubmitting ? `button` : `submit`}
+                      fullWidth
+                      onClick={onSubmit}
+                    >
+                      {isSubmitting ? `${t('verify')}...` : `${t('verify')}`}
+                    </PrimaryButton>
+                  </Box>
+                  <Box sx={{ ...displayCenter, mt: 3 }}>
+                    <Button
+                      variant="text"
+                      size="small"
+                      color="inherit"
+                      onClick={() => dispatch(authActions.backToLogInModal())}
+                    >
+                      <KeyboardBackspaceIcon
+                        sx={{ mr: 0.8 }}
+                        fontSize="inherit"
+                      ></KeyboardBackspaceIcon>
+                      {t('back-to-log-in')}
+                    </Button>
+                  </Box>
+                </Form>
+              )}
+            </Formik>
+          </Grid>
         </Box>
-        <Grid sx={{ mb: 2 }}>
-          <Formik
-            initialValues={{ arrayCode: '' }}
-            validateOnBlur={false}
-            validationSchema={VerifySchema}
-            onSubmit={onSubmit}
-          >
-            {({ setFieldValue }) => (
-              <Form className={`h-100`}>
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                  <InputCodeComponent
-                    onChange={onChange}
-                    setFieldValue={setFieldValue}
-                    codeOTP={codeOTP}
-                  />
-                </Grid>
-                <Button
-                  type={isSubmitting ? `button` : `submit`}
-                  color="secondary"
-                  variant="contained"
-                  size="large"
-                  fullWidth
-                  onClick={onSubmit}
-                  sx={{ mt: 5 }}
-                >
-                  {isSubmitting ? `${t('verify')}...` : `${t('verify')}`}
-                </Button>
-                <Box sx={{ ...displayCenter, mt: 3 }}>
-                  <Button
-                    variant="text"
-                    size="small"
-                    color="inherit"
-                    onClick={() => dispatch(authActions.backToLogInModal())}
-                  >
-                    <KeyboardBackspaceIcon
-                      sx={{ mr: 0.8 }}
-                      fontSize="inherit"
-                    ></KeyboardBackspaceIcon>
-                    {t('back-to-log-in')}
-                  </Button>
-                </Box>
-              </Form>
-            )}
-          </Formik>
-        </Grid>
       </Box>
     </Modal>
   );
