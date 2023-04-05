@@ -10,5 +10,4 @@ export interface UserModel {
     socialName?: string;
   };
   stripeCustomerId?: string;
-  id?: string | number;
 }
