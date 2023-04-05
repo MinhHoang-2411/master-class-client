@@ -12,28 +12,28 @@ import LogoWhite from '../../public/logo-white.png';
 import Image from 'next/image';
 
 const dataExplores = [
-  { _id: 1, title: 'TheRaisedHands Live' },
-  { _id: 2, title: 'Articles' },
-  { _id: 3, title: 'Sitemap' },
-  { _id: 4, title: 'Gifts' },
+  { id: 1, title: 'TheRaisedHands Live' },
+  { id: 2, title: 'Articles' },
+  { id: 3, title: 'Sitemap' },
+  { id: 4, title: 'Gifts' },
 ];
 
 const dataAbouts = [
-  { _id: 1, title: 'Carreers' },
-  { _id: 2, title: 'Newsroom' },
-  { _id: 3, title: 'Security' },
-  { _id: 4, title: 'Privacy' },
-  { _id: 5, title: 'Term' },
-  { _id: 6, title: 'Social Impact' },
-  { _id: 7, title: 'TheRaisedHands at Work' },
-  { _id: 8, title: 'Support' },
+  { id: 1, title: 'Carreers' },
+  { id: 2, title: 'Newsroom' },
+  { id: 3, title: 'Security' },
+  { id: 4, title: 'Privacy' },
+  { id: 5, title: 'Term' },
+  { id: 6, title: 'Social Impact' },
+  { id: 7, title: 'TheRaisedHands at Work' },
+  { id: 8, title: 'Support' },
 ];
 
 const dataSocials = [
-  { _id: 1, title: 'Twitter', icon: TwitterIcon },
-  { _id: 2, title: 'Instagram', icon: InstagramIcon },
-  { _id: 3, title: 'Facebook', icon: FacebookIcon },
-  { _id: 4, title: 'YouTube', icon: YoutubeIcon },
+  { id: 1, title: 'Twitter', icon: TwitterIcon },
+  { id: 2, title: 'Instagram', icon: InstagramIcon },
+  { id: 3, title: 'Facebook', icon: FacebookIcon },
+  { id: 4, title: 'YouTube', icon: YoutubeIcon },
 ];
 
 const CustomTypography = styled(Typography)({
@@ -53,7 +53,7 @@ const Footer = () => {
               Explore
             </CustomTypography>
             {dataExplores.map((item: any) => (
-              <CustomTypography key={item._id}>{item.title}</CustomTypography>
+              <CustomTypography key={item.id}>{item.title}</CustomTypography>
             ))}
           </Grid>
           <Grid item lg={3} md={3} xs={6}>
@@ -61,7 +61,7 @@ const Footer = () => {
               About
             </CustomTypography>
             {dataAbouts.map((item: any) => (
-              <CustomTypography key={item._id}>{item.title}</CustomTypography>
+              <CustomTypography key={item.id}>{item.title}</CustomTypography>
             ))}
           </Grid>
           <Grid item lg={3} md={3} xs={6}>
@@ -69,7 +69,7 @@ const Footer = () => {
               Social
             </CustomTypography>
             {dataSocials.map((item: any) => (
-              <Box key={item._id} sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
+              <Box key={item.id} sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
                 <Image
                   src={item.icon}
                   alt="icon"

@@ -153,7 +153,7 @@ const BookmarkComponent = ({ courses, onDeleteBookmarkClass }: Props) => {
                             className={styles['button-watch']}
                             onClick={() =>
                               onDeleteBookmarkClass({
-                                modelId: courses._id,
+                                modelId: courses.id,
                                 modelType: 'CLASSES',
                               })
                             }

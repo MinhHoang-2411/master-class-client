@@ -2,7 +2,7 @@ export interface ResponseGetListProduct {
   success?: boolean;
   message?: string;
   data?: {
-    _id: string;
+    id: string;
     amount: number;
     currency: string;
     intervalCount: number;
@@ -17,7 +17,7 @@ export interface ResponseGetListCard {
   success: boolean;
   message: string;
   data: {
-    _id: string;
+    id: string;
     isDefault: boolean;
     cardId: string;
     brand: string;
@@ -31,7 +31,7 @@ export interface ResponseGetListSubscription {
   message: string;
   data: [
     {
-      _id: string;
+      id: string;
       cancelAtPeriodEnd: boolean;
       cancelAt?: any;
       canceledAt?: any;
@@ -63,7 +63,7 @@ export interface ResponseCreateCard {
 export interface ResponseAddCardToCustomer {
   data?: {
     cardId: string;
-    _id: string;
+    id: string;
   };
 }
 

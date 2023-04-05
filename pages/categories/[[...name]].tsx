@@ -19,7 +19,7 @@ const Categories = (props: CategoriesModel) => {
     if (nameCategory === 'all-classes')
       return {
         name: t('browse-classes-and-original-series'),
-        _id: null,
+        id: null,
       };
     return listCategories?.find((element) => element?.url === nameCategory) as CategoryModel;
   };
@@ -34,7 +34,7 @@ const Categories = (props: CategoriesModel) => {
             className={`${styles.row} ${styles.Courses_CoursesSectionContent} ${styles.mc_mx_0}`}
           >
             <SubMenuCategories nameCategory={nameCategory} listCategories={listCategories} />
-            <ListClass idCategory={getTitleCategory()?._id} />
+            <ListClass idCategory={getTitleCategory()?.id} />
           </div>
         </section>
       </main>

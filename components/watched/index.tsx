@@ -63,14 +63,14 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
       return prepareString;
     };
     const webName = NormalizeWebName(lesson?.authorName?.trim() + ' ' + lesson?.name?.trim());
-    router.push(`/classes/${webName}/lessons/${lesson?.lessons?._id}`);
+    router.push(`/classes/${webName}/lessons/${lesson?.lessons?.id}`);
   };
 
   return (
     <>
       <Grid container spacing={4} sx={{ mt: 0.5 }}>
         {myWatching?.map((lesson: any) => (
-          <Grid item key={lesson?._id} xs={12} sm={6} md={4}>
+          <Grid item key={lesson?.id} xs={12} sm={6} md={4}>
             <Card sx={{ backgroundColor: '#1e1e2d', color: '#fff' }}>
               <Box sx={{ p: 2.5, pb: 3, display: 'flex', alignItems: 'center', width: '100%' }}>
                 <Box sx={{ pr: 2 }}>
@@ -103,7 +103,7 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
                         variant="determinate"
                         value={ProcessTotalLesson(lesson?.totalWatching, lesson?.totalLesson)}
                         sx={{
-                          backgroundColor: "#707070",
+                          backgroundColor: '#707070',
                           '& .MuiLinearProgress-barColorPrimary': {
                             backgroundColor: '#fff',
                           },
@@ -153,7 +153,7 @@ const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
                   </Box>
                   <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
                     <Button sx={{ ...styleBtnSignUp }} onClick={() => onRedirectLesson(lesson)}>
-                      <PlayArrowIcon sx={{ marginRight: .8, height: '20px' }} />
+                      <PlayArrowIcon sx={{ marginRight: 0.8, height: '20px' }} />
                       {t('Resume')}
                     </Button>
                   </Box>

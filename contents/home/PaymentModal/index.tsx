@@ -71,7 +71,7 @@ const PaymentModal = ({ isOpen, closeModal }: Props) => {
         </Box>
         <Grid container spacing={2}>
           {listProduct.map((product, index) => (
-            <Grid key={product?._id} item xs={6} lg={3}>
+            <Grid key={product?.id} item xs={6} lg={3}>
               <Card
                 sx={{
                   p: 2,

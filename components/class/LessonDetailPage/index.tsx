@@ -47,7 +47,7 @@ interface Category {
   name?: string;
   priority?: number;
   updatedAt?: string;
-  _id?: string;
+  id?: string;
 }
 
 const LessonDetailPageComponent = ({
@@ -130,13 +130,9 @@ const LessonDetailPageComponent = ({
   }, []);
 
   useEffect(() => {
-    const _categories: Category = categories?.map((item: any) =>
-      classes?.categories?.includes(item?._id)
-        ? { ...item, exist: true }
-        : { ...item, exist: false }
+    setListCategory(
+      categories?.filter((item: any) => classes?.categories?.some((cl: any) => cl?.id === item?.id))
     );
-
-    setListCategory(_categories);
     setLightVideo(lesson?.thumbnail);
   }, [lesson, classes]);
 
@@ -167,10 +163,10 @@ const LessonDetailPageComponent = ({
     const myWatching: any = localStorage.getItem('myWatching');
     const _value = JSON.parse(myWatching);
     const params = {
-      lessonId: lesson?._id,
+      lessonId: lesson?.id,
       secondLastView: _value?.secondLastView,
       isFinished: false,
-      historyLessonId: lesson?.historylessons?._id,
+      historyLessonId: lesson?.historylessons?.id,
     };
     setPlayedEnded(false);
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
@@ -181,17 +177,17 @@ const LessonDetailPageComponent = ({
     const myWatching: any = localStorage.getItem('myWatching');
     const _value = JSON.parse(myWatching);
     const params = {
-      lessonId: lesson?._id,
+      lessonId: lesson?.id,
       secondLastView: _value?.secondLastView,
       isFinished: true,
-      historyLessonId: lesson?.historylessons?._id,
+      historyLessonId: lesson?.historylessons?.id,
     };
     setPlayedEnded(true);
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
     setPlayingVideo(false);
   };
 
-  console.log('classes', classes.lessons);
+  console.log('classes', classes?.lessons);
   return (
     <main className={styles.page_content}>
       <Container>
@@ -272,14 +268,22 @@ const LessonDetailPageComponent = ({
                   className={styles.navLesson}
                 >
                   <Stack spacing={1}>
-                    {isMappable(classes.lessons) ? (
+                    {isMappable(classes?.lessons) ? (
                       classes?.lessons?.map((lesson: any, index: number) => (
                         <ListItemButton
-                          selected={indexSelectedLesson === index}
+                          selected={lesson?.id.toString() === router.query?.lessonsId}
                           onClick={() => {
-                            onChangeVideoLesson(lesson?._id, index);
+                            onChangeVideoLesson(lesson?.id, index);
+                            console.log({
+                              classes: classes,
+                              liscateRaw: categories,
+                              listcate: listCategory,
+                              condition: lesson?.id.toString() === router.query?.lessonsId,
+                              lessonId: lesson.id,
+                              id: router.query?.lessonsId,
+                            });
                           }}
-                          key={lesson?._id}
+                          key={lesson?.id}
                           sx={{
                             transition: 'all 0s ease-in',
                             borderRadius: '8px',
@@ -313,7 +317,7 @@ const LessonDetailPageComponent = ({
                               mr: 2,
                             }}
                             onClick={(e) => {
-                              if (indexSelectedLesson === index && isPayment) {
+                              if (lesson?.id.toString() === router.query?.lessonsId && isPayment) {
                                 e.stopPropagation();
                                 setLightVideo(false);
                                 setPlayingVideo(!playingVideo);
@@ -323,7 +327,7 @@ const LessonDetailPageComponent = ({
                           >
                             {!isPayment ? (
                               <LockIcon />
-                            ) : indexSelectedLesson === index ? (
+                            ) : lesson?.id.toString() === router.query?.lessonsId ? (
                               playingVideo && !lightVideo ? (
                                 <PauseIcon sx={{ color: 'white' }} />
                               ) : (
@@ -338,11 +342,11 @@ const LessonDetailPageComponent = ({
                             <ListItemText
                               primary={TimeMinConvert(lesson.duration)}
                               primaryTypographyProps={{ fontSize: '12px' }}
-                              sx={{ 
+                              sx={{
                                 '&.MuiListItemText-root': {
-                                  mt: .1,
-                                  ml: .5
-                                }
+                                  mt: 0.1,
+                                  ml: 0.5,
+                                },
                               }}
                             />
                           </Stack>
@@ -409,7 +413,7 @@ const LessonDetailPageComponent = ({
                   {classes?.authorName}
                 </span>
                 <span style={{ color: '#808080', fontSize: '14px' }}>{`${
-                  classes.lessons.length
+                  classes.lessons?.length
                 } videos (${TimeConvert(
                   classes?.lessons?.[indexSelectedLesson]?.duration
                 )})`}</span>
@@ -437,14 +441,18 @@ const LessonDetailPageComponent = ({
                 {isMappable(listCategory) ? (
                   listCategory.map((cate: Category, index: number) => (
                     <Box
-                      key={cate._id}
+                      key={cate.id}
                       sx={{
                         p: '8px 16px',
-                        color: cate.exist ? '#232627' : '#6C7275',
+                        color: '#6C7275',
                         border: '1px solid #343839',
                         borderRadius: '6px',
-                        background: cate.exist ? '#FFEA7C' : 'transparent',
+                        background: 'transparent',
                         fontSize: '12px',
+                        '&: hover': {
+                          background: '#FFEA7C',
+                          color: '#232627',
+                        },
                       }}
                     >
                       {cate.name}

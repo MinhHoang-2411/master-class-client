@@ -26,7 +26,7 @@ const LoginFacebook = () => {
   return (
     <div className={styles.buttonLoginFacebook}>
       <FacebookLogin
-        appId={process.env.NEXT_PUBLIC_FB_APP_ID || ''}
+        appId={process.env.NEXT_PUBLIC_FB_APPid || ''}
         autoLoad={false}
         fields="name,email,picture,id"
         responseType={`token`}

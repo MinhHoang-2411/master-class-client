@@ -247,12 +247,12 @@ const PreviewDetailClass = ({ classes, categories, isFavourite, setIsFavourite }
                           {isFavourite ? (
                             <BookmarkIcon
                               className={`${styles['mc-icon']} ${styles['mc-icon--lg']} ${styles['mc-icon--4']} ${styles['mc-mb-4']}`}
-                              onClick={() => onDeleteBookmarkClass(classes._id)}
+                              onClick={() => onDeleteBookmarkClass(classes.id)}
                             />
                           ) : (
                             <BookmarkBorderIcon
                               className={`${styles['mc-icon']} ${styles['mc-icon--lg']} ${styles['mc-icon--4']} ${styles['mc-mb-4']}`}
-                              onClick={() => onBookmarkClass(classes._id)}
+                              onClick={() => onBookmarkClass(classes.id)}
                             />
                           )}
                           {t('bookmark')}

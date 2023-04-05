@@ -1,5 +1,5 @@
 export interface WatchingModel {
-  _id: string;
+  id: string;
   name?: string;
   title?: string;
   description?: string;
