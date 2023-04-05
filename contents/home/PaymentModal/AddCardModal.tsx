@@ -141,7 +141,7 @@ const AddCardModal = ({ isOpen, closeModal }: Props) => {
             const params = {
               formData,
               stripeCustomerId: currentUser?.stripeCustomerId,
-              priceId: product?.priceId,
+              priceId: product?.priceStripeId,
               setSubmitting,
               currency: product?.currency,
             };
