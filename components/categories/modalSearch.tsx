@@ -108,7 +108,7 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
   };
 
   const renderListCategory = useCallback(() => {
-    return listCategories?.map((item, index) => {
+    return listCategories?.map((item: any, index) => {
       return (
         <button
           key={index}
