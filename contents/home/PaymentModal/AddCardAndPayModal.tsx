@@ -162,7 +162,7 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
             const params = {
               formData,
               stripeCustomerId: currentUser?.stripeCustomerId,
-              priceId: product?.priceId,
+              priceId: product?.priceStripeId,
               setSubmitting,
               currency: product?.currency,
             };
@@ -227,7 +227,7 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                                 cursor: 'pointer',
                                 border: '1px solid #ccc',
                               }}
-                              key={card?._id}
+                              key={card?.id}
                             >
                               <Stack
                                 direction="row"
@@ -393,7 +393,7 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                         if (!show) {
                           dispatch(
                             paymentActions.createSubscription({
-                              priceId: product?.priceId,
+                              priceId: product?.priceStripeId,
                               paymentMethod,
                               stripeCustomerId: currentUser?.stripeCustomerId,
                               currency: product?.currency,

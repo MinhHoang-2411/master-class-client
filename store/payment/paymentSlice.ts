@@ -11,12 +11,12 @@ interface IPaymentState {
 
   listProduct:
     | {
-        _id: string;
+        id: string;
         amount: number;
         currency: string;
         intervalCount: number;
-        productId: string;
-        priceId: string;
+        productStripeId: string;
+        priceStripeId: string;
         name: string;
         interval: string;
       }[]
@@ -28,14 +28,14 @@ interface IPaymentState {
     interval?: string;
     intervalCount?: number;
     name?: string;
-    priceId?: string;
-    productId?: string;
-    _id?: string;
+    priceStripeId?: string;
+    productStripeId?: string;
+    id?: string;
   };
 
   listCard:
     | {
-        _id?: string;
+        id?: string;
         isDefault?: boolean;
         cardId?: string;
         brand?:
@@ -54,7 +54,7 @@ interface IPaymentState {
 
   listSubscription:
     | {
-        _id: string;
+        id: string;
         cancelAtPeriodEnd: false;
         cancelAt?: any;
         canceledAt?: any;

@@ -25,7 +25,7 @@ const AboutClass = ({ classes, categories }: Props) => {
   const [lightVideo, setLightVideo] = useState<any>(false);
 
   useEffect(() => {
-    setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?._id)));
+    setListCategory(categories?.filter((item: any) => classes?.categories?.includes(item?.id)));
     setLightVideo(classes?.videoPreview?.thumbnail);
   }, [classes]);
 
@@ -111,7 +111,7 @@ const AboutClass = ({ classes, categories }: Props) => {
                       duration={lesson?.duration}
                       index={index}
                       key={lesson?.index}
-                      lessonId={lesson?._id}
+                      lessonId={lesson?.id}
                     />
                   ))
                 ) : (
@@ -151,7 +151,10 @@ const AboutClass = ({ classes, categories }: Props) => {
               <Typography sx={{ fontWeight: 'bold', fontSize: '14px', pl: 1 }} component="p">
                 {isMappable(listCategory)
                   ? listCategory.map((cate: any, index: number) => (
-                      <div key={cate?._id} className={`${styles.headerCategory} ${index > 0 ? styles.mrL : ''}`}>
+                      <div
+                        key={cate?.id}
+                        className={`${styles.headerCategory} ${index > 0 ? styles.mrL : ''}`}
+                      >
                         {`${cate?.name}${index + 1 !== listCategory.length ? ', ' : ''}`}
                       </div>
                     ))

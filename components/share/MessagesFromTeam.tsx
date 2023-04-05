@@ -18,15 +18,15 @@ interface MessagesFromTeamModel {
 
 const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
   const { t } = useTranslation('common');
-  const messagesTeam = layoutPage?.messagesTeam;
+  const messageTeam = layoutPage?.messageTeam;
 
-  const [lightVideoFounder, setLightVideoFounder] = useState(messagesTeam?.[0]?.thumbnail);
+  const [lightVideoFounder, setLightVideoFounder] = useState(messageTeam?.[0]?.thumbnail);
   const [playingVideoFounder, setPlayingVideoFounder] = useState(false);
 
-  const [lightVideoCEO, setLightVideoCEO] = useState(messagesTeam?.[1]?.thumbnail);
+  const [lightVideoCEO, setLightVideoCEO] = useState(messageTeam?.[1]?.thumbnail);
   const [playingVideoCEO, setPlayingVideoCEO] = useState(false);
 
-  const [lightVideoTrainer, setLightVideoTrainer] = useState(messagesTeam?.[2]?.thumbnail);
+  const [lightVideoTrainer, setLightVideoTrainer] = useState(messageTeam?.[2]?.thumbnail);
   const [playingVideoTrainer, setPlayingVideoTrainer] = useState(false);
 
   return (
@@ -60,7 +60,7 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
         <Grid item xs={6} sm={6} md={6} sx={{ padding: '20px !important' }}>
           <ReactPlayer
             light={lightVideoFounder}
-            url={messagesTeam?.[0]?.url}
+            url={messageTeam?.[0]?.url}
             controls={true}
             width="100%"
             playing={playingVideoFounder}
@@ -81,7 +81,7 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
         >
           <ReactPlayer
             light={lightVideoCEO}
-            url={messagesTeam?.[1]?.url}
+            url={messageTeam?.[1]?.url}
             controls={true}
             width="100%"
             playing={playingVideoCEO}
@@ -107,7 +107,7 @@ const MessagesFromTeam: React.FC<MessagesFromTeamModel> = ({ layoutPage }) => {
         <Grid item xs={7} sm={7} md={7} sx={{ padding: '20px !important' }}>
           <ReactPlayer
             light={lightVideoTrainer}
-            url={messagesTeam?.[2]?.url}
+            url={messageTeam?.[2]?.url}
             controls={true}
             width="100%"
             playing={playingVideoTrainer}

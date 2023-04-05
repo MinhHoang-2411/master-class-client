@@ -1,5 +1,5 @@
 export interface BannerModel {
-  _id: string;
+  id: string;
   name?: string;
   title?: string;
   description?: string;

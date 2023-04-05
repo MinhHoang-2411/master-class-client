@@ -6,25 +6,25 @@ const data = [
   {
     name: 'A Basic Guide to Media Literacy: How to Be Media Literate',
     srcImg: 'https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821__480.jpg',
-    _id: 1,
+    id: 1,
   },
   {
     name: 'Double Declining Balance Method: Calculating DDB Depreciation',
     srcImg:
       'https://rewildingbritain.imgix.net/images/What-are-natural-processes.jpg?auto=format&crop=focalpoint&domain=rewildingbritain.imgix.net&fit=crop&fp-x=0.5&fp-y=0.5&h=1125&ixlib=php-3.3.1&q=82&usm=20&w=2000',
-    _id: 2,
+    id: 2,
   },
   {
     name: 'How to Freeze Grapes: 5 Ways to Use Frozen Grapes',
     srcImg:
       'https://www.travelonline.com/news/5-natural-landscapes-so-incredible-you-wont-believe-theyre-real-72515-ws.jpg',
-    _id: 3,
+    id: 3,
   },
   {
     name: 'Sound Art Guide: Understanding the Elements of Sound Art',
     srcImg:
       'https://img.redbull.com/images/c_limit,w_1500,h_1000,f_auto,q_auto/redbullcom/2015/07/27/1331737542701_2/moon-hill-natural-bridge-in-china',
-    _id: 4,
+    id: 4,
   },
 ];
 const ArticlesPopular = () => {
@@ -43,7 +43,7 @@ const ArticlesPopular = () => {
 
       {data.map((item: any, index: number) => (
         <Box
-          key={item._id}
+          key={item.id}
           sx={{
             mt: 2,
             mb: 3,

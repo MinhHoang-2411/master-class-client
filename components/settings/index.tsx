@@ -173,7 +173,7 @@ const SettingComponent = ({}: Props) => {
                 {listCard?.length > 0 ? (
                   <Stack spacing={1}>
                     {listCard?.map((card) => (
-                      <Stack key={card?._id} direction="row" spacing={2} alignItems="center">
+                      <Stack key={card?.id} direction="row" spacing={2} alignItems="center">
                         <Box
                           sx={{
                             padding: '16px',
@@ -201,7 +201,7 @@ const SettingComponent = ({}: Props) => {
                           sx={{ height: '40px', textTransform: 'capitalize' }}
                           onClick={() => {
                             setIsOpenModalConfirmCard(true);
-                            setCardId(card._id as string);
+                            setCardId(card.id as string);
                           }}
                         >
                           <b>Delete</b>
@@ -263,7 +263,7 @@ const SettingComponent = ({}: Props) => {
                   {listSubscription.length > 0 ? (
                     listSubscription.map((subs) => (
                       <Stack
-                        key={subs._id}
+                        key={subs.id}
                         sx={{ width: '500px', border: '1px solid #ccc', borderRadius: 1, p: 2 }}
                       >
                         <Stack direction="row" justifyContent="space-between">

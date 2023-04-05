@@ -5,7 +5,7 @@ import { Box, Container } from '@mui/material';
 import Typography from '../share/Typography';
 
 interface Category {
-  _id: string;
+  id: string;
   isActive: boolean;
   name: string;
   priority: number;
@@ -117,7 +117,7 @@ const ArticlesCategories = ({ categories }: IProps) => {
         <Box>
           <Slider {...settings}>
             {categories?.map((category: Category) => (
-              <CategoryItem key={category._id} name={category.name} />
+              <CategoryItem key={category.id} name={category.name} />
             ))}
           </Slider>
         </Box>

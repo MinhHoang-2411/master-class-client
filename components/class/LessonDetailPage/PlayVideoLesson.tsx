@@ -55,9 +55,9 @@ const PlayVideoLesson = ({
         onProgress={(progress) =>
           onSavedValueWacthing(
             progress.playedSeconds,
-            lesson?._id,
+            lesson?.id,
             playedEnded,
-            lesson?.historylessons?._id
+            lesson?.historylessons?.id
           )
         }
         onStart={() => {

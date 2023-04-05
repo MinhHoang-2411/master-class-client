@@ -114,7 +114,7 @@ const ModalSearch: React.FC<SearchModel> = (props) => {
           key={index}
           className={styles.dropdown_item}
           role="option"
-          onClick={() => handleSelectCategory(item?._id, item?.name)}
+          onClick={() => handleSelectCategory(item?.id, item?.name)}
         >
           <p className={styles.dropdown_text_search}>
             <span className="d-block">{item?.name}</span>

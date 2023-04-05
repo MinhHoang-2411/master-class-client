@@ -78,7 +78,7 @@ function* handleAddCardAndPayToCustomer(action: {
       stripeCustomerId: action.payload.stripeCustomerId,
       setSubmitting: action.payload.setSubmitting,
       currency: action.payload.currency,
-      cardId: responseAddCard.data?._id,
+      cardId: responseAddCard.data?.id,
     };
     yield put(paymentActions.createSubscription(subscriptionParams));
   } catch (error: any) {

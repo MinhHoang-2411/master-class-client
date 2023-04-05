@@ -1,5 +1,5 @@
 export interface CategoryModel {
-  _id: string;
+  id: string;
   name: string;
   url: string;
   isActive: boolean;

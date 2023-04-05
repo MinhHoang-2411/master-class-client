@@ -112,7 +112,7 @@ const SlickCarousel = ({ courses }: Props) => {
     <>
       <Slider {...settings}>
         {courses?.map((course: any) => (
-          <div className={styles.card} key={course?._id}>
+          <div className={styles.card} key={course?.id}>
             <Link className={styles['button-view']} href={`/classes/${course?.webName}` || '#'}>
               <div className={styles.card_top}>
                 <img src={course?.thumbnail} alt={course?.name} />

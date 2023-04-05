@@ -7,31 +7,31 @@ const data = [
     name: 'How to Eat Crawfish in 4 Steps',
     des: 'Learning how to eat crawfish only adds to the experience of sitting down at a table with piles of napkins and good friends and family.',
     time: 'Feb 21, 2023',
-    _id: 1,
+    id: 1,
   },
   {
     name: 'Simple Cinnamon Butter Recipe: How to Make Cinnamon Butter',
     des: 'Cinnamon butter is an easy-to-make spread for breakfast foods, like oatmeal, and on dinner sides, like candied sweet potatoes. Learn how to make and serve cinnamon butter. Jump',
     time: 'Feb 23, 2023',
-    _id: 2,
+    id: 2,
   },
   {
     name: 'Pumpkin Cinnamon Rolls Recipe With Maple Frosting',
     des: 'Mix pumpkin pie filling into classic cinnamon roll dough for a gooey fall dessert. Learn how to prepare homemade pumpkin cinnamon rolls with maple syrup frosting. Jump to recipe.',
     time: 'Jan 25, 2023',
-    _id: 3,
+    id: 3,
   },
   {
     name: 'How to Taste Wine: 7 Tips From James Suckling',
     des: 'Homemade pumpkin muffins are simple to prepare. Learn how to customize and bake this popular autumnal treat. Jump to recipe.',
     time: 'Feb 11, 2023',
-    _id: 4,
+    id: 4,
   },
 ];
 const ArticlesLatest = () => {
   const { t } = useTranslation('common');
   return (
-    <Box sx={{ mr: 5}}>
+    <Box sx={{ mr: 5 }}>
       <Box sx={{ pb: 1.5, borderBottom: '1px solid rgb(212, 213,217)' }}>
         <Typography
           component={'h4'}
@@ -44,7 +44,7 @@ const ArticlesLatest = () => {
 
       {data.map((item: any, index: number) => (
         <Box
-          key={item._id}
+          key={item.id}
           sx={{
             mt: 2,
             mb: 3,

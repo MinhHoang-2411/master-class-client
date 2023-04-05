@@ -1,7 +1,7 @@
 import { PaginationParams } from './common';
 
 export interface ClassModel {
-  _id: string;
+  id: string;
   name: string;
   categories: string[];
   title: string;
