@@ -48,6 +48,7 @@ interface Category {
   priority?: number;
   updatedAt?: string;
   id?: string;
+  url?: string;
 }
 
 const LessonDetailPageComponent = ({
@@ -66,6 +67,7 @@ const LessonDetailPageComponent = ({
 
   const loadingCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const listCategories = useAppSelector((state) => state.categories.listData);
 
   const [listCategory, setListCategory] = useState<any>([]);
   const [playingVideo, setPlayingVideo] = useState(false);
@@ -131,7 +133,7 @@ const LessonDetailPageComponent = ({
 
   useEffect(() => {
     setListCategory(
-      categories?.filter((item: any) => classes?.categories?.some((cl: any) => cl?.id === item?.id))
+      listCategories?.filter((item: any) => classes?.categories?.some((cl: any) => cl?.id === item?.id))
     );
     setLightVideo(lesson?.thumbnail);
   }, [lesson, classes]);
@@ -186,8 +188,6 @@ const LessonDetailPageComponent = ({
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
     setPlayingVideo(false);
   };
-
-  console.log('classes', classes?.lessons);
   return (
     <main className={styles.page_content}>
       <Container>
@@ -440,8 +440,9 @@ const LessonDetailPageComponent = ({
               <Box sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: '12px' }}>
                 {isMappable(listCategory) ? (
                   listCategory.map((cate: Category, index: number) => (
-                    <Box
-                      key={cate.id}
+                    <Button
+                    onClick={() => router.push(`/categories/${cate?.url}`)}
+                    key={cate.id}
                       sx={{
                         p: '8px 16px',
                         color: '#6C7275',
@@ -449,6 +450,8 @@ const LessonDetailPageComponent = ({
                         borderRadius: '6px',
                         background: 'transparent',
                         fontSize: '12px',
+                        transition: 'all .5s ease',
+                        textTransform: 'capitalize',
                         '&: hover': {
                           background: '#FFEA7C',
                           color: '#232627',
@@ -456,7 +459,7 @@ const LessonDetailPageComponent = ({
                       }}
                     >
                       {cate.name}
-                    </Box>
+                    </Button>
                   ))
                 ) : (
                   <></>
