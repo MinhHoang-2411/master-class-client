@@ -31,9 +31,10 @@ const PlayVideoLesson = ({
   setPlayedEnded,
   playedEnded,
 }: Props) => {
-  const secondLastView = lesson?.historylessons?.history?.isFinished
+  const secondLastView = lesson?.historyLesson?.isFinished
     ? 0
-    : lesson?.historylessons?.history?.secondLastView;
+    : lesson?.historyLesson?.secondLastView;
+
   return (
     <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
       <ReactPlayer
@@ -57,7 +58,7 @@ const PlayVideoLesson = ({
             progress.playedSeconds,
             lesson?.id,
             playedEnded,
-            lesson?.historylessons?.id
+            lesson?.historyLesson?.id
           )
         }
         onStart={() => {
