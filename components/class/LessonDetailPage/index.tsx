@@ -19,15 +19,20 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
-import LockIcon from '@mui/icons-material/Lock';
+// import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+// import PauseIcon from '@mui/icons-material/Pause';
+// import LockIcon from '@mui/icons-material/Lock';
+
+import PlayIcon from '../../../public/icons/classes/playVideo.svg';
+import PauseIcon from '../../../public/icons/classes/pause.svg';
+import LockIcon from '../../../public/icons/classes/lock.svg';
 
 import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '../../../styles/lessons-page.module.scss';
+import Image from 'next/image';
 
 const PlayVideoLesson = dynamic(() => import('./PlayVideoLesson'), { ssr: false });
 
@@ -60,7 +65,7 @@ const LessonDetailPageComponent = ({
   isPayment,
 }: Iprops) => {
   //payment
-
+  const categoriesRedux = useAppSelector((state) => state.categories.listData);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -133,7 +138,9 @@ const LessonDetailPageComponent = ({
 
   useEffect(() => {
     setListCategory(
-      listCategories?.filter((item: any) => classes?.categories?.some((cl: any) => cl?.id === item?.id))
+      listCategories?.filter((item: any) =>
+        classes?.categories?.some((cl: any) => cl?.id === item?.id)
+      )
     );
     setLightVideo(lesson?.thumbnail);
   }, [lesson, classes]);
@@ -274,14 +281,6 @@ const LessonDetailPageComponent = ({
                           selected={lesson?.id.toString() === router.query?.lessonsId}
                           onClick={() => {
                             onChangeVideoLesson(lesson?.id, index);
-                            console.log({
-                              classes: classes,
-                              liscateRaw: categories,
-                              listcate: listCategory,
-                              condition: lesson?.id.toString() === router.query?.lessonsId,
-                              lessonId: lesson.id,
-                              id: router.query?.lessonsId,
-                            });
                           }}
                           key={lesson?.id}
                           sx={{
@@ -304,18 +303,20 @@ const LessonDetailPageComponent = ({
                             },
                           }}
                         >
-                          <ListItemIcon
-                            sx={{
-                              minWidth: '30px',
-                              width: '30px',
-                              height: '30px',
-                              borderRadius: '100%',
-                              background: isPayment ? 'rgba(203, 132, 97, 1)' : '#ccc',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              mr: 2,
-                            }}
+                          <Image
+                            style={{ marginRight: '8px' }}
+                            width={30}
+                            height={30}
+                            src={
+                              !isPayment
+                                ? LockIcon
+                                : lesson?.id.toString() === router.query?.lessonsId
+                                ? playingVideo && !lightVideo
+                                  ? PauseIcon
+                                  : PlayIcon
+                                : PlayIcon
+                            }
+                            alt=""
                             onClick={(e) => {
                               if (lesson?.id.toString() === router.query?.lessonsId && isPayment) {
                                 e.stopPropagation();
@@ -324,28 +325,15 @@ const LessonDetailPageComponent = ({
                                 console.log({ playingVideo });
                               }
                             }}
-                          >
-                            {!isPayment ? (
-                              <LockIcon />
-                            ) : lesson?.id.toString() === router.query?.lessonsId ? (
-                              playingVideo && !lightVideo ? (
-                                <PauseIcon sx={{ color: 'white' }} />
-                              ) : (
-                                <PlayArrowIcon sx={{ color: 'white' }} />
-                              )
-                            ) : (
-                              <PlayArrowIcon sx={{ color: 'white' }} />
-                            )}
-                          </ListItemIcon>
+                          />
                           <Stack>
                             <ListItemText primary={`${index + 1}. ${lesson?.title}`} />
                             <ListItemText
                               primary={TimeMinConvert(lesson.duration)}
-                              primaryTypographyProps={{ fontSize: '12px' }}
+                              primaryTypographyProps={{ fontSize: '10px ' }}
                               sx={{
                                 '&.MuiListItemText-root': {
                                   mt: 0.1,
-                                  ml: 0.5,
                                 },
                               }}
                             />
@@ -439,11 +427,12 @@ const LessonDetailPageComponent = ({
 
               <Box sx={{ display: 'inline-flex', flexWrap: 'wrap', gap: '12px' }}>
                 {isMappable(listCategory) ? (
-                  listCategory.map((cate: Category, index: number) => (
-                    <Button
-                    onClick={() => router.push(`/categories/${cate?.url}`)}
-                    key={cate.id}
+                  listCategory.map((cate: any, index: number) => (
+                    <Box
+                      onClick={() => router.push(`/categories/${cate?.url}`)}
+                      key={cate?.id || index}
                       sx={{
+                        cursor: 'pointer',
                         p: '8px 16px',
                         color: '#6C7275',
                         border: '1px solid #343839',
@@ -459,7 +448,7 @@ const LessonDetailPageComponent = ({
                       }}
                     >
                       {cate.name}
-                    </Button>
+                    </Box>
                   ))
                 ) : (
                   <></>

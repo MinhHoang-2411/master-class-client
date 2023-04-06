@@ -11,10 +11,6 @@
     text-decoration: none;
     cursor: pointer;
   }
-
-  p {
-    margin: 0;
-  }
 }
 
 .container {
@@ -65,7 +61,7 @@
 }
 
 .mc-tile-overlay {
-  pointer-events: none;
+  // pointer-events: none;
 }
 
 .mc-tile__component {
@@ -79,7 +75,7 @@
 
 .mc-tile-caption {
   display: flex;
-  pointer-events: none;
+  // pointer-events: none;
 }
 
 .mc-tile-caption--y-top .mc-tile-caption__content {
@@ -138,7 +134,7 @@
 }
 
 .mc-tile-overlay {
-  pointer-events: none;
+  // pointer-events: none;
 }
 
 .mc-tile__component {
@@ -152,7 +148,7 @@
 
 .mc-tile-caption {
   display: flex;
-  pointer-events: none;
+  // pointer-events: none;
 }
 
 .mc-tile-caption--y-bottom .mc-tile-caption__content {
@@ -474,7 +470,7 @@
     display: block;
     width: 100%;
     height: 1px;
-    pointer-events: none;
+    // pointer-events: none;
     background: #000;
     opacity: 0;
     transition: opacity 0.25s ease;
@@ -544,7 +540,7 @@
   width: 100%;
   padding-top: 100%;
   content: '';
-  pointer-events: none;
+  // pointer-events: none;
 }
 
 .mc-tile__content {

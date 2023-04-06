@@ -1,4 +1,5 @@
 import LessonDetailPageComponent from '@/components/class/LessonDetailPage';
+import categoriesAPI from '@/services/api/categories';
 import classAPI from '@/services/api/class';
 import { classActions } from '@/store/class/classSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -95,7 +96,7 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
 export async function getServerSideProps(context: any) {
   const { locale } = context;
   try {
-    const categories: any = await classAPI.getListCategory({
+    const categories: any = await categoriesAPI.fetchData({
       page: 1,
       limit: 100,
     });
