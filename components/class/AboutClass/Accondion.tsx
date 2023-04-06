@@ -22,8 +22,9 @@ const CustomAccordion = styled(Accordion)({
 });
 
 const CustomAccordionSummary = styled(AccordionSummary)({
-  backgroundColor: '#303136',
+  backgroundColor: '#fff',
   borderBottom: '1px solid #303136',
+  color: 'rgba(44, 44, 44, 1)',
   marginBottom: -1,
   '& .MuiAccordionSummary-content': {
     margin: '16px 0',
@@ -32,6 +33,8 @@ const CustomAccordionSummary = styled(AccordionSummary)({
 });
 
 const CustomAccordionDetails = styled(AccordionDetails)({
+  backgroundColor: '#fff',
+  color: 'rgba(44, 44, 44, 1)',
   padding: '0px 16px 12px',
   fontSize: '14px',
 });
@@ -73,7 +76,7 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
     <Box className={styles.accordionLesson}>
       <CustomAccordion>
         <CustomAccordionSummary
-          expandIcon={<ExpandMore sx={{ color: '#fff' }} />}
+          expandIcon={<ExpandMore sx={{ color: 'rgba(44, 44, 44, 1)' }} />}
           sx={{
             borderRadius: '5px',
           }}
@@ -85,9 +88,17 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
           <CustomAccordionDetails>{displayDuration(Math.floor(duration))}</CustomAccordionDetails>
           <CustomAccordionDetails>{description}</CustomAccordionDetails>
 
-          <CustomAccordionDetails>
+          <CustomAccordionDetails sx={{ borderRadius: '0 0 5px 5px' }}>
             <Button
-              sx={{ textDecoration: 'underline', color: '#fff', textTransform: 'capitalize', p: 0 }}
+              sx={{
+                textDecoration: 'underline',
+                color: 'rgba(44, 44, 44, 1)',
+                textTransform: 'capitalize',
+                p: 0,
+                '&:hover': {
+                  background: '#e7e7e7',
+                },
+              }}
               onClick={RedirectLessonDetail}
             >{`${t('read-more')}...`}</Button>
           </CustomAccordionDetails>

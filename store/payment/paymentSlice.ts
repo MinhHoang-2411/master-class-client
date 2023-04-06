@@ -63,7 +63,7 @@ interface IPaymentState {
         currentPeriodEnd: number;
         currentPeriodStart: number;
         stripeCustomerId: string;
-        productpayments: {
+        productPayment: {
           name: string;
           interval: string;
           amount: number;

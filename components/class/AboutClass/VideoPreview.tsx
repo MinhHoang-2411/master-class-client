@@ -18,9 +18,8 @@ const VideoPreview = ({
   setPlayingVideo,
   height,
 }: Props) => {
-  
   return (
-    <>
+    <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
       <ReactPlayer
         light={lightVideo}
         url={url}
@@ -39,7 +38,7 @@ const VideoPreview = ({
           setPlayingVideo(true);
         }}
       />
-    </>
+    </div>
   );
 };
 

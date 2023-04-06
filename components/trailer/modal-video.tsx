@@ -1,10 +1,11 @@
 import { authActions } from '@/store/auth/authSlice';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import styles from '../../styles/classes.module.scss';
 import PlayVideo from '../class/AboutClass/PlayVideo';
 import VideoPreview from '../class/AboutClass/VideoPreview';
+import PrimaryButton from '../share/PrimaryButton';
 
 interface ModalVideoModel {
   openModal?: boolean;
@@ -12,11 +13,8 @@ interface ModalVideoModel {
   classes: any;
 }
 
-const ModalVideo: React.FC<ModalVideoModel> = ({
-  openModal,
-  setOpenModal,
-  classes,
-}) => {
+const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal, classes }) => {
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const [playingVideo, setPlayingVideo] = useState(true);
@@ -123,14 +121,13 @@ const ModalVideo: React.FC<ModalVideoModel> = ({
                   </h1>
                   <p className={styles['mc-mt-1']}>{classes?.name}</p>
                 </div>
-                <div className={styles['col-auto']}>
-                  <span
-                    className={`${styles['c-button']} ${styles['c-button--primary']} ${styles['c-button--md']} `}
-                    onClick={() => dispatch(authActions.openSignUpModal())}
-                  >
-                    {t('sign-up')}
-                  </span>
-                </div>
+                {!isLoggedIn && (
+                  <div className={styles['col-auto']}>
+                    <PrimaryButton onClick={() => dispatch(authActions.openSignUpModal())}>
+                      {t('sign-up')}
+                    </PrimaryButton>
+                  </div>
+                )}
               </div>
               <div className={styles['bc-player']}>
                 <div id="video-wrapper" className={styles['bc-player__wrapper']}>
@@ -150,7 +147,7 @@ const ModalVideo: React.FC<ModalVideoModel> = ({
                       playingVideo={playingVideo}
                       setLightVideo={setLightVideo}
                       setPlayingVideo={setPlayingVideo}
-                      height={"600px"}
+                      height={'600px'}
                     />
                   </div>
                 </div>

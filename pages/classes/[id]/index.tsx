@@ -16,6 +16,7 @@ const PreviewDetailClass = dynamic(() => import('@/components/class/PreviewDetai
 });
 
 const Classes = ({ classes, categories }: Props) => {
+  const isPayment = useAppSelector((state) => state.payment.isPayment);
   const [lesson, setLesson] = useState(classes);
   const [isFavourite, setIsFavourite] = useState<any>(null);
   const router = useRouter();
@@ -48,6 +49,7 @@ const Classes = ({ classes, categories }: Props) => {
             isFavourite={isFavourite}
             setIsFavourite={setIsFavourite}
             categories={categories}
+            isPayment={isPayment}
           />
         </section>
         <section className={styles.container}></section>

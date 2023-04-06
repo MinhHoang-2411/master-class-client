@@ -268,14 +268,14 @@ const SettingComponent = ({}: Props) => {
                       >
                         <Stack direction="row" justifyContent="space-between">
                           <Stack direction="row" spacing={1} alignItems="center">
-                            <Typography variant="h6">{subs.productpayments.name}</Typography>
+                            <Typography variant="h6">{subs.productPayment?.name}</Typography>
 
-                            <Typography variant="h6">{`$${subs.productpayments.amount
+                            <Typography variant="h6">{`$${subs.productPayment?.amount
                               .toString()
                               .substring(
                                 0,
-                                subs.productpayments.amount.toString().length - 2
-                              )}.${subs.productpayments.amount.toString().slice(-2)}`}</Typography>
+                                subs.productPayment?.amount.toString().length - 2
+                              )}.${subs.productPayment?.amount.toString().slice(-2)}`}</Typography>
 
                             <Chip
                               size="small"
