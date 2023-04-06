@@ -63,7 +63,7 @@ const BookmarkPage = ({}: BookmarkPageModel) => {
                   courses.map((data: any) => (
                     <>
                       <BookmarkComponent
-                        courses={data.courses}
+                        courses={data}
                         onDeleteBookmarkClass={onDeleteBookmarkClass}
                       />
                     </>

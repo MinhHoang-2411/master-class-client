@@ -175,7 +175,7 @@ const LessonDetailPageComponent = ({
       lessonId: lesson?.id,
       secondLastView: _value?.secondLastView,
       isFinished: false,
-      historyLessonId: lesson?.historylessons?.id,
+      historyLessonId: lesson?.historyLesson?.id,
     };
     setPlayedEnded(false);
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
@@ -189,7 +189,7 @@ const LessonDetailPageComponent = ({
       lessonId: lesson?.id,
       secondLastView: _value?.secondLastView,
       isFinished: true,
-      historyLessonId: lesson?.historylessons?.id,
+      historyLessonId: lesson?.historyLesson?.id,
     };
     setPlayedEnded(true);
     dispatch(watchingActions.handleCreateAndUpdateMyWatching(params));
