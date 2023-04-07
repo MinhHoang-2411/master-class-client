@@ -1,3 +1,4 @@
+import Typography from '@/components/share/Typography';
 import { classActions } from '@/store/class/classSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { ExpandMore } from '@mui/icons-material';
@@ -81,7 +82,17 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
             borderRadius: '5px',
           }}
         >
-          {`${index + 1}. ${title}`}
+          <Typography
+            component="span"
+            sx={{
+              fontSize: '14px',
+              padding: 0,
+              maxWidth: { lg: '300px', md: '200px' },
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >{`${index + 1}. ${title}`}</Typography>
         </CustomAccordionSummary>
 
         <Box sx={{ border: '1px solid #303136' }}>

@@ -87,41 +87,43 @@ const AboutClass = ({ classes, categories }: Props) => {
             </Box>
           </Grid>
 
-          <Grid item lg={4} md={4} xs={12} className={styles.accondionParent}>
-            <div className={styles.accondionItem}>
-              <div>
-                <VideoTrailer
-                  playing={playingVideo}
-                  setPlaying={setPlayingVideo}
-                  setLight={setLightVideo}
-                />
-              </div>
+          <Grid item lg={4} md={4} xs={12}>
+            <Box className={styles.accondionParent}>
+              <div className={styles.accondionItem}>
+                <div>
+                  <VideoTrailer
+                    playing={playingVideo}
+                    setPlaying={setPlayingVideo}
+                    setLight={setLightVideo}
+                  />
+                </div>
 
-              <div className="">
-                <Typography
-                  variant="body2"
-                  component={'h3'}
-                  sx={{ color: '#fff', fontWeight: 'bold', mt: 2, mb: 1 }}
-                >
-                  {t('browse-lesson-plan')}
-                </Typography>
+                <div className="">
+                  <Typography
+                    variant="body2"
+                    component={'h3'}
+                    sx={{ color: '#fff', fontWeight: 'bold', mt: 2, mb: 1 }}
+                  >
+                    {t('browse-lesson-plan')}
+                  </Typography>
 
-                {isMappable(classes?.lessons) ? (
-                  classes?.lessons?.map((lesson: any, index: number) => (
-                    <CustomizedAccordions
-                      title={lesson?.title}
-                      description={lesson?.description}
-                      duration={lesson?.duration}
-                      index={index}
-                      key={lesson?.index}
-                      lessonId={lesson?.id}
-                    />
-                  ))
-                ) : (
-                  <></>
-                )}
+                  {isMappable(classes?.lessons) ? (
+                    classes?.lessons?.map((lesson: any, index: number) => (
+                      <CustomizedAccordions
+                        title={lesson?.title}
+                        description={lesson?.description}
+                        duration={lesson?.duration}
+                        index={index}
+                        key={lesson?.index}
+                        lessonId={lesson?.id}
+                      />
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
-            </div>
+            </Box>
           </Grid>
         </Grid>
         <Grid container columnSpacing={2} sx={{ mt: 2 }}>

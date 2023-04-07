@@ -16,6 +16,7 @@ const PreviewDetailClass = dynamic(() => import('@/components/class/PreviewDetai
 });
 
 const Classes = ({ classes, categories }: Props) => {
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const isPayment = useAppSelector((state) => state.payment.isPayment);
   const [lesson, setLesson] = useState(classes);
   const [isFavourite, setIsFavourite] = useState<any>(null);

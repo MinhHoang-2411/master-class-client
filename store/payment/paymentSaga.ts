@@ -207,8 +207,17 @@ function* handleDeleteSubscription(action: {
     if (action.payload.closeModal) {
       action.payload.closeModal();
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(paymentActions.deleteSubscriptionFail('An error occurred, please try again'));
+    yield put(
+      alertActions.showAlert({
+        text:
+          error?.response?.data?.message ||
+          error?.response?.data?.error?.message ||
+          'Cancle subscription fail',
+        type: 'error',
+      })
+    );
   }
 }
 

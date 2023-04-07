@@ -80,16 +80,18 @@ const LessonDetailPageComponent = ({
   const playedRef = useRef<any>(null);
   const [playedEnded, setPlayedEnded] = useState(false);
 
-  const TimeConvert = (time: number) => {
-    const duration = Math.floor(time);
+  const TimeConvert = () => {
+    const totalTime = classes?.lessons?.reduce(
+      (accumulator: any, currentValue: any) => accumulator + currentValue.duration,
+      0
+    );
+    const duration = Math.floor(totalTime);
     const hours = Math.floor(duration / 3600);
     const minutes = Math.floor((duration - hours * 3600) / 60);
     const remainingSeconds = duration - hours * 3600 - minutes * 60;
-    return `${hours > 0 ? `${hours.toString().padStart(2, '0')} ${t('hours')} ` : ''}${
-      minutes > 0 ? `${minutes.toString().padStart(2, '0')} ${t('minutes')} ` : ''
-    }${
-      remainingSeconds > 0 ? `${remainingSeconds.toString().padStart(2, '0')} ${t('seconds')}` : ''
-    }`;
+    return `${hours > 0 ? `${hours.toString().padStart(2, '0')} hours ` : ''}${
+      minutes > 0 ? `${minutes.toString().padStart(2, '0')} minutes ` : ''
+    }${remainingSeconds > 0 ? `${remainingSeconds.toString().padStart(2, '0')} seconds` : ''}`;
   };
 
   const TimeMinConvert = (time: number) => {
@@ -327,7 +329,15 @@ const LessonDetailPageComponent = ({
                             }}
                           />
                           <Stack>
-                            <ListItemText primary={`${index + 1}. ${lesson?.title}`} />
+                            <ListItemText
+                              primaryTypographyProps={{
+                                maxWidth: { md: '180px', lg: '250px' },
+                                textOverflow: 'ellipsis',
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                              }}
+                              primary={`${index + 1}. ${lesson?.title}`}
+                            />
                             <ListItemText
                               primary={TimeMinConvert(lesson.duration)}
                               primaryTypographyProps={{ fontSize: '10px ' }}
@@ -369,7 +379,7 @@ const LessonDetailPageComponent = ({
                 background: '#fff',
                 borderRadius: '100px',
                 textTransform: 'capitalize',
-                padding: '24px 48px',
+                padding: '12px 24px',
                 fontWeight: 600,
                 transition: 'all 0s ease',
                 '&:hover': {
@@ -402,9 +412,7 @@ const LessonDetailPageComponent = ({
                 </span>
                 <span style={{ color: '#808080', fontSize: '14px' }}>{`${
                   classes.lessons?.length
-                } videos (${TimeConvert(
-                  classes?.lessons?.[indexSelectedLesson]?.duration
-                )})`}</span>
+                } video lessons (${TimeConvert()})`}</span>
               </Stack>
             </Stack>
 
