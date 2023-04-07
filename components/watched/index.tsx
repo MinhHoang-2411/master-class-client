@@ -32,17 +32,23 @@ const styleAbsolute = {
 };
 
 const styleBtnSignUp = {
-  backgroundColor: '#e32652',
   padding: '8px 16px',
   cursor: 'pointer',
-  borderRadius: '6px',
-  fontSize: '14px',
+  fontSize: '16px',
+  fontWeight: 'bold',
   textTransform: 'capitalize',
-  letterSpacing: '.5px',
-  '&:hover': {
-    backgroundColor: '#d61a46',
+  '&:disabled': {
+    color: '#fff',
+    backgroundColor: '#a0a0a0',
   },
-  color: '#fff',
+  color: '#262626',
+  background: 'linear-gradient(94.87deg, #FFB7E4 20.12%, #34DBEB 87.72%)',
+  borderRadius: '100px',
+  mt: 1,
+  transition: 'all .4s ease-in-out',
+  '&:hover': {
+    boxShadow: '0 4px 15px 0 rgba(236, 116, 149, 0.75)',
+  },
 };
 
 const WatchedComponent = ({ myWatching, onShowAll, params }: Props) => {
