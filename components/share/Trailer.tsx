@@ -1,5 +1,5 @@
 import { authActions } from '@/store/auth/authSlice';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next';
 import ReactPlayer from 'react-player';
 import styles from '../../styles/layout-page.module.scss';
 import FeaturedPreview from '../trailer/featured-preview';
+import { paymentActions } from '@/store/payment/paymentSlice';
 
 const styleDescription = {
   display: 'flexbox',
@@ -48,6 +49,8 @@ interface TrailerModel {
 }
 
 const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
+  const isPayment = useAppSelector((state) => state.payment.isPayment);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   // const { trailer, welcome } = layoutPage;
@@ -85,17 +88,19 @@ const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
         }}
       >
         <Grid item xs={4} sm={4} md={4} sx={{ padding: '24px !important' }}>
-          <ReactPlayer
-            light={lightTrailer}
-            url={trailer?.url}
-            controls={true}
-            width="100%"
-            playing={playingTrailer}
-            onClickPreview={() => {
-              setLightTrailer(false);
-              setPlayingTrailer(true);
-            }}
-          />
+          <Box sx={{ borderRadius: '8px', overflow: 'hidden' }}>
+            <ReactPlayer
+              light={lightTrailer}
+              url={trailer?.url}
+              controls={true}
+              width="100%"
+              playing={playingTrailer}
+              onClickPreview={() => {
+                setLightTrailer(false);
+                setPlayingTrailer(true);
+              }}
+            />
+          </Box>
 
           <Box sx={{ ...styleDescription, marginTop: 2, marginBottom: '0px' }}>
             <span className={styles.description}>{trailer?.description}</span>
@@ -137,22 +142,35 @@ const Trailer: React.FC<TrailerModel> = ({ layoutPage }) => {
         >
           <Box sx={styleDescription}>
             <span className={styles.description}>{welcome?.description}</span>
-            <Box sx={styleBtnSignUp} onClick={() => dispatch(authActions.openSignUpModal())}>
-              {t('sign-up-here')}
-            </Box>
+            {isLoggedIn && !isPayment ? (
+              <Box
+                sx={styleBtnSignUp}
+                onClick={() => dispatch(paymentActions.openModalChoosePayment())}
+              >
+                {t('Subscribe')}
+              </Box>
+            ) : isLoggedIn ? (
+              <></>
+            ) : (
+              <Box sx={styleBtnSignUp} onClick={() => dispatch(authActions.openSignUpModal())}>
+                {t('sign-up-here')}
+              </Box>
+            )}
           </Box>
-
-          <ReactPlayer
-            light={lightWelcome}
-            url={welcome?.url}
-            controls={true}
-            width="100%"
-            playing={playingWelcome}
-            onClickPreview={() => {
-              setLightWelcome(false);
-              setPlayingWelcome(true);
-            }}
-          />
+          <Box sx={{ borderRadius: '8px', overflow: 'hidden' }}>
+            <ReactPlayer
+              light={lightWelcome}
+              url={welcome?.url}
+              controls={true}
+              width="100%"
+              height={isPayment && isLoggedIn ? '405px' : '360px'}
+              playing={playingWelcome}
+              onClickPreview={() => {
+                setLightWelcome(false);
+                setPlayingWelcome(true);
+              }}
+            />
+          </Box>
         </Grid>
       </Grid>
     </Box>

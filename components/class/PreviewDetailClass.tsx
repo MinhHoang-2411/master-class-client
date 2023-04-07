@@ -19,6 +19,7 @@ import BookmarkSelectedIcon from '../../public/icons/classes/bookmarkSelected.sv
 
 import Typography from '../share/Typography';
 import PrimaryButton from '../share/PrimaryButton';
+import { paymentActions } from '@/store/payment/paymentSlice';
 
 interface PreviewDetailClassModel {}
 
@@ -211,7 +212,7 @@ const PreviewDetailClass = ({
                             >
                               <Image
                                 alt="play-icon"
-                                src={isFavourite ? BookmarkIcon : BookmarkSelectedIcon}
+                                src={isFavourite ? BookmarkSelectedIcon : BookmarkIcon}
                               />
                               <Typography sx={{ marginTop: '6px' }} variant="body2">
                                 Bookmark
@@ -230,7 +231,21 @@ const PreviewDetailClass = ({
                             </Stack>
                           )}
                         </Stack>
-                        {isPayment ? (
+                        {isLoggedIn && !isPayment ? (
+                          <Stack sx={{ width: '320px', alignSelf: { md: 'flex-start' } }}>
+                            <PrimaryButton
+                              onClick={() => dispatch(paymentActions.openModalChoosePayment())}
+                              fullWidth
+                            >
+                              Subscribe
+                            </PrimaryButton>
+                            <Typography variant="body2" sx={{ textAlign: 'center', mt: '12px' }}>
+                              {t(
+                                'Starting at $24.99/month (billed annually) for all classes and sessions'
+                              )}
+                            </Typography>
+                          </Stack>
+                        ) : isLoggedIn ? (
                           <></>
                         ) : (
                           <Stack sx={{ width: '320px', alignSelf: { md: 'flex-start' } }}>
