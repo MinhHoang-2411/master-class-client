@@ -296,7 +296,7 @@ const LessonDetailPageComponent = ({
                             },
                             '&.Mui-selected:hover': {
                               background: '#5c5c5c',
-                              color: '#fff',
+                              color: '#fff !important',
                             },
                             ':hover': {
                               background: '#5c5c5c',
@@ -328,10 +328,35 @@ const LessonDetailPageComponent = ({
                               }
                             }}
                           />
-                          <Stack>
-                            <ListItemText
+                          <Stack
+                            sx={{ width: '100%' }}
+                            direction="row"
+                            justifyContent="space-between"
+                            alignItems="center"
+                          >
+                            <Typography
+                              sx={{
+                                width: { md: '180px', lg: '230px' },
+                                textOverflow: 'ellipsis',
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                              }}
+                              variant="body1"
+                            >
+                              {`${index + 1}. ${lesson?.title}`}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                fontSize: '12px',
+                                color: '#9b9b9b',
+                              }}
+                            >
+                              {TimeMinConvert(lesson.duration)}
+                            </Typography>
+                            {/* <ListItemText
                               primaryTypographyProps={{
-                                maxWidth: { md: '180px', lg: '250px' },
+                                width: { md: '180px', lg: '230px' },
                                 textOverflow: 'ellipsis',
                                 overflow: 'hidden',
                                 whiteSpace: 'nowrap',
@@ -339,14 +364,15 @@ const LessonDetailPageComponent = ({
                               primary={`${index + 1}. ${lesson?.title}`}
                             />
                             <ListItemText
+                              // sx={{ margin: 0 }}
                               primary={TimeMinConvert(lesson.duration)}
-                              primaryTypographyProps={{ fontSize: '10px ' }}
+                              primaryTypographyProps={{ fontSize: '12px ' }}
                               sx={{
                                 '&.MuiListItemText-root': {
-                                  mt: 0.1,
+                                  mt: '6px',
                                 },
                               }}
-                            />
+                            /> */}
                           </Stack>
                         </ListItemButton>
                       ))
