@@ -47,9 +47,6 @@ interface IProps {
 }
 const ModalShareClasses = ({ isOpen, CloseModal, urlShare }: IProps) => {
   const { t } = useTranslation('common');
-  const handleCopyUrl = () => {
-    toast.success('Copied the link successfully');
-  };
 
   return (
     <div>
@@ -86,23 +83,27 @@ const ModalShareClasses = ({ isOpen, CloseModal, urlShare }: IProps) => {
             }}
           >
             <Box sx={{ mr: 2 }}>
-              <FacebookShareButton url={urlShare}>
+              <FacebookShareButton url={urlShare} onClick={CloseModal}>
                 <FacebookIcon size={42} round />
               </FacebookShareButton>
             </Box>
             <Box sx={{ mr: 2 }}>
-              <FacebookMessengerShareButton url={urlShare} appId={process.env.NEXT_PUBLIC_FB_APP_ID || ""}>
+              <FacebookMessengerShareButton
+                url={urlShare}
+                appId={process.env.NEXT_PUBLIC_FB_APP_ID || ''}
+                onClick={CloseModal}
+              >
                 <FacebookMessengerIcon size={42} round />
               </FacebookMessengerShareButton>
             </Box>
 
             <Box sx={{ mr: 2 }}>
-              <TwitterShareButton url={urlShare}>
+              <TwitterShareButton url={urlShare} onClick={CloseModal}>
                 <TwitterIcon size={42} round />
               </TwitterShareButton>
             </Box>
             <Box>
-              <LinkedinShareButton url={urlShare}>
+              <LinkedinShareButton url={urlShare} onClick={CloseModal}>
                 <LinkedinIcon size={42} round />
               </LinkedinShareButton>
             </Box>
@@ -142,7 +143,7 @@ const ModalShareClasses = ({ isOpen, CloseModal, urlShare }: IProps) => {
               </Typography>
             </Box>
             <Box>
-              <CopyToClipboard text={urlShare} onCopy={handleCopyUrl}>
+              <CopyToClipboard text={urlShare}>
                 <Button sx={{ fontWeight: 'bold', fontSize: '14px', textTransform: 'capitalize' }}>
                   Copy
                 </Button>
