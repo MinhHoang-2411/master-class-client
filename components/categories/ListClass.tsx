@@ -21,6 +21,7 @@ const ListClass: React.FC<ListClassModel> = (props) => {
   const [modalVideo, setModalVideo] = useState(false);
   const [classes, setClasses] = useState<any>();
   const [modalShareClasses, setModalShareClasses] = useState(false);
+  const [urlShareClasses, setUrlShareClasses] = useState<string>('');
 
   const [params, setParams] = useState({
     page: 1,
@@ -28,7 +29,6 @@ const ListClass: React.FC<ListClassModel> = (props) => {
     search: null,
     categories: props?.idCategory || null,
   });
-  // const { listData: listClass, loading } = useGetAllList(classActions, 'class', params);
 
   const { listData: listClass, loading } = useAppSelector((state) => state.class);
 
@@ -53,6 +53,8 @@ const ListClass: React.FC<ListClassModel> = (props) => {
   }, [props.idCategory]);
 
   const handlePlayVideoTrailer = (itemClasses: any) => {
+    const _url = `http://103.92.29.62:8094/classes/${itemClasses?.webName}`
+    setUrlShareClasses(_url)
     setClasses(itemClasses)
     setModalVideo(true);
   };
@@ -372,6 +374,7 @@ const ListClass: React.FC<ListClassModel> = (props) => {
         <ModalShareClasses
           isOpen={modalShareClasses}
           CloseModal={() => setModalShareClasses(false)}
+          urlShare={urlShareClasses}
         />
       )}
     </>
