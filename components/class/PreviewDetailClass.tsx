@@ -1,25 +1,26 @@
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from '../../styles/classes.module.scss';
 import ModalVideo from '../trailer/modal-video';
 import AboutClass from './AboutClass';
 
 import bookmarkApi from '@/services/api/bookmark';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'next-i18next';
 import { Box, Container, Grid, Stack } from '@mui/material';
+import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
+import BookmarkIcon from '../../public/icons/classes/bookmark.svg';
+import BookmarkSelectedIcon from '../../public/icons/classes/bookmarkSelected.svg';
 import PlayIcon from '../../public/icons/classes/play.svg';
 import SampleIcon from '../../public/icons/classes/sample.svg';
 import ShareIcon from '../../public/icons/classes/share.svg';
-import BookmarkIcon from '../../public/icons/classes/bookmark.svg';
-import BookmarkSelectedIcon from '../../public/icons/classes/bookmarkSelected.svg';
 
-import Typography from '../share/Typography';
+import ModalShareClasses from '../share/ModalShareClasses';
 import PrimaryButton from '../share/PrimaryButton';
 import { paymentActions } from '@/store/payment/paymentSlice';
+import Typography from '../share/Typography';
 
 interface PreviewDetailClassModel {}
 
@@ -44,6 +45,7 @@ const PreviewDetailClass = ({
   const router = useRouter();
   const nameCategory = router?.query?.name?.[0];
   const [modalVideo, setModalVideo] = useState(false);
+  const [modalShareClasses, setModalShareClasses] = useState(false);
 
   const onBookmarkClass = async (classId: string) => {
     const params = {
@@ -71,6 +73,10 @@ const PreviewDetailClass = ({
 
   const handlePlayVideoTrailer = () => {
     setModalVideo(true);
+  };
+
+  const handleOpenModalShareClasses = () => {
+    setModalShareClasses(true);
   };
 
   return (
@@ -194,7 +200,11 @@ const PreviewDetailClass = ({
                               Sample
                             </Typography>
                           </Stack>
-                          <Stack alignItems="center" sx={{ cursor: 'pointer' }}>
+                          <Stack
+                            alignItems="center"
+                            sx={{ cursor: 'pointer' }}
+                            onClick={handleOpenModalShareClasses}
+                          >
                             <Image alt="play-icon" src={ShareIcon} />
                             <Typography sx={{ marginTop: '6px' }} variant="body2">
                               Share
@@ -275,6 +285,12 @@ const PreviewDetailClass = ({
       <AboutClass classes={classes} categories={categories} />
       {modalVideo && (
         <ModalVideo openModal={modalVideo} setOpenModal={setModalVideo} classes={classes} />
+      )}
+      {modalShareClasses && (
+        <ModalShareClasses
+          isOpen={modalShareClasses}
+          CloseModal={() => setModalShareClasses(false)}
+        />
       )}
     </>
   );

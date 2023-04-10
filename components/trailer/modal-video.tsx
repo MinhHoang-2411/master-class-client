@@ -1,24 +1,36 @@
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useState } from 'react';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import styles from '../../styles/classes.module.scss';
-import PlayVideo from '../class/AboutClass/PlayVideo';
 import VideoPreview from '../class/AboutClass/VideoPreview';
+import Button from '../share/Button';
 import PrimaryButton from '../share/PrimaryButton';
-
+import IconButton from '@mui/material/IconButton';
+import ShareIcon from '@mui/icons-material/Share';
 interface ModalVideoModel {
   openModal?: boolean;
   setOpenModal: (show: boolean) => void;
   classes: any;
+  showButtonRedirect?: boolean;
+  handleOpenModalShare?: any;
 }
 
-const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal, classes }) => {
+const ModalVideo: React.FC<ModalVideoModel> = ({
+  openModal,
+  setOpenModal,
+  classes,
+  showButtonRedirect,
+  handleOpenModalShare,
+}) => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const [playingVideo, setPlayingVideo] = useState(true);
   const [lightVideo, setLightVideo] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -121,7 +133,34 @@ const ModalVideo: React.FC<ModalVideoModel> = ({ openModal, setOpenModal, classe
                   </h1>
                   <p className={styles['mc-mt-1']}>{classes?.name}</p>
                 </div>
-                {!isLoggedIn && (
+                {showButtonRedirect && (
+                  <IconButton onClick={handleOpenModalShare} sx={{ mr: 2}}>
+                    <ShareIcon color="warning" sx={{ mr: 1, height: '20px', width: '20px' }} />
+                  </IconButton>
+                )}
+                {showButtonRedirect && (
+                  <Button
+                    onClick={() => router.push(`/classes/${classes?.webName}` || '#')}
+                    sx={{
+                      color: '#fff',
+                      backgroundColor: '#43454C',
+                      p: '12px 24px',
+                      fontSize: '16px',
+                      borderRadius: '8px',
+                      '&: hover': {
+                        backgroundColor: '#303136',
+                      },
+                    }}
+                  >
+                    <ErrorOutlineIcon
+                      color="warning"
+                      sx={{ mr: 1, height: '20px', width: '20px' }}
+                    />
+                    {t('view-class-info')}
+                  </Button>
+                )}
+
+                {!isLoggedIn && !showButtonRedirect && (
                   <div className={styles['col-auto']}>
                     <PrimaryButton onClick={() => dispatch(authActions.openSignUpModal())}>
                       {t('sign-up')}
