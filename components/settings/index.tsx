@@ -15,6 +15,7 @@ import {
   Stack,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import Typography from '../share/Typography';
@@ -31,8 +32,9 @@ import cardDefault from '@/public/images/card-default.svg';
 import { paymentMethod as paymentMethodConstant } from '@/constants/payment';
 import { paymentActions } from '@/store/payment/paymentSlice';
 import PrimaryButton from '../share/PrimaryButton';
-import { convertTimeStamp } from '@/utils/convert/date';
+import { convertTimeStamp, convertTimeStampToString } from '@/utils/convert/date';
 import { styleModalSetting } from '@/declares/modal';
+import logo from '../../public/logo.png';
 
 const LANGS = [
   {
@@ -254,7 +256,12 @@ const SettingComponent = ({}: Props) => {
       <Grid item container spacing={3}>
         <>
           <Grid item xs={12} lg={12}>
-            <Stack spacing={3}>
+            <Stack
+              spacing={3}
+              onClick={() => {
+                console.log({ listSubscription });
+              }}
+            >
               <Card sx={{ py: 2, px: 3.5 }}>
                 <Stack spacing={3}>
                   <Typography variant="h6" component={'h2'}>
@@ -263,53 +270,126 @@ const SettingComponent = ({}: Props) => {
                   {listSubscription.length > 0 ? (
                     listSubscription.map((subs) => (
                       <Stack
+                        sx={{
+                          width: 'fit-content',
+                          border: '1px solid #ccc',
+                          borderRadius: '12px',
+                          p: 2,
+                        }}
                         key={subs.id}
-                        sx={{ width: '500px', border: '1px solid #ccc', borderRadius: 1, p: 2 }}
+                        direction="row"
+                        spacing={1}
+                        alignItems="center"
                       >
-                        <Stack direction="row" justifyContent="space-between">
+                        <Box sx={{ borderRadius: '8px', background: '#000', height: '50px' }}>
+                          <Image
+                            style={{ objectFit: 'cover' }}
+                            width={50}
+                            height={50}
+                            src={logo}
+                            alt="course"
+                          />
+                        </Box>
+                        <Stack spacing="2px">
                           <Stack direction="row" spacing={1} alignItems="center">
                             <Typography variant="h6">{subs.productPayment?.name}</Typography>
 
-                            <Typography variant="h6">{`$${subs.productPayment?.amount
+                            {/* <Typography variant="h6">{`$${subs.productPayment?.amount
                               .toString()
                               .substring(
                                 0,
                                 subs.productPayment?.amount.toString().length - 2
-                              )}.${subs.productPayment?.amount.toString().slice(-2)}`}</Typography>
+                              )}.${subs.productPayment?.amount.toString().slice(-2)}`}</Typography> */}
 
-                            <Chip
-                              size="small"
-                              sx={{ color: '#fff', bgcolor: '#017558' }}
-                              label="Active"
-                            />
-                            {/* amount */}
-                          </Stack>
-                          {subs.cancelAtPeriodEnd ? (
-                            <></>
-                          ) : (
-                            <Button
-                              onClick={() => {
-                                setIsOpenModalConfirmSubscription(true);
-                                setStripeSubscriptionId(subs.subscriptionId);
+                            <Box
+                              sx={{
+                                background: '#e1fed2',
+                                color: '#015a00',
+                                borderRadius: '4px',
+                                padding: '4px 10px',
+                                fontSize: '15px',
                               }}
-                              size="small"
-                              variant="contained"
-                              sx={{ textTransform: 'capitalize' }}
                             >
-                              <b>Cancel</b>
-                            </Button>
-                          )}
-                        </Stack>
-                        <Stack>
-                          <span>Start: {convertTimeStamp(subs.currentPeriodStart)}</span>
-                          {subs.cancelAtPeriodEnd ? (
-                            <span>End: {convertTimeStamp(subs.currentPeriodEnd)}</span>
-                          ) : (
-                            <span style={{ color: 'rgba(0, 0, 0, 0.54)', fontSize: '14px' }}>
-                              Billing daily - Next invoice on{' '}
-                              {convertTimeStamp(subs.currentPeriodEnd)}{' '}
-                            </span>
-                          )}
+                              <b>Active</b>
+                            </Box>
+
+                            {/* amount */}
+                            {subs.cancelAtPeriodEnd ? (
+                              <Stack
+                                direction="row"
+                                spacing={1}
+                                alignItems="center"
+                                sx={{
+                                  background: '#eaeaea',
+                                  color: '#000',
+                                  borderRadius: '4px',
+                                  padding: '4px 10px',
+                                  fontSize: '15px',
+                                }}
+                              >
+                                <AccessTimeFilledIcon />{' '}
+                                <span>{`Cancels ${convertTimeStampToString(subs.cancelAt)}`}</span>
+                              </Stack>
+                            ) : (
+                              <PrimaryButton
+                                onClick={() => {
+                                  setIsOpenModalConfirmSubscription(true);
+                                  setStripeSubscriptionId(subs.subscriptionId);
+                                }}
+                                style={{
+                                  textTransform: 'capitalize',
+                                  fontSize: '16px',
+                                  padding: '0 16px',
+                                }}
+                              >
+                                <b>Cancel</b>
+                              </PrimaryButton>
+                            )}
+                          </Stack>
+
+                          <Stack>
+                            {subs.cancelAtPeriodEnd ? (
+                              <Stack
+                                direction="row"
+                                spacing={1}
+                                alignItems="center"
+                                sx={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: '14px' }}
+                              >
+                                <span>Start: {convertTimeStamp(subs.currentPeriodStart)}</span>
+                                <Divider
+                                  orientation="vertical"
+                                  flexItem
+                                  sx={{
+                                    alignSelf: 'center',
+                                    height: '13px',
+                                    borderColor: 'rgba(0, 0, 0, 0.6)',
+                                  }}
+                                />
+                                <span>End: {convertTimeStamp(subs.currentPeriodEnd)}</span>
+                              </Stack>
+                            ) : (
+                              <Stack
+                                direction="row"
+                                spacing={1}
+                                alignItems="center"
+                                sx={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: '14px' }}
+                              >
+                                <span>Billing daily</span>
+                                <Divider
+                                  orientation="vertical"
+                                  flexItem
+                                  sx={{
+                                    alignSelf: 'center',
+                                    height: '13px',
+                                    borderColor: 'rgba(0, 0, 0, 0.6)',
+                                  }}
+                                />
+                                <span>
+                                  Next invoice on {convertTimeStamp(subs.currentPeriodEnd)}{' '}
+                                </span>
+                              </Stack>
+                            )}
+                          </Stack>
                         </Stack>
                       </Stack>
                     ))
