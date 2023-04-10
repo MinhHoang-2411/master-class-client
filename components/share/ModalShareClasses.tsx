@@ -41,16 +41,13 @@ const styleModal = {
 interface IProps {
   isOpen: boolean;
   CloseModal: any;
+  urlShare: string;
 }
-const ModalShareClasses = ({ isOpen, CloseModal }: IProps) => {
+const ModalShareClasses = ({ isOpen, CloseModal, urlShare }: IProps) => {
   const { t } = useTranslation('common');
   const handleCopyUrl = () => {
     toast.success('Copied the link successfully');
   };
-
-  const { asPath } = useRouter();
-
-  const urlShare = `http://103.92.29.62:8094/${asPath}`;
 
   return (
     <div>

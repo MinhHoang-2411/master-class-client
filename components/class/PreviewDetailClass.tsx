@@ -46,6 +46,7 @@ const PreviewDetailClass = ({
   const nameCategory = router?.query?.name?.[0];
   const [modalVideo, setModalVideo] = useState(false);
   const [modalShareClasses, setModalShareClasses] = useState(false);
+  const [urlShareClasses, setUrlShareClasses] = useState<string>('');
 
   const onBookmarkClass = async (classId: string) => {
     const params = {
@@ -76,6 +77,8 @@ const PreviewDetailClass = ({
   };
 
   const handleOpenModalShareClasses = () => {
+    const _url = `http://103.92.29.62:8094/classes/${classes?.webName}`
+    setUrlShareClasses(_url)
     setModalShareClasses(true);
   };
 
@@ -290,6 +293,7 @@ const PreviewDetailClass = ({
         <ModalShareClasses
           isOpen={modalShareClasses}
           CloseModal={() => setModalShareClasses(false)}
+          urlShare={urlShareClasses}
         />
       )}
     </>
