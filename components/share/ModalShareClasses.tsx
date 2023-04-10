@@ -8,10 +8,12 @@ import { useTranslation } from 'next-i18next';
 import {
   FacebookIcon,
   FacebookShareButton,
+  FacebookMessengerShareButton,
   TwitterIcon,
   TwitterShareButton,
   LinkedinShareButton,
   LinkedinIcon,
+  FacebookMessengerIcon,
 } from 'react-share';
 import { toast } from 'react-toastify';
 import Typography from './Typography';
@@ -87,6 +89,11 @@ const ModalShareClasses = ({ isOpen, CloseModal, urlShare }: IProps) => {
               <FacebookShareButton url={urlShare}>
                 <FacebookIcon size={42} round />
               </FacebookShareButton>
+            </Box>
+            <Box sx={{ mr: 2 }}>
+              <FacebookMessengerShareButton url={urlShare} appId={process.env.NEXT_PUBLIC_FB_APP_ID || ""}>
+                <FacebookMessengerIcon size={42} round />
+              </FacebookMessengerShareButton>
             </Box>
 
             <Box sx={{ mr: 2 }}>
