@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { useCallback, useState } from 'react';
 import ProductHeroLayout from '../../contents/home/ProductHeroLayout';
 import styles from '../../styles/carousel.module.scss';
@@ -36,9 +37,9 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
       listBannersConvert?.map((item, index) => (
         <div key={index} className={styles.loopItem}>
           <div className={styles.FirstRow}>
-            <span
+            <Box
               className={styles.SpanImg}
-              style={{
+              sx={{
                 boxSizing: 'border-box',
                 display: 'inline-block',
                 overflow: 'hidden',
@@ -50,7 +51,7 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
                 position: 'relative',
                 maxWidth: '100%',
                 width: '100%',
-                height: '202px',
+                // height: '202px',
               }}
             >
               <span
@@ -108,12 +109,12 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
                   maxHeight: '100%',
                 }}
               />
-            </span>
+            </Box>
           </div>
           <div className={styles.SecondRow}>
-            <span
+            <Box
               className={styles.SpanImg}
-              style={{
+              sx={{
                 boxSizing: 'border-box',
                 display: 'inline-block',
                 overflow: 'hidden',
@@ -125,7 +126,7 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
                 position: 'relative',
                 maxWidth: '100%',
                 width: '100%',
-                height: '202px',
+                // height: '202px',
               }}
             >
               <span
@@ -187,7 +188,7 @@ const ProductHero: React.FC<ProductHeroModel> = ({ listBanners }) => {
                   maxHeight: '100%',
                 }}
               />
-            </span>
+            </Box>
           </div>
         </div>
       )),
