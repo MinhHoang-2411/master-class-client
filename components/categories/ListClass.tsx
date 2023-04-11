@@ -53,16 +53,16 @@ const ListClass: React.FC<ListClassModel> = (props) => {
   }, [props.idCategory]);
 
   const handlePlayVideoTrailer = (itemClasses: any) => {
-    const _url = `http://103.92.29.62:8094/classes/${itemClasses?.webName}`
-    setUrlShareClasses(_url)
-    setClasses(itemClasses)
+    const _url = `http://103.92.29.62:8094/classes/${itemClasses?.webName}`;
+    setUrlShareClasses(_url);
+    setClasses(itemClasses);
     setModalVideo(true);
   };
 
   const handleOpenModalShare = () => {
     setModalVideo(false);
     setModalShareClasses(true);
-  }
+  };
 
   const renderList = useCallback(() => {
     return listClass.map((item: any, index: number) => {
@@ -78,7 +78,7 @@ const ListClass: React.FC<ListClassModel> = (props) => {
               className={styles['pl-4']}
               data-testid="course-tile-terence-tao-teaches-mathematical-thinking"
             >
-              <div className={styles['fresnel-container']}>
+              <div id={index.toString()} className={styles['fresnel-container']}>
                 <div
                   className={`${styles['overflow-hidden']} ${styles['corners-md']} ${styles['position-relative']}`}
                   aria-labelledby="tile-desktop-nameplate-312"
@@ -368,7 +368,13 @@ const ListClass: React.FC<ListClassModel> = (props) => {
         )}
       </div>
       {modalVideo && (
-        <ModalVideo openModal={modalVideo} setOpenModal={setModalVideo} classes={classes} showButtonRedirect={true} handleOpenModalShare={handleOpenModalShare}/>
+        <ModalVideo
+          openModal={modalVideo}
+          setOpenModal={setModalVideo}
+          classes={classes}
+          showButtonRedirect={true}
+          handleOpenModalShare={handleOpenModalShare}
+        />
       )}
       {modalShareClasses && (
         <ModalShareClasses
