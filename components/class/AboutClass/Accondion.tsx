@@ -11,6 +11,8 @@ import * as React from 'react';
 import styles from './../../../styles/classes.module.scss';
 
 const CustomAccordion = styled(Accordion)({
+  borderRadius: '5px',
+  overflow: 'hidden',
   backgroundColor: '#303136',
   color: '#fff',
   boxShadow: 'none',
@@ -24,7 +26,7 @@ const CustomAccordion = styled(Accordion)({
 
 const CustomAccordionSummary = styled(AccordionSummary)({
   backgroundColor: '#fff',
-  borderBottom: '1px solid #303136',
+  // borderBottom: '1px solid #303136',
   color: 'rgba(44, 44, 44, 1)',
   marginBottom: -1,
   '& .MuiAccordionSummary-content': {
@@ -79,7 +81,7 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
         <CustomAccordionSummary
           expandIcon={<ExpandMore sx={{ color: 'rgba(44, 44, 44, 1)' }} />}
           sx={{
-            borderRadius: '5px',
+            borderRadius: '5px 5px 0 0',
           }}
         >
           <Typography
@@ -95,11 +97,18 @@ const AccordionComponent: React.FC<CustomAccordionProps> = ({
           >{`${index + 1}. ${title}`}</Typography>
         </CustomAccordionSummary>
 
-        <Box sx={{ border: '1px solid #303136' }}>
+        <Box
+          sx={{
+            border: '1px solid #fff',
+            borderRadius: '0 0 5px 5px',
+            overflow: 'hidden',
+            background: '#fff',
+          }}
+        >
           <CustomAccordionDetails>{displayDuration(Math.floor(duration))}</CustomAccordionDetails>
           <CustomAccordionDetails>{description}</CustomAccordionDetails>
 
-          <CustomAccordionDetails sx={{ borderRadius: '0 0 5px 5px' }}>
+          <CustomAccordionDetails>
             <Button
               sx={{
                 textDecoration: 'underline',

@@ -336,7 +336,7 @@ const LessonDetailPageComponent = ({
                           >
                             <Typography
                               sx={{
-                                width: { md: '180px', lg: '230px' },
+                                width: { xs: '180px', sm: '100%', md: '170px', lg: '230px' },
                                 textOverflow: 'ellipsis',
                                 overflow: 'hidden',
                                 whiteSpace: 'nowrap',
