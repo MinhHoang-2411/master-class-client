@@ -30,7 +30,7 @@ const AboutClass = ({ classes, categories }: Props) => {
   useEffect(() => {
     setListCategory(
       listCategories?.filter((item: any) =>
-        classes?.categories?.some((cl: any) => cl?.id === item?.id)
+        classes?.categories?.some((cl: any) => cl === item?.name)
       )
     );
     setLightVideo(classes?.videoPreview?.thumbnail);
