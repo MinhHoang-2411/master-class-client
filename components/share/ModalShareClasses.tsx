@@ -17,6 +17,7 @@ import {
 } from 'react-share';
 import { toast } from 'react-toastify';
 import Typography from './Typography';
+import { useEffect, useState } from 'react';
 
 const styleModal = {
   position: 'absolute',
@@ -47,7 +48,15 @@ interface IProps {
 }
 const ModalShareClasses = ({ isOpen, CloseModal, urlShare }: IProps) => {
   const { t } = useTranslation('common');
+  const [isCopied, setIsCopied] = useState(false);
 
+  useEffect(() => {
+    if (isCopied) {
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 3000);
+    }
+  }, [isCopied]);
   return (
     <div>
       <Modal open={isOpen} onClose={CloseModal}>
@@ -143,9 +152,9 @@ const ModalShareClasses = ({ isOpen, CloseModal, urlShare }: IProps) => {
               </Typography>
             </Box>
             <Box>
-              <CopyToClipboard text={urlShare}>
+              <CopyToClipboard text={urlShare} onCopy={() => setIsCopied(true)}>
                 <Button sx={{ fontWeight: 'bold', fontSize: '14px', textTransform: 'capitalize' }}>
-                  Copy
+                  {!isCopied ? 'Copy' : 'Copied'}
                 </Button>
               </CopyToClipboard>
             </Box>
