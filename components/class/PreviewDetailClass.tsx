@@ -77,8 +77,8 @@ const PreviewDetailClass = ({
   };
 
   const handleOpenModalShareClasses = () => {
-    const _url = `http://103.92.29.62:8094/classes/${classes?.webName}`
-    setUrlShareClasses(_url)
+    const _url = `http://103.92.29.62:8094/classes/${classes?.webName}`;
+    setUrlShareClasses(_url);
     setModalShareClasses(true);
   };
 

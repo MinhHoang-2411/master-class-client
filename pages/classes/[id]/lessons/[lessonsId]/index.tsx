@@ -47,6 +47,21 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
     }
   }, [router.query.lessonsId, isPaymentState]);
 
+  //test get last second view
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (
+        `${router.query.id}/lessons/${router.query.lessonsId}` ===
+        'st.vincentt-teaches-creativity-and-songwriting/lessons/5'
+      ) {
+        console.log('Set current time for video from localStorage');
+        console.log('Remove localStorage & call api');
+      } else {
+        console.log('Remove localStorage & call api');
+      }
+    }
+  }, [router.query.lessonsId]);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
