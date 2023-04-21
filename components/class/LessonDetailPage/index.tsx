@@ -33,6 +33,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '../../../styles/lessons-page.module.scss';
 import Image from 'next/image';
+import { classActions } from '@/store/class/classSlice';
 
 const PlayVideoLesson = dynamic(() => import('./PlayVideoLesson'), { ssr: false });
 
@@ -116,8 +117,13 @@ const LessonDetailPageComponent = ({
   };
 
   useEffect(() => {
+    // console.log({ classes });
     if (typeof window !== 'undefined') {
       const currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') as string);
+      // const indexVideo = parseInt(JSON.parse(localStorage.getItem('indexVideo') as string));
+      // if (indexVideo) {
+      //   dispatch(classActions.setIndexSelectedLesson(indexVideo));
+      // }
       if (currentUser) {
         const valueWatching: any = localStorage.getItem('myWatching');
         const params: any = JSON.parse(valueWatching);
@@ -212,12 +218,23 @@ const LessonDetailPageComponent = ({
               variant="h3"
               component="h1"
             >
-              {classes?.lessons?.[indexSelectedLesson]?.title}
+              {/* {classes?.lessons?.[indexSelectedLesson]?.title} */}
+              {
+                classes?.lessons.find(
+                  (lesson: any) => lesson?.id.toString() === router.query?.lessonsId
+                )?.title
+              }
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" sx={{ color: '#ccc' }}>
-              {classes?.lessons?.[indexSelectedLesson]?.description}
+              {/* {classes?.lessons?.[indexSelectedLesson]?.description}
+               */}
+              {
+                classes?.lessons.find(
+                  (lesson: any) => lesson?.id.toString() === router.query?.lessonsId
+                )?.description
+              }
             </Typography>
           </Grid>
         </Grid>
@@ -250,7 +267,11 @@ const LessonDetailPageComponent = ({
             )}
             <PlayVideoLesson
               lightVideo={
-                isPayment ? lightVideo : classes?.lessons?.[indexSelectedLesson]?.thumbnail
+                isPayment
+                  ? lightVideo
+                  : classes?.lessons.find(
+                      (lesson: any) => lesson?.id.toString() === router.query?.lessonsId
+                    )?.thumbnail
               }
               url={isPayment ? lesson?.videoUrl : classes?.videoPreview?.url}
               playingVideo={playingVideo}
@@ -283,6 +304,7 @@ const LessonDetailPageComponent = ({
                           selected={lesson?.id.toString() === router.query?.lessonsId}
                           onClick={() => {
                             onChangeVideoLesson(lesson?.id, index);
+                            // localStorage.setItem('indexVideo', index.toString());
                           }}
                           key={lesson?.id}
                           sx={{
