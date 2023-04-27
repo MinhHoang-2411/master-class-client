@@ -6,7 +6,11 @@ import Typography from '../share/Typography';
 import Commission from './Commission';
 import InviteFriend from './InviteFriend';
 
-const InvitationsComponent = () => {
+interface IInvitationsComponent {
+  lesson?: any;
+}
+
+const InvitationsComponent = ({ lesson }: IInvitationsComponent) => {
   const [tabState, setTabState] = useState(0); // 0 = tab friend || 1 = tab commission
 
   const tabStyleActive = {
@@ -37,7 +41,7 @@ const InvitationsComponent = () => {
             Invitations
           </Typography>
           <Typography component={'h2'} variant={'h6'} sx={{ color: '#fff', fontSize: '26px' }}>
-            Spread the Love
+            {lesson?.name}
           </Typography>
         </Box>
         <Box sx={{ mt: 2.5, display: 'flex', alignItems: 'center' }}>
