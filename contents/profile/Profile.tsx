@@ -15,6 +15,12 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import { displayCenter } from '@/declares/modal';
+import Image from 'next/image';
+import Watched from '@/public/icons/summary/watched.svg';
+import User from '@/public/icons/summary/user.svg';
+import Setting from '@/public/icons/summary/setting.svg';
+import Heart from '@/public/icons/summary/heart.svg';
 
 interface IProfile {}
 const Profile = ({}: any) => {
@@ -41,8 +47,16 @@ const Profile = ({}: any) => {
     ? currentUser?.socialAccount?.email
     : currentUser?.email;
 
-    return (
-    <>
+  const ButtonItems = [
+    { id: 1, title: `${t('home')}`, url: '/', icon: User },
+    { id: 2, title: `${t('bookmark')}`, url: '/bookmark', icon: User },
+    { id: 3, title: `${t('Articles')}`, url: '/articles', icon: Watched },
+    { id: 4, title: `${t('Watched')}`, url: '/watched', icon: Watched },
+    { id: 5, title: `${t('settings')}`, url: '/settings', icon: Setting },
+    { id: 5, title: `Spread the love`, url: '/invitations', icon: Heart },
+  ];
+  return (
+    <Box>
       <IconButton onClick={handleOpen}>
         <Avatar alt="avatar" sx={{ bgcolor: 'secondary.dark' }}></Avatar>
       </IconButton>
@@ -56,10 +70,11 @@ const Profile = ({}: any) => {
         PaperProps={{
           sx: {
             p: 0,
-            mt: 1.5,
-            ml: 0.75,
-            background: '#1e1e2d',
-            color: '#fff',
+            mt: 1,
+            px: 0.5,
+            background: '#fff',
+            width: 290,
+            color: '#262626',
             '& .MuiMenuItem-root': {
               typography: 'body2',
               borderRadius: 0.75,
@@ -67,73 +82,59 @@ const Profile = ({}: any) => {
           },
         }}
       >
-        <Box sx={{ my: 2, px: 3 }}>
-          <Typography variant="subtitle2" noWrap sx={{ fontWeight: 'bold', maxWidth: "200px" }}>
-            {DisplayNameUser}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'primary.secondary', maxWidth: "200px" }} noWrap>
-            {DisplayEmail}
-          </Typography>
+        <Box sx={{ ...displayCenter, flexDirection: 'column', mt: 3.5, px: 3 }}>
+          <Avatar alt="avatar" sx={{ bgcolor: 'secondary.dark', width: 100, height: 100 }}></Avatar>
+
+          <Box sx={{ ...displayCenter, flexDirection: 'column', mt: 1 }}>
+            <Typography variant="subtitle2" noWrap sx={{ fontWeight: 'bold', maxWidth: '200px' }}>
+              {DisplayNameUser}
+            </Typography>
+            <Typography variant="body2" sx={{ color: '#A6A9B9', maxWidth: '200px' }} noWrap>
+              {DisplayEmail}
+            </Typography>
+          </Box>
         </Box>
 
-        <Divider sx={{ border: '.5px solid #2B2B40' }} />
-
         <Stack>
-          <MenuItem onClick={handleClose}>
-            <Button
-              onClick={() => router.push(`/`)}
-              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
+          {ButtonItems.map((item: any) => (
+            <MenuItem
+              onClick={handleClose}
+              key={item.id}
+              sx={{ display: 'flex', alignItems: 'center' }}
             >
-              {t('home')}
-            </Button>
-          </MenuItem>
-
-          <MenuItem onClick={handleClose}>
-            <Button
-              onClick={() => router.push(`/bookmark`)}
-              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
-            >
-              {t('bookmark')}
-            </Button>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <Button
-              onClick={() => router.push(`/articles`)}
-              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
-            >
-              {t('Articles')}
-            </Button>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <Button
-              onClick={() => router.push(`/watched`)}
-              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
-            >
-              {t('Watched')}
-            </Button>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <Button
-              onClick={() => router.push(`/settings`)}
-              sx={{ color: '#fff', py: '2px', fontWeight: 'bold' }}
-            >
-              {t('settings')}
-            </Button>
-          </MenuItem>
+              <Box
+                sx={{ height: '30px', backgroundColor: '#f4f4f4', borderRadius: '50%', p: '4px' }}
+              >
+                <Image src={item.icon} alt={`icon`} width={20} height={20} />
+              </Box>
+              <Button
+                onClick={() => router.push(item.url)}
+                sx={{
+                  fontWeight: 'bold',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                  },
+                }}
+              >
+                {item.title}
+              </Button>
+            </MenuItem>
+          ))}
         </Stack>
 
-        <Divider sx={{ border: '.5px solid #2B2B40' }} />
+        <Box sx={{ border: '1px solid #A6A9B9' }} />
 
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} sx={{ ...displayCenter, py: 1.5 }}>
           <Button
             onClick={() => dispatch(authActions.logout({}))}
-            sx={{ color: '#fff', fontWeight: 'bold' }}
+            sx={{ fontWeight: 'bold', textTransform: 'none' }}
           >
             {t('log-out')}
           </Button>
         </MenuItem>
       </Popover>
-    </>
+    </Box>
   );
 };
 
