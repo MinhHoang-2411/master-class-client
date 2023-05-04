@@ -55,6 +55,8 @@ function* handleAddCardAndPayToCustomer(action: {
     setSubmitting: (isSubmitting: boolean) => void;
     priceId: string;
     currency: string;
+    shareLink: any;
+    authorName?: any;
   };
 }) {
   try {
@@ -72,14 +74,19 @@ function* handleAddCardAndPayToCustomer(action: {
       paymentApi.addCardToCustomer,
       cardData
     );
-    const subscriptionParams = {
+    const subscriptionParams: any = {
       priceId: action.payload.priceId,
       paymentMethod: responseAddCard.data?.cardId,
       stripeCustomerId: action.payload.stripeCustomerId,
       setSubmitting: action.payload.setSubmitting,
       currency: action.payload.currency,
       cardId: responseAddCard.data?.id,
+      shareLink: action.payload.shareLink,
     };
+    if (action.payload.authorName) {
+      subscriptionParams.authorName = action.payload.authorName;
+    }
+
     yield put(paymentActions.createSubscription(subscriptionParams));
   } catch (error: any) {
     yield put(paymentActions.addCardAndPayToCustomerFail('An error occurred, please try again'));
@@ -151,6 +158,8 @@ function* handleCreateSubscription(action: {
     currency: string;
     setSubmitting?: (isSubmitting: boolean) => void;
     cardId?: string;
+    shareLink: any;
+    authorName?: any;
   };
 }) {
   try {

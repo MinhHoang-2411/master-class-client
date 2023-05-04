@@ -69,12 +69,17 @@ const ChaptersPage = ({ categories, resClasses }: Props) => {
       if (currentUser) {
         if (!isCheckPayment && !isPaymentState && isOpenSubscribe) {
           dispatch(paymentActions.openModalChoosePayment());
+          dispatch(classActions.setAuthorName(resClasses?.authorName || ''));
           localStorage.removeItem('SubscribePopup');
         } else if (!isCheckPayment && isPaymentState && isOpenSubscribe) {
           localStorage.removeItem('SubscribePopup');
         }
       }
     }
+    return () => {
+      dispatch(classActions.setAuthorName(''));
+      console.log('remove authorName');
+    };
   }, [isPaymentState, isCheckPayment]);
 
   //test

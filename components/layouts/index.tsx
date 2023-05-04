@@ -9,6 +9,7 @@ import PaymentModal from '@/contents/home/PaymentModal';
 import { authActions } from '@/store/auth/authSlice';
 import { paymentActions } from '@/store/payment/paymentSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { classActions } from '@/store/class/classSlice';
 import { Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import StickyFooter from './StickyFooter';
@@ -97,6 +98,7 @@ export default function MyLayout({ children }: any) {
         isOpen={modalAddCardAndPay.isOpen}
         closeModal={() => {
           dispatch(paymentActions.closeModalAddCardAndPay());
+          dispatch(classActions.setAuthorName(''));
         }}
       />
 

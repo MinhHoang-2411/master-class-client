@@ -65,8 +65,10 @@ const styleModal = {
 };
 
 const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
+  const currentPath = typeof window !== 'undefined' ? window.location.href : '';
   const { t } = useTranslation('common');
   const product = useAppSelector((state) => state.payment.detailProduct);
+  const authorName = useAppSelector((state) => state.class.authorName);
   const { listCard, loadingGetListCard } = useAppSelector((state) => state.payment);
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.auth.currentUser);
@@ -165,6 +167,8 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
               priceId: product?.priceStripeId,
               setSubmitting,
               currency: product?.currency,
+              shareLink: currentPath,
+              authorName: authorName,
             };
             dispatch(paymentActions.addCardAndPayToCustomer(params));
           }}
@@ -391,14 +395,17 @@ const AddCardAndPayModal = ({ isOpen, closeModal }: Props) => {
                       type={type}
                       onClick={() => {
                         if (!show) {
-                          dispatch(
-                            paymentActions.createSubscription({
-                              priceId: product?.priceStripeId,
-                              paymentMethod,
-                              stripeCustomerId: currentUser?.stripeCustomerId,
-                              currency: product?.currency,
-                            })
-                          );
+                          const params: any = {
+                            priceId: product?.priceStripeId,
+                            paymentMethod,
+                            stripeCustomerId: currentUser?.stripeCustomerId,
+                            currency: product?.currency,
+                            shareLink: currentPath,
+                          };
+                          if (authorName) {
+                            params.authorName = authorName;
+                          }
+                          dispatch(paymentActions.createSubscription(params));
                         }
                       }}
                     >

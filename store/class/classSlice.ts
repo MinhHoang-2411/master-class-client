@@ -11,6 +11,7 @@ interface ClassStateModel {
   reloadList: boolean;
   indexSelectedLesson: number;
   loadingSelectedLesson: boolean;
+  authorName: string;
 }
 
 const initialState: ClassStateModel = {
@@ -22,6 +23,7 @@ const initialState: ClassStateModel = {
   reloadList: false,
   indexSelectedLesson: 0,
   loadingSelectedLesson: false,
+  authorName: '',
 };
 
 const classSlice = createSlice({
@@ -60,6 +62,11 @@ const classSlice = createSlice({
     },
     setIndexSelectedLessonFalse(state, action) {
       state.loadingSelectedLesson = false;
+    },
+
+    //authorName
+    setAuthorName(state, action) {
+      state.authorName = action.payload;
     },
   },
 });

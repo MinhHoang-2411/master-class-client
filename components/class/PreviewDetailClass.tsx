@@ -1,7 +1,7 @@
 import { authActions } from '@/store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/classes.module.scss';
 import ModalVideo from '../trailer/modal-video';
 import AboutClass from './AboutClass';
@@ -21,6 +21,7 @@ import ModalShareClasses from '../share/ModalShareClasses';
 import PrimaryButton from '../share/PrimaryButton';
 import { paymentActions } from '@/store/payment/paymentSlice';
 import Typography from '../share/Typography';
+import { classActions } from '@/store/class/classSlice';
 
 interface PreviewDetailClassModel {}
 
@@ -42,6 +43,7 @@ const PreviewDetailClass = ({
   const { t } = useTranslation('common');
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+
   const router = useRouter();
   const nameCategory = router?.query?.name?.[0];
   const [modalVideo, setModalVideo] = useState(false);
@@ -81,6 +83,16 @@ const PreviewDetailClass = ({
     setUrlShareClasses(_url);
     setModalShareClasses(true);
   };
+
+  useEffect(() => {
+    if (classes) {
+      dispatch(classActions.setAuthorName(classes?.authorName || ''));
+      // console.log('re-render');
+      return () => {
+        classActions.setAuthorName('');
+      };
+    }
+  }, [classes]);
 
   return (
     <>
@@ -247,7 +259,9 @@ const PreviewDetailClass = ({
                         {isLoggedIn && !isPayment ? (
                           <Stack sx={{ width: '320px', alignSelf: { md: 'flex-start' } }}>
                             <PrimaryButton
-                              onClick={() => dispatch(paymentActions.openModalChoosePayment())}
+                              onClick={() => {
+                                dispatch(paymentActions.openModalChoosePayment());
+                              }}
                               fullWidth
                             >
                               Subscribe

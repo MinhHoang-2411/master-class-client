@@ -71,6 +71,9 @@ const LessonDetailPageComponent = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  //test
+  const authName = useAppSelector((state) => state.class.authorName);
+
   const loadingCheckPayment = useAppSelector((state) => state.payment.loadingCheckPayment);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const listCategories = useAppSelector((state) => state.categories.listData);
@@ -109,6 +112,7 @@ const LessonDetailPageComponent = ({
     if (isLoggedIn) {
       if (!isPayment) {
         dispatch(paymentActions.openModalChoosePayment());
+        dispatch(classActions.setAuthorName(classes?.authorName || ''));
       }
     } else {
       localStorage.setItem('SubscribePopup', 'true');
